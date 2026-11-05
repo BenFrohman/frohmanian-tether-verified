@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
+-- SPDX-License-Identifier: Apache-2.0
 import FTVerified.May.Main
 import FTVerified.May.Final
 import FTVerified.May.JacobiWitness

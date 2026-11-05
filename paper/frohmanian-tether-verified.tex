@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,hyperref,xurl}
+\urlstyle{tt}\newcommand{\lean}[1]{\nolinkurl{#1}}\def\UrlBreaks{\do\_\do.\do/\do-}
+\title{The Frohmanian Tether: A Machine-Checked Audit of Its Architecture and Obstructions}
+\author{Benjamin Stanley Frohman\\ Independent Researcher\\ ORCID 0009-0006-7068-3718\\ \texttt{frohmanbenjamin@gmail.com}}
+\date{November 2026}
+\sloppy\begin{document}\maketitle
+\begin{abstract}
+We audit the claims of the technical compilation \emph{The Frohmanian Symplectic Tether: Architecture, Reduced Jacobi Identity, and the Frohmanian Curve} (Zenodo record 23942466) against a Lean~4/Mathlib formalization. Every claim is classified as \emph{proved}, \emph{conditional} (proved under explicitly stated hypotheses), \emph{refuted} (its negation is machine-checked), or \emph{not formalized}. The library builds without \texttt{sorry}, and the 37 key theorems depend only on the standard axioms \texttt{propext}, \texttt{Classical.choice}, and \texttt{Quot.sound}. We report proved and conditional results only as such. The compilation's claims of Jacobi vanishing on the reduced orbit and of energy-budget damping are refuted. Its Clay-standard global regularity claim is \textbf{not} established: it holds only conditionally on open hypotheses. This paper makes no Millennium Prize claim.
+\end{abstract}
+
+\section{Artifact}
+Repository: \url{https://github.com/BenFrohman/frohmanian-tether-verified}. The claim-by-claim map is in \lean{FTVerified/Paper.lean}. Build with \lean{lake build} (2684 jobs) and audit with \lean{lake env lean scripts/AxiomAudit.lean}. Sources derive from \url{https://github.com/BenFrohman/frohmanian-symplectic-tether-may-form} at \lean{878b311} and \url{https://github.com/BenFrohman/frohmanian-tether-geometric} (branch \lean{gateaux-pairing}) at \lean{9e40ae7}. The toolchain is Lean v4.30.0-rc1 with Mathlib.
+
+\section{Proved results}
+\begin{itemize}
+\item \textbf{Locality and nonpositive self-pairing (C1/C3).} \lean{frohmanianTether_self_nonpos}, \lean{tetherKernel_self_nonpos}.
+\item \textbf{Exact degeneracy on kinetic energy (C2).} \lean{frohmanianTether_degenerate}, \lean{tetherKernel_degenerates_on_kinetic_energy}.
+\item \textbf{Nine-term Jacobi expansion.} \lean{jacobiator_nine_terms} and \lean{jacobi_iff_mixed_cancel}: the tethered jacobiator vanishes iff the mixed terms cancel. See also \lean{FieldJacobi.jacT_eq_mixedSum} and \lean{FieldJacobi.jacF_eq_zero}.
+\end{itemize}
+
+\section{Conditional results}
+Each holds only under the hypotheses stated in Lean.
+\begin{itemize}
+\item \textbf{Negative feedback with a fixed coefficient (C3).} This is finite-dimensional and assumes the Route-A hypothesis: \lean{frohmanianTether_feedback}, \lean{feedback_fixes_coefficient}, \lean{routeA_determines_kappa}.
+\item \textbf{Uniqueness (C4/C5).} This holds within the minimal admissible class only: \lean{uniqueness_of_minimal_metric_tether}.
+\item \textbf{Chevalley--Eilenberg closure.} $d^2=0$ holds when $B$ is a coboundary (\lean{CE.d2_d1}, \lean{CE.cocycle_of_coboundary}). The symmetric tether is \emph{not} a CE cochain (\lean{CE.symPart_not_cochain}).
+\item \textbf{Jacobi in special cases.} It holds for central $u$ (\lean{jacobiator_eq_zero_of_central}) and for the $x$-only shear class (\lean{FieldJacobi.shearY_jacobi_holds}). \lean{tethered_jacobi_identity} assumes the vanishing.
+\item \textbf{Majorant and quartic absorption.} This holds given the ODE inequality: \lean{comparison_bound}, \lean{layer2_bound}, \lean{Riccati.tethered_ceiling}. Without absorption, Riccati blow-up occurs: \lean{Riccati.riccati_blowup}.
+\item \textbf{Maximum-principle feedback.} These are pointwise lemmas: \lean{viscous_nonpos_at_max}, \lean{periodic_exists_max}.
+\item \textbf{Global regularity.} \lean{frohmanian_symplectic_tether_theorem} and \lean{frohmanian_symplectic_tether_theorem_global} derive smoothness from hypotheses, including a local-continuation hypothesis, that are \emph{open}. They do not resolve the Clay problem.
+\end{itemize}
+
+\section{Refuted claims}
+\begin{itemize}
+\item \textbf{The tether damps the energy budget.} This is refuted. C2 forces $B(M,H)=0$, so the tether contributes nothing to $dH/dt$: \lean{ObstructionAudit.flow_contribution_zero_of_C2}, \lean{ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero}, \lean{ObstructionAudit.energy_conservation_not_C2}.
+\item \textbf{Jacobi vanishes on the reduced (divergence-free) orbit.} This is refuted. It fails for the divergence-free field $u=(\sin y,0,0)$: \lean{JacobiWitness.tethered_jacobiator_ne_zero}, \lean{FieldJacobi.shearY_jacobi_fails_transverse}, \lean{FieldJacobi.divFree_aZ}. The bracket is metriplectic, not Poisson (\lean{FieldMetriplectic.dissF_nonpos}).
+\item \textbf{The shear example shows the reduced orbit is necessary.} This is partly refuted. The failure for the non-divergence-free shear is correct (\lean{FieldJacobi.shearX_jacobi_fails}, \lean{FieldJacobi.not_divFree_uX}), but divergence-free fields also fail.
+\end{itemize}
+
+\section{Open and not formalized}
+The following have no Lean counterpart and remain open:
+\begin{itemize}
+\item Alain's Curve (\S2);
+\item the Frohmanian Curve $J_{\mathrm{red}}=0$ (\S4), for which the compilation gives no explicit $J_{\mathrm{red}}$;
+\item the symplectic, Melnikov, spectral, and holographic representations (\S5);
+\item the explicit majorant ODE $y'=Cy^2\sqrt{y^3}+\tfrac{\pi}{4}C_{\mathrm{abs}}$.
+\end{itemize}
+The Clay-standard global regularity claim is open.
+
+\section{Conclusion}
+The C1--C3 architecture and the algebraic Jacobi structure are machine-checked. Its two central dynamical claims, reduced-orbit Jacobi and energy damping, are false as stated. Global regularity remains conditional on open hypotheses.
+
+\paragraph{License.} Code: Apache-2.0. \copyright~2026 Benjamin Stanley Frohman.
+\end{document}

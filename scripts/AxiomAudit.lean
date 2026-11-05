@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
+-- SPDX-License-Identifier: Apache-2.0
 import FTVerified
 
 #print axioms Frohman.Tether.frohmanianTether_self_nonpos

@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
+-- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license.

@@ -1,0 +1,10 @@
+Frohmanian Tether: verified architecture and obstructions
+Copyright 2026 Benjamin Stanley Frohman (ORCID 0009-0006-7068-3718)
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Lean sources under FTVerified/May are derived from
+https://github.com/BenFrohman/frohmanian-symplectic-tether-may-form (commit 878b311);
+sources under FTVerified/Sdiff are derived from
+https://github.com/BenFrohman/frohmanian-tether-geometric (branch gateaux-pairing, commit 9e40ae7).
+Both are by the same author. Depends on Mathlib (Apache-2.0, Copyright the Mathlib contributors).

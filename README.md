@@ -44,3 +44,12 @@ Files are copied unchanged except for `import` paths:
 * New: `FTVerified/Paper.lean`, `scripts/AxiomAudit.lean`.
 
 Author: Benjamin Stanley Frohman (ORCID 0009-0006-7068-3718). License: Apache-2.0.
+
+## Paper
+
+`paper/frohmanian-tether-verified.pdf` (source `paper/frohmanian-tether-verified.tex`) reports only the
+proved/conditional results above and states the refuted and unformalized claims as such.
+
+## Copyright and license
+
+Copyright 2026 Benjamin Stanley Frohman. Licensed under Apache-2.0; see `LICENSE`, `NOTICE`, `AUTHORS`, `CITATION.cff`.
