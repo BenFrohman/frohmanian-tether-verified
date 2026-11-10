@@ -1,0 +1,32 @@
+N=48; max |div m| = 5.36e-15; mean of m = [-0.0199  0.0005  0.0247]
+(0a) |<m,[v,w]> - <Kop(w,m),v>|          = 1.1102230246251565e-16
+(0b) |<m,[v,w]> - int curl m.(v x w)|     = 1.1102230246251565e-16
+(0c) max|div [v,w]|                        = 4.579669976578771e-14
+(0d) max|vector-field Jacobi|              = 1.73749903353837e-14  (scale 0.7150610186093074 )
+(0e) Hessian symmetry F: |<a,Hb>-<b,Ha>| = 3.552713678800501e-15
+(0e) Hessian symmetry G: |<a,Hb>-<b,Ha>| = 0.0
+(0e) Hessian symmetry H: |<a,Hb>-<b,Ha>| = 0.0
+(a) {G,H}: FD derivative=6.7238193316e-01  <a,formula>=6.7238193316e-01  rel.err=6.0e-13   | naive <a,[dA,dB]> only = 9.343466e-01 (rel.err 3.9e-01)
+(a) {F,G}: FD derivative=8.0323432620e-01  <a,formula>=8.0323432620e-01  rel.err=2.0e-13   | naive <a,[dA,dB]> only = 5.715599e-01 (rel.err 2.9e-01)
+(a) {H,E}: FD derivative=3.8271323414e+00  <a,formula>=3.8271323414e+00  rel.err=6.0e-14   | naive <a,[dA,dB]> only = 7.369127e+00 (rel.err 9.3e-01)
+(b) F,G,H: terms = ['2.464242e-01', '-3.134420e+00', '2.887996e+00']  cyclic sum = -4.441e-16  (rel 1.4e-16)
+    per-term effect of the second-derivative terms (full - naive): ['9.835317e-01', '-2.973897e+00', '1.990365e+00']
+    naive terms (second-derivative terms dropped): ['-7.371075e-01', '-1.605232e-01', '8.976307e-01'], their cyclic sum = 5.6e-16
+    -> each individual {A,{B,C}} changes by an O(1) amount; only the cyclic sum of the six omitted terms vanishes
+    six second-derivative terms: {'-Q_B(kA,kC)': '1.183036e-01', '+Q_B(kC,kA)': '-1.183036e-01', '+Q_C(kA,kB)': '8.652281e-01', '-Q_C(kB,kA)': '-8.652281e-01', '+Q_A(kB,kC)': '-2.108669e+00', '-Q_A(kC,kB)': '2.108669e+00'}
+    pair sums: B:-3.9e-16  C:-1.1e-16  A:4.4e-16
+    <m, [a,[b,c]]+cyc> = 2.3e-16
+(b) F,G,E: terms = ['-1.407024e-03', '1.677543e-02', '-1.536841e-02']  cyclic sum = 1.579e-16  (rel 9.4e-15)
+    per-term effect of the second-derivative terms (full - naive): ['2.494547e-01', '-1.526149e-01', '-9.683979e-02']
+    naive terms (second-derivative terms dropped): ['-2.508617e-01', '1.693903e-01', '8.147138e-02'], their cyclic sum = 9.7e-17
+    -> each individual {A,{B,C}} changes by an O(1) amount; only the cyclic sum of the six omitted terms vanishes
+    six second-derivative terms: {'-Q_B(kA,kC)': '1.328377e-01', '+Q_B(kC,kA)': '-1.328377e-01', '+Q_C(kA,kB)': '1.166170e-01', '-Q_C(kB,kA)': '-1.166170e-01', '+Q_A(kB,kC)': '-3.599792e-02', '-Q_A(kC,kB)': '3.599792e-02'}
+    pair sums: B:-2.8e-17  C:0.0e+00  A:-6.9e-18
+    <m, [a,[b,c]]+cyc> = 7.7e-17
+(b) G,H,E: terms = ['1.788916e-02', '3.135361e-01', '-3.314252e-01']  cyclic sum = -1.110e-16  (rel 3.3e-16)
+    per-term effect of the second-derivative terms (full - naive): ['1.276241e-01', '2.543003e-01', '-3.819244e-01']
+    naive terms (second-derivative terms dropped): ['-1.097350e-01', '5.923583e-02', '5.049913e-02'], their cyclic sum = -1.1e-16
+    -> each individual {A,{B,C}} changes by an O(1) amount; only the cyclic sum of the six omitted terms vanishes
+    six second-derivative terms: {'-Q_B(kA,kC)': '3.343983e-01', '+Q_B(kC,kA)': '-3.343983e-01', '+Q_C(kA,kB)': '-2.067742e-01', '-Q_C(kB,kA)': '2.067742e-01', '+Q_A(kB,kC)': '4.752609e-02', '-Q_A(kC,kB)': '-4.752609e-02'}
+    pair sums: B:1.1e-16  C:0.0e+00  A:-7.6e-17
+    <m, [a,[b,c]]+cyc> = -8.6e-17

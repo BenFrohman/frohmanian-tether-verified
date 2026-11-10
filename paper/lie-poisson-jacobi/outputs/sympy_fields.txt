@@ -1,0 +1,5 @@
+Explicit divergence-free trigonometric fields used in sympy_identities.py (x,y,z = x1,x2,x3)
+m = [sin(y) + sin(x + y) - sin(y + z) - cos(y) - cos(x + y), -sin(x + y) + sin(y + z) - cos(x) + cos(x + y) + cos(y + z), -sin(x) - sin(y) + 2*sin(x + y) - sin(y + z) + cos(y) + 2*cos(x + y) - cos(y + z)]
+v_F = [-sin(y) + sin(x + z) + cos(x + y + z), -sin(x + y + z) + 2*cos(x + z), -sin(x + z) + sin(x + y + z) + cos(y) - cos(x + y + z)]
+v_G = [-sin(x - y) + sin(y + z) + sin(x + y + z) + cos(x - y) + 2*cos(y + z) - cos(x + y + z), sin(x) - sin(x - y) + cos(x) + cos(x - y) + cos(x + y + z), 2*sin(x) - sin(x + y + z) + 2*cos(x - y)]
+a (Euler sign check) = [-sin(y) + sin(x + z) - cos(y) - cos(x + y) - cos(x + z), 2*sin(x) - sin(x + z) + 2*cos(x) + cos(x + y) + cos(x + z), sin(x) - sin(x + y) - sin(x + z) + 2*cos(x) - cos(y) + cos(x + z)]
