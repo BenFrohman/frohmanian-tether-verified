@@ -57,3 +57,7 @@ import FTVerified.Companion.LiePoissonJacobiCore
 #print axioms Frohman.Tether.JacobiCompanion.paperII_nonvacuous
 #print axioms LiePoissonCore.six_terms_cancel
 #print axioms LiePoissonCore.lie_poisson_jacobi_core
+#print axioms LiePoissonCore.six_terms_cancel_needs_symmetry
+#print axioms LiePoissonCore.six_terms_nonvacuous
+#print axioms LiePoissonCore.entry01
+#print axioms LiePoissonCore.lie_poisson_jacobi_core_nonvacuous
