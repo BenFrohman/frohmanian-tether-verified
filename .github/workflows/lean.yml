@@ -1,0 +1,50 @@
+# Author: Benjamin Stanley Frohman
+# Kernel check of the Lean library, the Jacobi companion modules and their axiom audit.
+# A green run means the stated Lean propositions follow from the stated definitions;
+# it does not establish any geometric or physical claim.
+name: Lean
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan (toolchain from lean-toolchain)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Versions
+        run: |
+          cat lean-toolchain
+          lean --version
+          lake --version
+          python3 -c "import json;d=json.load(open('lake-manifest.json'));print([(p['name'],p['rev']) for p in d['packages'] if p['name']=='mathlib'])"
+      - name: No sorry / admit / native_decide / axiom (comments excluded)
+        run: python3 scripts/check_no_sorry.py FTVerified
+      - name: Mathlib cache
+        run: lake exe cache get
+      - name: Build full library
+        run: |
+          set -o pipefail
+          lake build 2>&1 | tee build.log
+          if grep -n "declaration uses 'sorry'" build.log; then echo "sorry in build"; exit 1; fi
+      - name: Axiom audit (standard axioms only)
+        run: |
+          set -o pipefail
+          python3 scripts/check_jacobi_axioms.py | tee axioms.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lean-logs
+          path: |
+            build.log
+            axioms.txt

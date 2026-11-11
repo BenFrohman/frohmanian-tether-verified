@@ -1,0 +1,656 @@
+\documentclass[11pt]{article}
+\usepackage{xurl}\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\lstset{basicstyle=\ttfamily\scriptsize,breaklines=true,columns=fullflexible,frame=single,keepspaces=true}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\T}{\mathbb{T}^3}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\dd}{\,\mathrm{d}x}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Hess}{\operatorname{Hess}}
+\newcommand{\dF}[1]{\frac{\delta #1}{\delta m}}
+\newcommand{\Lie}{\mathcal{L}}
+
+\title{The Jacobi identity for the Lie--Poisson bracket on the regular dual of $\mathfrak{sdiff}(\mathbb{T}^3)$,\\ with every cancellation displayed}
+\author{Frohman, Benjamin Stanley\\
+Independent Researcher, Texas, United States\\
+ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com}}
+\date{Version 1.1, 10 November 2026 (v1.0: 9 November 2026) \quad (expository note; not peer reviewed)}
+
+\emergencystretch=3em
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give a complete, self-contained derivation of the Jacobi identity for the Lie--Poisson bracket
+$\{F,G\}(m)=\ip{m}{[\delta F/\delta m,\delta G/\delta m]}$ on the regular dual of the Lie algebra
+$\g=\mathfrak{sdiff}(\T)$ of smooth divergence-free vector fields on the flat torus
+$\T=\R^3/(2\pi\Z)^3$. The point of the note is the step that is usually summarised as
+``higher-order terms cancel'': we compute the functional derivative of $\{G,H\}$ exactly,
+$\delta\{G,H\}/\delta m=[g,h]+\Hess_G(m)(K_hm)-\Hess_H(m)(K_gm)$, expand
+$\{F,\{G,H\}\}+\{G,\{H,F\}\}+\{H,\{F,G\}\}$ completely, display all six second-derivative terms,
+and show that they cancel in three pairs by the symmetry of second derivatives (Schwarz), leaving
+$\ip{m}{\text{(vector-field Jacobiator)}}=0$. The vector-field Jacobi identity itself is proved by
+writing out all twelve terms. We also derive the vorticity form
+$\{F,G\}=\int\omega\cdot(v_F\times v_G)\dd$, explain the role of harmonic (constant) fields, and
+correct an integration-by-parts step from an earlier informal draft by an explicit counterexample.
+Symbolic (sympy) and exact-quadrature floating-point checks, and a Lean~4/mathlib formalization of
+\emph{only} the final algebraic cancellation, are included. This is a classical theorem
+(Arnold 1966; Marsden--Weinstein 1983); nothing here is new mathematics, and nothing here bears on
+the Navier--Stokes global regularity problem.
+\end{abstract}
+
+\tableofcontents
+
+\section{Purpose and what is corrected}
+An earlier informal draft (only an excerpt of which was available to the author of this note)
+asserted the Jacobi identity for the Lie--Poisson bracket on $\mathfrak{sdiff}(\T)^*$ and justified it
+by writing $\delta\{G,H\}/\delta\omega = v_G\times v_H + \text{(higher-order terms)}$ and then letting
+those terms cancel ``by symmetry''. It also used the identity
+$\int\omega\cdot((v_G\cdot\nabla)v_F)\dd=\int\omega\cdot(v_F\times v_G)\dd$, which is false
+(Section~\ref{sec:vorticity}). This note:
+\begin{enumerate}
+\item fixes the setting on the genuine torus $\T=\R^3/(2\pi\Z)^3$ (not $\R^3$) and treats the constant
+(harmonic) vector fields explicitly (Section~\ref{sec:setting});
+\item proves closure and the Jacobi identity of the vector-field bracket term by term
+(Section~\ref{sec:lie});
+\item makes the class of functionals precise and proves symmetry of their second derivatives
+(Section~\ref{sec:dual});
+\item computes $\delta\{G,H\}/\delta m$ exactly, with \emph{no} omitted terms
+(Section~\ref{sec:deriv});
+\item expands the cyclic sum and displays the six second-derivative terms and their pairwise
+cancellation (Section~\ref{sec:jacobi});
+\item derives the correct vorticity formula and corrects the draft's step
+(Section~\ref{sec:vorticity}).
+\end{enumerate}
+
+\section{Setting: the torus, divergence-free fields, harmonic fields}\label{sec:setting}
+\paragraph{Torus and integration by parts.}
+Let $\T=\R^3/(2\pi\Z)^3$ with coordinates $x=(x_1,x_2,x_3)$ and Lebesgue measure $\dd$ (total volume
+$(2\pi)^3$). Smooth functions on $\T$ are smooth $2\pi$-periodic functions on $\R^3$; each has a
+Fourier series $f(x)=\sum_{k\in\Z^3}\hat f(k)e^{ik\cdot x}$ with rapidly decreasing coefficients.
+Summation over repeated indices $i,j,k,l,\ldots\in\{1,2,3\}$ is used throughout and $\partial_j=\partial/\partial x_j$.
+For smooth $f,h$ on $\T$,
+\begin{equation}\label{eq:ibp}
+\int_{\T}(\partial_j f)\,h\dd=-\int_{\T}f\,\partial_j h\dd ,
+\end{equation}
+because $\int_0^{2\pi}\partial_j(fh)\,dx_j=0$ by periodicity (no boundary terms). In particular
+$\int_{\T}\div c\dd=0$ for every smooth vector field $c$.
+
+\paragraph{The Lie algebra.}
+\[
+\g:=\{v\in C^\infty(\T;\R^3):\ \div v=\partial_jv_j=0\}.
+\]
+\textbf{We do not impose zero mean on $\g$}: constant vector fields belong to $\g$. $\g$ carries the
+Fréchet topology of $C^\infty$ (uniform convergence of all derivatives), with norms
+$\|v\|_{C^r}=\max_{|\alpha|\le r,\,i}\sup|\partial^\alpha v_i|$. Let
+$\g_0:=\{v\in\g:\int_{\T}v\dd=0\}$.
+
+\begin{lemma}[Helmholtz--Leray decomposition on $\T$]\label{lem:leray}
+Every $m\in C^\infty(\T;\R^3)$ decomposes uniquely as $m=Pm+\nabla p$ with $Pm\in\g$ and
+$p\in C^\infty(\T)$ (unique up to an additive constant). In Fourier variables
+$\widehat{Pm}(0)=\hat m(0)$ and, for $k\ne0$,
+$\widehat{Pm}(k)=\hat m(k)-k\,\frac{k\cdot\hat m(k)}{|k|^2}$, $\hat p(k)=-i\frac{k\cdot\hat m(k)}{|k|^2}$.
+The decomposition is $L^2$-orthogonal: $\int v\cdot\nabla p\dd=0$ for $v\in\g$. Consequently
+$\int v\cdot m\dd=\int v\cdot Pm\dd$ for all $v\in\g$, and $P$ is symmetric:
+$\int a\cdot Pb\dd=\int Pa\cdot b\dd$.
+\end{lemma}
+\begin{proof}
+The displayed formulas give $k\cdot\widehat{Pm}(k)=0$, i.e.\ $\div Pm=0$, and
+$ik\hat p(k)=k(k\cdot\hat m(k))/|k|^2$, so $\hat m=\widehat{Pm}+\widehat{\nabla p}$. The coefficients
+are bounded by $|\hat m(k)|$, so rapid decay (smoothness) is preserved. Orthogonality: by
+\eqref{eq:ibp}, $\int v_j\partial_jp\dd=-\int(\partial_jv_j)p\dd=0$. Uniqueness: if
+$v+\nabla p=0$ with $v\in\g$ then $0=\int(v+\nabla p)\cdot\nabla p=\int|\nabla p|^2$, so $\nabla p=0$,
+$v=0$. Symmetry: $\int a\cdot Pb=\int Pa\cdot Pb=\int Pa\cdot b$ by orthogonality.
+\end{proof}
+
+\begin{lemma}[Harmonic fields; curl and Biot--Savart on $\T$]\label{lem:curl}
+For $v\in\g$: $\curl v=0$ if and only if $v$ is constant. The map $\curl:\g\to\g_0$ is onto with
+kernel the constant fields $\R^3$, and on $\g_0$ it has the inverse (Biot--Savart law)
+$\curl^{-1}\omega=\curl(-\Delta)^{-1}\omega$, where $(-\Delta)^{-1}$ acts on mean-zero fields by
+$\hat\omega(k)\mapsto\hat\omega(k)/|k|^2$. Every $m\in\g$ is $m=\bar m+\curl(-\Delta)^{-1}\curl m$
+with $\bar m=(2\pi)^{-3}\int m\dd$.
+\end{lemma}
+\begin{proof}
+$\widehat{\curl v}(k)=ik\times\hat v(k)$. If $\div v=0$ then $k\perp\hat v(k)$, so
+$|k\times\hat v(k)|=|k|\,|\hat v(k)|$; hence $\curl v=0$ forces $\hat v(k)=0$ for $k\ne0$, i.e.\ $v$
+is constant (and constants have zero curl). $\curl v$ is divergence free and has
+$\widehat{\curl v}(0)=0$, so $\curl\g\subset\g_0$. For $v\in\g$, the identity
+$\curl\curl v=\nabla\div v-\Delta v=-\Delta v$ (check on Fourier modes:
+$ik\times(ik\times\hat v)=-k(k\cdot\hat v)+|k|^2\hat v$) shows that for $\omega\in\g_0$,
+$v:=\curl(-\Delta)^{-1}\omega\in\g_0$ satisfies $\curl v=-\Delta(-\Delta)^{-1}\omega=\omega$
+(note $\div(-\Delta)^{-1}\omega=0$). The last statement follows since $m-\bar m\in\g_0$.
+\end{proof}
+
+\begin{remark}
+The constant fields are exactly the harmonic vector fields of the flat torus ($H^1_{\mathrm{dR}}(\T)\cong\R^3$).
+Vorticity $\omega=\curl m$ therefore does not determine $m$: the mean $\bar m$ is lost. Any
+formula with ``$\curl^{-1}$'' on $\T$ must either restrict to mean-zero fields or carry $\bar m$
+separately. On $\R^3$ this issue is replaced by decay conditions; the two settings are different.
+\end{remark}
+
+\section{The Lie algebra $\mathfrak{sdiff}(\T)$}\label{sec:lie}
+\begin{definition}[Bracket and sign convention]
+For smooth vector fields $v,w$ set
+\begin{equation}\label{eq:bracket}
+[v,w]:=(w\cdot\nabla)v-(v\cdot\nabla)w,\qquad [v,w]_i=w_j\partial_jv_i-v_j\partial_jw_i .
+\end{equation}
+With $\Lie_X f:=X_j\partial_jf$ (derivative of a function $f$ along $X$) this reads
+$[v,w]_i=\Lie_w v_i-\Lie_v w_i$. It is the \emph{negative} of the commutator bracket
+$[v,w]_{\mathrm{VF}}:=(v\cdot\nabla)w-(w\cdot\nabla)v$ of vector fields as derivations; this is the
+convention in which $[\cdot,\cdot]$ is the Lie algebra bracket of the group of (volume-preserving)
+diffeomorphisms (Arnold). The negative of a Lie bracket is again a Lie bracket, so both conventions
+give Lie algebras; the sign of the Poisson bracket is fixed in Proposition~\ref{prop:euler}.
+\end{definition}
+
+\begin{lemma}\label{lem:curlcross}
+For all smooth vector fields $a,b$:
+$\curl(a\times b)=a\,\div b-b\,\div a+(b\cdot\nabla)a-(a\cdot\nabla)b.$
+\end{lemma}
+\begin{proof}
+With $(a\times b)_k=\varepsilon_{klm}a_lb_m$, $(\curl c)_i=\varepsilon_{ijk}\partial_jc_k$, and
+$\varepsilon_{ijk}\varepsilon_{klm}=\delta_{il}\delta_{jm}-\delta_{im}\delta_{jl}$:
+\begin{align*}
+\curl(a\times b)_i&=\varepsilon_{ijk}\varepsilon_{klm}\partial_j(a_lb_m)
+=\partial_m(a_ib_m)-\partial_l(a_lb_i)\\
+&=a_i\,\partial_mb_m+b_m\partial_ma_i-b_i\,\partial_la_l-a_l\partial_lb_i
+=\big(a\div b+(b\cdot\nabla)a-b\div a-(a\cdot\nabla)b\big)_i.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{corollary}\label{cor:curlcross}
+If $\div v=\div w=0$ then $[v,w]=(w\cdot\nabla)v-(v\cdot\nabla)w=\curl(v\times w)$.
+(Without $\div v=\div w=0$ this fails: for $v=(\sin x_1,0,0)$, $w=(0,\cos x_1,0)$,
+$[v,w]-\curl(v\times w)=(0,\cos^2x_1,0)$.)
+\end{corollary}
+\begin{proof}
+Lemma~\ref{lem:curlcross} with $a=v$, $b=w$; the divergence terms vanish and the remaining terms
+are exactly \eqref{eq:bracket}.
+\end{proof}
+
+\begin{proposition}[Closure]\label{prop:closure}
+If $v,w\in\g$ then $[v,w]\in\g$; moreover $\int[v,w]\dd=0$, so $[\g,\g]\subset\g_0$.
+\end{proposition}
+\begin{proof}
+Directly:
+\begin{align*}
+\partial_i[v,w]_i&=\partial_i(w_j\partial_jv_i-v_j\partial_jw_i)
+=(\partial_iw_j)(\partial_jv_i)+w_j\partial_j(\partial_iv_i)-(\partial_iv_j)(\partial_jw_i)-v_j\partial_j(\partial_iw_i).
+\end{align*}
+The second and fourth terms vanish since $\partial_iv_i=\partial_iw_i=0$. Renaming the summation
+indices $i\leftrightarrow j$ in the third term turns $(\partial_iv_j)(\partial_jw_i)$ into
+$(\partial_jv_i)(\partial_iw_j)$, which equals the first term; so the first and third cancel.
+Smoothness is clear. Zero mean: $[v,w]=\curl(v\times w)$ by Corollary~\ref{cor:curlcross}, and
+$\int\curl c\dd=0$ by \eqref{eq:ibp}.
+\end{proof}
+
+\begin{lemma}[Commutator of derivations]\label{lem:commutator}
+For smooth vector fields $X,Y$ (not necessarily divergence free) and smooth $f$,
+$\Lie_X\Lie_Yf-\Lie_Y\Lie_Xf=\Lie_{[X,Y]_{\mathrm{VF}}}f$, hence
+$\Lie_{[X,Y]}f=\Lie_Y\Lie_Xf-\Lie_X\Lie_Yf$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\Lie_X\Lie_Yf-\Lie_Y\Lie_Xf
+&=X_j\partial_j(Y_k\partial_kf)-Y_j\partial_j(X_k\partial_kf)\\
+&=X_j(\partial_jY_k)\partial_kf+X_jY_k\,\partial_j\partial_kf-Y_j(\partial_jX_k)\partial_kf-Y_jX_k\,\partial_j\partial_kf.
+\end{align*}
+Rename $j\leftrightarrow k$ in the fourth term: $Y_jX_k\partial_j\partial_kf=Y_kX_j\partial_k\partial_jf=X_jY_k\partial_j\partial_kf$
+(equality of mixed partials of the smooth $f$). So the second and fourth terms cancel and what
+remains is $(\Lie_XY_k-\Lie_YX_k)\partial_kf=\Lie_{[X,Y]_{\mathrm{VF}}}f$. Finally
+$[X,Y]=-[X,Y]_{\mathrm{VF}}$.
+\end{proof}
+
+\begin{proposition}[Jacobi identity for the vector-field bracket]\label{prop:vfjacobi}
+For all smooth vector fields $u,v,w$ (divergence-free or not),
+$[u,[v,w]]+[v,[w,u]]+[w,[u,v]]=0$.
+\end{proposition}
+\begin{proof}
+Fix a component $i$. By \eqref{eq:bracket} with $X=[v,w]$,
+$[u,[v,w]]_i=\Lie_{[v,w]}u_i-\Lie_u([v,w]_i)$. By Lemma~\ref{lem:commutator} (applied to $f=u_i$),
+$\Lie_{[v,w]}u_i=\Lie_w\Lie_vu_i-\Lie_v\Lie_wu_i$, and $\Lie_u([v,w]_i)=\Lie_u\Lie_wv_i-\Lie_u\Lie_vw_i$. Thus
+\begin{align*}
+[u,[v,w]]_i&=\underbrace{\Lie_w\Lie_vu_i}_{(1)}\ \underbrace{-\Lie_v\Lie_wu_i}_{(2)}\ \underbrace{-\Lie_u\Lie_wv_i}_{(3)}\ \underbrace{+\Lie_u\Lie_vw_i}_{(4)},\\
+\intertext{and by the cyclic substitution $u\to v\to w\to u$,}
+[v,[w,u]]_i&=\underbrace{\Lie_u\Lie_wv_i}_{(3')}\ \underbrace{-\Lie_w\Lie_uv_i}_{(5)}\ \underbrace{-\Lie_v\Lie_uw_i}_{(6)}\ \underbrace{+\Lie_v\Lie_wu_i}_{(2')},\\
+[w,[u,v]]_i&=\underbrace{\Lie_v\Lie_uw_i}_{(6')}\ \underbrace{-\Lie_u\Lie_vw_i}_{(4')}\ \underbrace{-\Lie_w\Lie_vu_i}_{(1')}\ \underbrace{+\Lie_w\Lie_uv_i}_{(5')}.
+\end{align*}
+The twelve terms cancel in the six pairs $(1)+(1')$, $(2)+(2')$, $(3)+(3')$, $(4)+(4')$,
+$(5)+(5')$, $(6)+(6')$:
+\begin{center}
+\begin{tabular}{lll}\toprule
+pair & term & partner\\\midrule
+(1) & $+\Lie_w\Lie_vu_i$ in $[u,[v,w]]$ & $-\Lie_w\Lie_vu_i$ in $[w,[u,v]]$\\
+(2) & $-\Lie_v\Lie_wu_i$ in $[u,[v,w]]$ & $+\Lie_v\Lie_wu_i$ in $[v,[w,u]]$\\
+(3) & $-\Lie_u\Lie_wv_i$ in $[u,[v,w]]$ & $+\Lie_u\Lie_wv_i$ in $[v,[w,u]]$\\
+(4) & $+\Lie_u\Lie_vw_i$ in $[u,[v,w]]$ & $-\Lie_u\Lie_vw_i$ in $[w,[u,v]]$\\
+(5) & $-\Lie_w\Lie_uv_i$ in $[v,[w,u]]$ & $+\Lie_w\Lie_uv_i$ in $[w,[u,v]]$\\
+(6) & $-\Lie_v\Lie_uw_i$ in $[v,[w,u]]$ & $+\Lie_v\Lie_uw_i$ in $[w,[u,v]]$\\\bottomrule
+\end{tabular}
+\end{center}
+All second derivatives were already absorbed in Lemma~\ref{lem:commutator}, where their
+cancellation was shown explicitly.
+\end{proof}
+
+\begin{remark}
+The divergence-free condition is \emph{not} used in Proposition~\ref{prop:vfjacobi}; it is used only
+for closure (Proposition~\ref{prop:closure}) and for $[v,w]=\curl(v\times w)$. The draft's claim that
+the cancellation needs $\partial_ju_j=0$ is therefore inaccurate (though harmless).
+\end{remark}
+
+\section{The regular dual and the class of functionals}\label{sec:dual}
+\paragraph{Pairing and regular dual.} For smooth vector fields put
+$\ip{m}{v}:=\int_{\T}m\cdot v\dd$. Note $|\ip{m}{v}|\le 3(2\pi)^3\|m\|_{C^0}\|v\|_{C^0}$.
+
+\begin{proposition}[Regular dual]\label{prop:dual}
+(i) The pairing restricted to $\g\times\g$ is nondegenerate: if $m\in\g$ and $\ip{m}{v}=0$ for all
+$v\in\g$ then $m=0$. (ii) The ``regular dual'' $\g^*_{\mathrm{reg}}:=C^\infty(\T;\R^3)/\nabla C^\infty(\T)$
+(momentum, or 1-forms, modulo gradients/exact forms), paired with $\g$ by $\ip{[m]}{v}=\ip{m}{v}$, is
+identified with $\g$ by $[m]\mapsto Pm$, and $\ip{[m]}{v}=\ip{Pm}{v}$ for $v\in\g$.
+\end{proposition}
+\begin{proof}
+(i) Take $v=m$: $\int|m|^2=0$. (ii) The pairing is well defined on classes since
+$\ip{\nabla p}{v}=0$ for $v\in\g$ (Lemma~\ref{lem:leray}); $[m]\mapsto Pm$ is well defined
+($P\nabla p=0$), injective ($Pm=0\Rightarrow m=\nabla p$) and onto ($Pv=v$ for $v\in\g$); the last
+identity is Lemma~\ref{lem:leray}.
+\end{proof}
+Henceforth the phase space is $\g$ itself, a point $m\in\g$ being the divergence-free representative
+of a momentum class. (The full topological dual of $\g$ contains distributions; we use only the
+regular part, as is standard.)
+
+\begin{definition}[Admissible functionals $\mathcal A$]\label{def:adm}
+A function $F:\g\to\R$ is \emph{admissible}, $F\in\mathcal A$, if for all $m,a,b\in\g$:
+\begin{description}
+\item[(A1)] $DF(m)a:=\frac{d}{d\varepsilon}\big|_{\varepsilon=0}F(m+\varepsilon a)$ exists and there is
+$\dF{F}(m)\in\g$ with $DF(m)a=\ip{a}{\dF{F}(m)}$ (unique by Proposition~\ref{prop:dual}(i));
+\item[(A2)] the curve $t\mapsto\dF{F}(m+tb)\in\g$ is differentiable at $t=0$ in the $C^\infty$
+topology (difference quotients converge in every $C^r$ norm); its derivative is denoted
+$\Hess_F(m)b\in\g$;
+\item[(A3)] $\varphi(s,t):=F(m+sa+tb)$ is of class $C^2$ on $\R^2$.
+\end{description}
+We write $Q_F(m)(a,b):=\ip{a}{\Hess_F(m)b}$; this is $D^2F(m)(b,a)$.
+\end{definition}
+This is a Gateaux-type, $C^\infty$-Fréchet-space setting; no Banach-space $H^s$ setting is used,
+because the bracket loses one derivative and $\g$ would not be closed under it in a fixed $H^s$.
+Functionals such as a point evaluation $m\mapsto m(x_0)\cdot e$ are excluded: their derivative is a
+distribution, not an element of $\g$.
+
+\begin{lemma}[Symmetry of the second derivative]\label{lem:sym}
+If $F\in\mathcal A$ then $Q_F(m)(a,b)=Q_F(m)(b,a)$ for all $m,a,b\in\g$.
+\end{lemma}
+\begin{proof}
+Let $\varphi(s,t)=F(m+sa+tb)$. By (A1) at the base point $m+sa+tb$,
+$\partial_s\varphi(s,t)=DF(m+sa+tb)a=\ip{a}{\dF{F}(m+sa+tb)}$. Setting $s=0$,
+$\partial_s\varphi(0,t)=\ip{a}{\dF F(m+tb)}$, so
+\[
+\partial_t\partial_s\varphi(0,0)=\lim_{t\to0}\Big\langle a,\tfrac{1}{t}\big(\dF F(m+tb)-\dF F(m)\big)\Big\rangle
+=\ip{a}{\Hess_F(m)b},
+\]
+because by (A2) the difference quotients converge in $C^0$ and the pairing is $C^0$-continuous.
+Exchanging the roles of $(s,a)$ and $(t,b)$, $\partial_s\partial_t\varphi(0,0)=\ip{b}{\Hess_F(m)a}$.
+By (A3) and Schwarz's theorem for $C^2$ functions on $\R^2$, $\partial_t\partial_s\varphi(0,0)=\partial_s\partial_t\varphi(0,0)$.
+\end{proof}
+\begin{remark}
+$a\mapsto Q_F(m)(a,b)$ is linear, hence by symmetry so is $b\mapsto Q_F(m)(a,b)$, and by
+nondegeneracy $b\mapsto\Hess_F(m)b$ is linear.
+\end{remark}
+
+\begin{example}[Admissible functionals]\label{ex:adm}
+(i) $F(m)=\ip{m}{a_0}$, $a_0\in\g$: $\dF F=a_0$, $\Hess_F=0$.
+(ii) $E(m)=\tfrac12\ip mm$: $\dF E=m$, $\Hess_E b=b$.
+(iii) Cylindrical: $F(m)=\Phi(\ip m{a_1},\ldots,\ip m{a_n})$, $a_r\in\g$, $\Phi\in C^2(\R^n)$:
+$\dF F=\sum_r\partial_r\Phi\,a_r$, $\Hess_Fb=\sum_{r,s}\partial_r\partial_s\Phi\,\ip b{a_s}\,a_r$.
+(iv) Local: $F(m)=\int_{\T}\psi(m(x))\dd$, $\psi\in C^\infty(\R^3)$:
+$DF(m)a=\int\nabla\psi(m)\cdot a=\ip{a}{P(\nabla\psi\circ m)}$ (Lemma~\ref{lem:leray}, $a\in\g$), so
+$\dF F=P(\nabla\psi\circ m)$ and $\Hess_Fb=P((\nabla^2\psi\circ m)\,b)$; (A2) holds because
+$(t,x)\mapsto\nabla\psi(m(x)+tb(x))$ is smooth on $\R\times\T$, so (Taylor with integral remainder
+applied to each $\partial_x^\alpha$) its $t$-difference quotients converge in every $C^r_x$ norm, and
+$P$ is continuous on $C^\infty$; (A3) is differentiation under the integral sign. Symmetry of
+$Q_F$ is visible: $\ip{a}{P(\nabla^2\psi(m)b)}=\int a\cdot\nabla^2\psi(m)b\dd$.
+\end{example}
+
+\section{Coadjoint representative and the bracket}\label{sec:bracket}
+\begin{lemma}[Coadjoint representative]\label{lem:coad}
+For $m,v,w\in\g$ with $\omega:=\curl m$,
+\[
+\ip{m}{[v,w]}=\int_{\T}\omega\cdot(v\times w)\dd=\ip{K_wm}{v},\qquad K_wm:=P(w\times\omega)\in\g .
+\]
+\end{lemma}
+\begin{proof}
+First, for smooth $A,B$: $\div(A\times B)=\partial_i(\varepsilon_{ijk}A_jB_k)=B_k\varepsilon_{kij}\partial_iA_j-A_j\varepsilon_{jik}\partial_iB_k=B\cdot\curl A-A\cdot\curl B$.
+With $A=c:=v\times w$ and $B=m$, integrating and using $\int\div=0$:
+$\int m\cdot\curl c\dd=\int(\curl m)\cdot c\dd$. Since $[v,w]=\curl(v\times w)$
+(Corollary~\ref{cor:curlcross}), $\ip m{[v,w]}=\int\omega\cdot(v\times w)\dd$. The scalar triple product
+is cyclic: $\omega\cdot(v\times w)=v\cdot(w\times\omega)$. Finally $\int v\cdot(w\times\omega)=\ip{v}{P(w\times\omega)}$
+since $v\in\g$ (Lemma~\ref{lem:leray}).
+\end{proof}
+Thus $v\mapsto\ip m{[v,w]}$ is represented in $\g$ by $K_wm$ (this is $\pm\mathrm{ad}^*_wm$ depending
+on conventions; we only use the defining property $\ip{K_wm}{v}=\ip m{[v,w]}$). Note $K_wm=0$ when
+$m$ is constant.
+
+\begin{definition}[Lie--Poisson bracket]
+For $F,G\in\mathcal A$ and $m\in\g$,
+\[\{F,G\}_\pm(m):=\pm\Big\langle m,\Big[\dF F(m),\dF G(m)\Big]\Big\rangle .\]
+It is bilinear and antisymmetric.
+\end{definition}
+
+\begin{proposition}[Sign: Euler's equations]\label{prop:euler}
+Let $F_a(m)=\ip ma$ ($a\in\g$) and $E(m)=\tfrac12\ip mm$. Then
+$\{F_a,E\}_+(m)=-\ip{(m\cdot\nabla)m}{a}$. Hence ``$\frac{d}{dt}F(m)=\{F,E\}_+$ for all $F$'' is
+equivalent to $\partial_tm=-P\big((m\cdot\nabla)m\big)$, the incompressible Euler equations
+$\partial_tu+(u\cdot\nabla)u=-\nabla p$, $\div u=0$, with $u=m$.
+\end{proposition}
+\begin{proof}
+$\{F_a,E\}_+=\ip m{[a,m]}=\int m_i(m_j\partial_ja_i-a_j\partial_jm_i)\dd$. Second part:
+$\int m_ia_j\partial_jm_i=\tfrac12\int a_j\partial_j|m|^2=-\tfrac12\int(\partial_ja_j)|m|^2=0$.
+First part:
+\[\int m_im_j\partial_ja_i=-\int\partial_j(m_im_j)a_i=-\int(m_j\partial_jm_i+m_i\partial_jm_j)a_i=-\int((m\cdot\nabla)m)\cdot a.\]
+Testing against all $a\in\g$ and using Lemma~\ref{lem:leray} gives the Leray form.
+\end{proof}
+So with the bracket convention \eqref{eq:bracket}, the ``$+$'' bracket generates Euler's equations;
+``$-$'' corresponds to the opposite (left/right) convention. The Jacobi identity holds for both
+(Theorem~\ref{thm:jacobi}).
+
+\section{The exact functional derivative of $\{G,H\}$}\label{sec:deriv}
+\begin{lemma}[Product rule]\label{lem:product}
+Let $m,a\in\g$ and let $g(\varepsilon),h(\varepsilon)$ be curves in $\g$ differentiable at
+$\varepsilon=0$ in the $C^\infty$ topology, with derivatives $g',h'$. Then
+$T(\varepsilon):=\ip{m+\varepsilon a}{[g(\varepsilon),h(\varepsilon)]}$ satisfies
+$T'(0)=\ip a{[g,h]}+\ip m{[g',h]}+\ip m{[g,h']}$, where $g=g(0)$, $h=h(0)$.
+\end{lemma}
+\begin{proof}
+By trilinearity,
+$T(\varepsilon)-T(0)=\varepsilon\ip a{[g(\varepsilon),h(\varepsilon)]}+\ip m{[g(\varepsilon)-g,h(\varepsilon)]}+\ip m{[g,h(\varepsilon)-h]}$.
+From \eqref{eq:bracket}, $\|[p,q]\|_{C^0}\le 3(\|q\|_{C^0}\|p\|_{C^1}+\|p\|_{C^0}\|q\|_{C^1})$, so
+$(m,p,q)\mapsto\ip m{[p,q]}$ is continuous for the $C^0\times C^1\times C^1$ norms.
+Divide by $\varepsilon$ and let $\varepsilon\to0$: $(g(\varepsilon)-g)/\varepsilon\to g'$ and
+$(h(\varepsilon)-h)/\varepsilon\to h'$ in $C^1$, and $g(\varepsilon)\to g$, $h(\varepsilon)\to h$ in
+$C^1$.
+\end{proof}
+
+\begin{proposition}[Functional derivative of a bracket --- no omitted terms]\label{prop:dbracket}
+Let $G,H\in\mathcal A$, $m\in\g$, $g:=\dF G(m)$, $h:=\dF H(m)$. Then $\{G,H\}_+$ satisfies (A1) and
+\begin{equation}\label{eq:dbracket}
+\boxed{\ \frac{\delta\{G,H\}_+}{\delta m}(m)=[g,h]+\Hess_G(m)\big(K_hm\big)-\Hess_H(m)\big(K_gm\big)\ }
+\end{equation}
+with $K_wm=P(w\times\curl m)$ from Lemma~\ref{lem:coad}; and $\delta\{G,H\}_-/\delta m=-\delta\{G,H\}_+/\delta m$.
+\end{proposition}
+\begin{proof}
+Fix $a\in\g$. Apply Lemma~\ref{lem:product} with $g(\varepsilon)=\dF G(m+\varepsilon a)$,
+$h(\varepsilon)=\dF H(m+\varepsilon a)$, which by (A2) have derivatives $\Hess_G(m)a$, $\Hess_H(m)a$:
+\begin{equation}\label{eq:threeterms}
+D\{G,H\}_+(m)a=\ip a{[g,h]}+\ip m{[\Hess_G(m)a,\,h]}+\ip m{[g,\,\Hess_H(m)a]}.
+\end{equation}
+Second term: by Lemma~\ref{lem:coad} with $v=\Hess_G(m)a\in\g$, $w=h$, and then Lemma~\ref{lem:sym},
+\begin{align*}
+\ip m{[\Hess_G(m)a,h]}&=\ip{K_hm}{\Hess_G(m)a}=Q_G(m)(K_hm,a)\\
+&=Q_G(m)(a,K_hm)=\ip a{\Hess_G(m)K_hm}.
+\end{align*}
+Third term: by antisymmetry, Lemma~\ref{lem:coad} with $v=\Hess_H(m)a$, $w=g$, and Lemma~\ref{lem:sym},
+\[
+\ip m{[g,\Hess_H(m)a]}=-\ip m{[\Hess_H(m)a,g]}=-\ip{K_gm}{\Hess_H(m)a}=-\ip a{\Hess_H(m)K_gm}.
+\]
+Hence $D\{G,H\}_+(m)a=\ip a{[g,h]+\Hess_G(m)K_hm-\Hess_H(m)K_gm}$ for all $a\in\g$; all three
+vectors lie in $\g$ (Proposition~\ref{prop:closure}, (A2)), which is (A1) with \eqref{eq:dbracket}.
+\end{proof}
+
+\begin{remark}[What the draft's ``higher-order terms'' are]
+The terms $\Hess_G(m)K_hm-\Hess_H(m)K_gm$ are the ``higher-order functional derivative terms''.
+They do \emph{not} vanish in general: for $G=E=\frac12\ip mm$ and $H=F_a$ linear, \eqref{eq:dbracket}
+gives $\delta\{E,F_a\}/\delta m=[m,a]+K_am=[m,a]+P(a\times\omega)$, and the second term is nonzero for
+generic $m,a$. The numerical test (a) in Section~\ref{sec:checks} confirms \eqref{eq:dbracket} against
+a finite-difference derivative and shows that $[g,h]$ alone is wrong by 29--93\%. They disappear only
+in the cyclic sum, as shown next.
+\end{remark}
+
+\section{The Jacobi identity: full expansion and the six cancelling terms}\label{sec:jacobi}
+\begin{theorem}[Jacobi identity]\label{thm:jacobi}
+For $F,G,H\in\mathcal A$ and every $m\in\g$, for either sign,
+\[
+\{F,\{G,H\}\}(m)+\{G,\{H,F\}\}(m)+\{H,\{F,G\}\}(m)=0 .
+\]
+(The outer brackets are defined because $\{G,H\}$ etc.\ satisfy (A1) by
+Proposition~\ref{prop:dbracket}; nothing more is needed.)
+\end{theorem}
+\begin{proof}
+Work with the $+$ sign and write $f=\dF F(m)$, $g=\dF G(m)$, $h=\dF H(m)$,
+$k_f=K_fm$, $k_g=K_gm$, $k_h=K_hm$ (all in $\g$), and $Q_F=Q_F(m)$ etc.
+
+\emph{Step 1 (insert the exact derivative).} By definition and \eqref{eq:dbracket},
+\begin{align*}
+\{F,\{G,H\}\}&=\ip m{[f,\tfrac{\delta\{G,H\}}{\delta m}]}\\
+&=\ip m{[f,[g,h]]}+\ip m{[f,\Hess_Gk_h]}-\ip m{[f,\Hess_Hk_g]}.
+\end{align*}
+\emph{Step 2 (convert each second-derivative term into a value of a Hessian form).} For any
+$X\in\g$, antisymmetry and Lemma~\ref{lem:coad} give $\ip m{[f,X]}=-\ip m{[X,f]}=-\ip{k_f}{X}$. With
+$X=\Hess_Gk_h$ and $X=\Hess_Hk_g$:
+\begin{align*}
+\ip m{[f,\Hess_Gk_h]}&=-\ip{k_f}{\Hess_Gk_h}=-Q_G(k_f,k_h),\\
+-\ip m{[f,\Hess_Hk_g]}&=+\ip{k_f}{\Hess_Hk_g}=+Q_H(k_f,k_g).
+\end{align*}
+Therefore
+\begin{equation}\label{eq:one}
+\{F,\{G,H\}\}=\ip m{[f,[g,h]]}-Q_G(k_f,k_h)+Q_H(k_f,k_g).
+\end{equation}
+\emph{Step 3 (the other two terms).} Equation \eqref{eq:one} holds for every ordered triple of
+admissible functionals. Applying it to $(G,H,F)$ and to $(H,F,G)$:
+\begin{align}
+\{G,\{H,F\}\}&=\ip m{[g,[h,f]]}-Q_H(k_g,k_f)+Q_F(k_g,k_h),\label{eq:two}\\
+\{H,\{F,G\}\}&=\ip m{[h,[f,g]]}-Q_F(k_h,k_g)+Q_G(k_h,k_f).\label{eq:three}
+\end{align}
+\emph{Step 4 (the six second-derivative terms).} Adding \eqref{eq:one}--\eqref{eq:three}, the six
+Hessian terms are, grouped by which functional's Hessian occurs:
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{llll}\toprule
+Hessian & term and origin & partner and origin & sum\\\midrule
+$Q_G$ & $-Q_G(k_f,k_h)$ \ from \eqref{eq:one} & $+Q_G(k_h,k_f)$ \ from \eqref{eq:three} & $0$\\
+$Q_H$ & $+Q_H(k_f,k_g)$ \ from \eqref{eq:one} & $-Q_H(k_g,k_f)$ \ from \eqref{eq:two} & $0$\\
+$Q_F$ & $+Q_F(k_g,k_h)$ \ from \eqref{eq:two} & $-Q_F(k_h,k_g)$ \ from \eqref{eq:three} & $0$\\\bottomrule
+\end{tabular}
+\end{center}
+Each row is the same symmetric bilinear form evaluated on the same two vectors in opposite order,
+so each row sums to zero by Lemma~\ref{lem:sym} (Schwarz). Explicitly,
+$\big(-Q_G(k_f,k_h)+Q_G(k_h,k_f)\big)+\big(Q_H(k_f,k_g)-Q_H(k_g,k_f)\big)+\big(Q_F(k_g,k_h)-Q_F(k_h,k_g)\big)=0+0+0$.
+
+\emph{Step 5 (what remains).}
+\[
+\{F,\{G,H\}\}+\{G,\{H,F\}\}+\{H,\{F,G\}\}=\ip m{[f,[g,h]]+[g,[h,f]]+[h,[f,g]]}=\ip m0=0
+\]
+by Proposition~\ref{prop:vfjacobi}.
+
+\emph{The $-$ sign.} By Proposition~\ref{prop:dbracket}, $\delta\{G,H\}_-/\delta m=-\delta\{G,H\}_+/\delta m$, so
+$\{F,\{G,H\}_-\}_-=-\ip m{[f,-\delta\{G,H\}_+/\delta m]}=\{F,\{G,H\}_+\}_+$; the cyclic sum is the same.
+\end{proof}
+
+\begin{remark}[Where exactly the hard terms go]
+Each Hessian term is produced by differentiating the \emph{inner} bracket, and each is paired with
+a term coming from a \emph{different} nested bracket in the cyclic sum: the $G$-Hessian appears in
+$\{F,\{G,H\}\}$ (where $G$ is inside, first slot) and in $\{H,\{F,G\}\}$ (where $G$ is inside, second
+slot), with opposite signs and the two coadjoint vectors $k_f,k_h$ swapped. Two inputs are
+essential: antisymmetry of the bracket (Step 2, and the sign difference between first and second
+slot in \eqref{eq:dbracket}) and symmetry of second derivatives (Step 4). Dropping the Hessian terms
+consistently in all three brackets happens to give the right total, but only \emph{because} of Step 4;
+individually each $\{F,\{G,H\}\}$ changes by an $O(1)$ amount (test (b) below).
+\end{remark}
+
+\section{Vorticity form and correction of the draft's integration by parts}\label{sec:vorticity}
+\begin{proposition}[Vorticity form]\label{prop:vort}
+(i) For all $F,G\in\mathcal A$ and $m\in\g$, with $\omega=\curl m$ and $v_F=\dF F(m)$, $v_G=\dF G(m)$:
+\[
+\{F,G\}_+(m)=\int_{\T}\omega\cdot(v_F\times v_G)\dd .
+\]
+(ii) If $F$ factors through vorticity, $F(m)=\Phi(\curl m)$ with $\Phi:\g_0\to\R$ having a derivative
+representative $\frac{\delta\Phi}{\delta\omega}(\omega)\in C^\infty(\T;\R^3)$
+($D\Phi(\omega)\alpha=\ip\alpha{\frac{\delta\Phi}{\delta\omega}}$ for $\alpha\in\g_0$; it is determined only
+modulo gradients and constants), then $v_F=\curl\frac{\delta\Phi}{\delta\omega}\in\g_0$ is well defined,
+and for two such functionals
+\[
+\{F,G\}_+=\int_{\T}\omega\cdot\Big(\curl\frac{\delta F}{\delta\omega}\times\curl\frac{\delta G}{\delta\omega}\Big)\dd ,
+\]
+which depends on $m$ only through $\omega$ (the mean $\bar m$ of Lemma~\ref{lem:curl} drops out).
+\end{proposition}
+\begin{proof}
+(i) is Lemma~\ref{lem:coad} with $v=v_F$, $w=v_G$. (ii) $DF(m)a=D\Phi(\omega)(\curl a)=\ip{\curl a}{\frac{\delta\Phi}{\delta\omega}}=\ip a{\curl\frac{\delta\Phi}{\delta\omega}}$,
+using $\int A\cdot\curl B=\int\curl A\cdot B$ (proof of Lemma~\ref{lem:coad}). Changing
+$\frac{\delta\Phi}{\delta\omega}$ by a gradient or a constant does not change its curl. Then apply (i).
+\end{proof}
+\begin{remark}
+Functionals that see the mean momentum, e.g.\ total momentum $F(m)=\ip mc$ with $c\in\R^3$ constant,
+do not factor through $\omega$; for them (i) still holds with $v_F=c$, e.g.\ $\{F,G\}_+=\int\omega\cdot(c\times v_G)$,
+which is generally nonzero (momentum generates translations; it is not a Casimir). In the Biot--Savart
+form one writes $m=\bar m+\curl(-\Delta)^{-1}\omega$ (Lemma~\ref{lem:curl}). The overall sign of the
+vorticity bracket is convention dependent; ours is fixed by Proposition~\ref{prop:euler}.
+\end{remark}
+
+\paragraph{The draft's step is false.} The draft used
+\begin{equation}\label{eq:wrong}
+\int_{\T}\omega\cdot\big((v_G\cdot\nabla)v_F\big)\dd\ \overset{?}{=}\ \int_{\T}\omega\cdot(v_F\times v_G)\dd .
+\end{equation}
+The correct identity (Corollary~\ref{cor:curlcross} and Lemma~\ref{lem:coad}) is
+\begin{equation}\label{eq:right}
+\int_{\T}m\cdot\big((v_G\cdot\nabla)v_F-(v_F\cdot\nabla)v_G\big)\dd=\int_{\T}(\curl m)\cdot(v_F\times v_G)\dd ,
+\end{equation}
+with three differences from \eqref{eq:wrong}: the left side pairs with the momentum $m$, not with
+$\omega=\curl m$; \emph{both} transport terms are needed; and the curl is moved from $v_F\times v_G$
+onto $m$ by integration by parts. \emph{Counterexample to \eqref{eq:wrong}} (exact, sympy): on $\T$ take the
+divergence-free trigonometric fields
+\begin{align*}
+m&=\big(\sin y+\sin(x+y)-\sin(y+z)-\cos y-\cos(x+y),\\
+&\qquad -\sin(x+y)+\sin(y+z)-\cos x+\cos(x+y)+\cos(y+z),\\
+&\qquad -\sin x-\sin y+2\sin(x+y)-\sin(y+z)+\cos y+2\cos(x+y)-\cos(y+z)\big),\\
+v_F&=\big(-\sin y+\sin(x+z)+\cos(x+y+z),\ \ -\sin(x+y+z)+2\cos(x+z),\\
+&\qquad -\sin(x+z)+\sin(x+y+z)+\cos y-\cos(x+y+z)\big),\\
+v_G&=\big(-\sin(x-y)+\sin(y+z)+\sin(x+y+z)+\cos(x-y)+2\cos(y+z)-\cos(x+y+z),\\
+&\qquad \sin x-\sin(x-y)+\cos x+\cos(x-y)+\cos(x+y+z),\\
+&\qquad 2\sin x-\sin(x+y+z)+2\cos(x-y)\big),
+\end{align*}
+$(x,y,z)=(x_1,x_2,x_3)$, $\omega=\curl m$. Then
+\[
+\int\omega\cdot((v_G\cdot\nabla)v_F)\dd=-4\pi^3,\qquad \int\omega\cdot(v_F\times v_G)\dd=+4\pi^3,
+\]
+so \eqref{eq:wrong} fails, while both sides of \eqref{eq:right} equal $4\pi^3$ and the single transport
+term $\int m\cdot((v_G\cdot\nabla)v_F)\dd=8\pi^3$ differs from both. The draft also identified $\g^*$ with
+``vorticity fields'' through the pairing $\int\omega\cdot v$; under that pairing the dual variable plays the role
+of the momentum $m$, not of $\curl m$, and mixing the two roles produces exactly this kind of error.
+
+\section{Computational checks}\label{sec:checks}
+All scripts are in \texttt{scripts/}, outputs in \texttt{outputs/}. These checks are sanity checks,
+not proofs; the proofs are Sections~\ref{sec:lie}--\ref{sec:vorticity}.
+
+\paragraph{Symbolic (\texttt{sympy\_identities.py}, sympy 1.14).} With \emph{generic} (undetermined) smooth
+component functions: Lemma~\ref{lem:curlcross}; $[v,w]=\curl(v\times w)$ and $\div[v,w]=0$ for
+$v=\curl A$, $w=\curl B$; the vector-field Jacobi identity for arbitrary fields; the pointwise identity
+$m\cdot\curl c-\curl m\cdot c=\div(c\times m)$. With exact trigonometric fields: \eqref{eq:right}, the
+counterexample to \eqref{eq:wrong}, Lemma~\ref{lem:coad}, and the sign check of
+Proposition~\ref{prop:euler}. Finite-dimensional sanity check: Lie--Poisson Jacobi on $\mathfrak{so}(3)^*$ and
+$\mathfrak{sl}(2,\R)^*$ for \emph{arbitrary} smooth $F,G,H$ (sympy undetermined functions), where a single
+$\{F,\{G,H\}\}$ contains 66 terms with second derivatives that cancel only in the cyclic sum.
+\lstinputlisting{outputs/sympy_identities.txt}
+
+\paragraph{Exact-quadrature floating point on $\T$ (\texttt{torus\_fft\_check.py}).}
+A Galerkin truncation of $\g$ is \emph{not} closed under the bracket, so we do not truncate the bracket;
+instead all fields are exact trigonometric polynomials (degree $\le2$ for the random inputs), products are
+formed pointwise, and a $48^3$ grid is used, on which spectral differentiation, the Leray projection and
+quadrature are exact for every trigonometric polynomial that occurs (max degree $\le16<24$ where derivatives
+or $P$ are applied; integrands of degree $\le30<48$). Remaining error is roundoff, plus finite-difference
+error in test (a). Functionals: $F$ cylindrical with $\Phi(y)=y_1y_2^2+\sin y_3+y_1y_3$; $G(m)=\int m_1m_2m_3\dd$ (local cubic);
+$H$ cylindrical with $\Phi(y)=e^{0.1y_1}y_2+y_3^3$; $E=\frac12\ip mm$; $m$ random with nonzero mean.
+(0) checks the ingredients; (a) compares a 6th-order finite-difference derivative of $\{G,H\}$ with
+$\ip a{\eqref{eq:dbracket}}$ (agreement $\sim10^{-13}$; $[g,h]$ alone is off by 29--93\%); (b) evaluates the
+three nested brackets via \eqref{eq:dbracket}, the six Hessian terms of Step 4 and their pair sums
+($\sim10^{-16}$), and the Jacobiator term.
+\lstinputlisting{outputs/torus_fft_check.txt}
+
+\section{Lean 4 formalization status}\label{sec:lean}
+\paragraph{What is formalized.} \nolinkurl{FTVerified/Companion/LiePoissonJacobiCore.lean} in \url{https://github.com/BenFrohman/frohmanian-tether-verified} (code commit \texttt{cf04afd}, pull request~\#2) proves, for an arbitrary Lie
+algebra $L$ over a commutative ring $R$, any linear $m:L\to R$, any $f,g,h\in L$, any $k_f,k_g,k_h$ in a
+type $V$ and any symmetric $Q_F,Q_G,Q_H:V\to V\to R$, that
+\begin{multline*}
+\big(m[f,[g,h]]-Q_G(k_f,k_h)+Q_H(k_f,k_g)\big)+\big(m[g,[h,f]]-Q_H(k_g,k_f)+Q_F(k_g,k_h)\big)\\
++\big(m[h,[f,g]]-Q_F(k_h,k_g)+Q_G(k_h,k_f)\big)=0,
+\end{multline*}
+i.e.\ exactly Steps 4--5 of Theorem~\ref{thm:jacobi}, using mathlib's \texttt{lie\_jacobi}. It is checked with
+Lean \texttt{v4.30.0-rc1} and mathlib commit\\ \texttt{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7} by the repository's
+GitHub Actions workflow (run \url{https://github.com/BenFrohman/frohmanian-tether-verified/actions/runs/42923330722},
+passed), which builds the library and fails on any non-standard axiom. Its output for this file:
+\begin{verbatim}
+'LiePoissonCore.six_terms_cancel' depends on axioms: [propext, Quot.sound]
+'LiePoissonCore.lie_poisson_jacobi_core' depends on axioms: [propext, Quot.sound]
+\end{verbatim}
+There is no \texttt{sorry}, \texttt{admit}, \texttt{native\_decide} or custom axiom. The hypotheses of
+\nolinkurl{lie_poisson_jacobi_core} encode exactly the inputs of Steps~4--5: $m$ linear (the pairing with the state),
+$Q_F,Q_G,Q_H$ symmetric (Lemma~\ref{lem:sym}, symmetry of second derivatives), and the Lie algebra axioms of $L$.
+The symmetry hypotheses are satisfiable (for example $Q=0$), so the statement is not vacuous; and it is not
+trivially true without them, since the six $Q$ terms cancel only by symmetry.
+
+\paragraph{What is not formalized.} Everything analytic: the torus, $\g$, the Leray projection, the
+admissible class, Lemma~\ref{lem:sym}, Lemma~\ref{lem:product} and Proposition~\ref{prop:dbracket}. A Lean
+formalization would need (a) in finite dimensions: $F:\mathrm{Dual}\,\R\,\g\to\R$ smooth, gradients via
+finite-dimensional duality, the derivative of $m\mapsto m([\nabla F(m),\nabla G(m)])$ (product/chain rule for
+\texttt{fderiv} of bilinear maps), and symmetry of the second derivative (available in mathlib as
+\texttt{IsSymmSndFDerivAt} results for $C^2$ maps) --- feasible but not done here; (b) for
+$\mathfrak{sdiff}(\T)$: smooth periodic vector fields on $(\mathrm{AddCircle})^3$, integration by parts, the
+Fourier/Leray projection on $C^\infty$, and the Gateaux/Fréchet setting of Definition~\ref{def:adm} ---
+a substantial project, not attempted.
+
+\section{Scope, honesty statement and caveats}
+\begin{itemize}
+\item \textbf{Classical, not new.} The Lie--Poisson structure of ideal hydrodynamics and its Jacobi identity
+are due to Arnold~\cite{arnold1966} and Marsden--Weinstein~\cite{mw1983}; see also
+Arnold--Khesin~\cite{ak} and Marsden--Ratiu~\cite{mr}. This note re-derives the identity with every
+cancellation displayed; it claims no new result.
+\item \textbf{Lie--Poisson part only.} The theorem covers $\{F,G\}=\pm\ip m{[\delta F,\delta G]}$ and nothing
+else. Any added symmetric (metriplectic/``tether'') bracket $T$, or any dissipative bracket, is not covered;
+in metriplectic systems (Morrison~\cite{morrison1986}) the symmetric part is not a Lie bracket, so no Jacobi
+identity is asserted for it, and the sum of the Lie--Poisson and symmetric parts is not a Poisson bracket.
+Likewise, finite Fourier (Galerkin or frozen-coefficient) models are different objects and are not covered.
+\item \textbf{No PDE or Clay claim.} Nothing here concerns existence, regularity, or blow-up for the Euler or
+Navier--Stokes equations.
+\item \textbf{Function class.} The proof is for the admissible class $\mathcal A$ of Definition~\ref{def:adm}
+on the regular dual, in a $C^\infty$ Gateaux setting with assumptions (A1)--(A3). It does not cover
+functionals whose derivative is a distribution, nor rough ($H^s$, $L^2$) phase spaces.
+\item \textbf{Torus, not $\R^3$.} All statements are on $\T=\R^3/(2\pi\Z)^3$; the constant (harmonic) fields
+are included in $\g$ and handled explicitly; vorticity formulas lose the mean momentum.
+\item \textbf{Draft.} Only an excerpt of the earlier draft was available; the corrections in
+Sections~\ref{sec:vorticity} and~\ref{sec:lie} refer to the steps quoted there.
+\item \textbf{Numerics.} Section~\ref{sec:checks} gives evidence for the formulas, not proofs.
+\item \textbf{Lean.} Only the final algebraic cancellation is machine-checked (Section~\ref{sec:lean}).
+\end{itemize}
+
+\paragraph{Reproduction.} \texttt{python3 scripts/sympy\_identities.py} (about 3--4 minutes),
+\texttt{python3 scripts/torus\_fft\_check.py} (about 10 s; NumPy, fixed seed 20261109),
+for the Lean part, in the repository root,
+\nolinkurl{lake exe cache get && lake build && python3 scripts/check_jacobi_axioms.py},
+and \texttt{tectonic} \texttt{lie\_poisson\_jacobi.tex}.
+
+\begin{thebibliography}{9}
+\bibitem{arnold1966} V.~I.~Arnold, Sur la géométrie différentielle des groupes de Lie de dimension infinie et ses
+applications à l'hydrodynamique des fluides parfaits, \emph{Ann.\ Inst.\ Fourier} \textbf{16} (1966), 319--361.
+\bibitem{mw1983} J.~Marsden and A.~Weinstein, Coadjoint orbits, vortices, and Clebsch variables for incompressible
+fluids, \emph{Physica D} \textbf{7} (1983), 305--323.
+\bibitem{ak} V.~I.~Arnold and B.~A.~Khesin, \emph{Topological Methods in Hydrodynamics}, Springer, 1998
+(2nd ed.\ 2021).
+\bibitem{mr} J.~E.~Marsden and T.~S.~Ratiu, \emph{Introduction to Mechanics and Symmetry}, 2nd ed., Springer, 1999.
+\bibitem{morrison1986} P.~J.~Morrison, A paradigm for joined Hamiltonian and dissipative systems,
+\emph{Physica D} \textbf{18} (1986), 410--419.
+\end{thebibliography}
+\end{document}

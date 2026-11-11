@@ -1,0 +1,20 @@
+[PASS] curl(a x b) = a div b - b div a + (b.grad)a - (a.grad)b  (generic smooth a,b)
+[PASS] div(curl A) = 0
+[PASS] [v,w] = curl(v x w) for v=curl A, w=curl B (div-free)
+[PASS] closure: div [v,w] = 0 for div-free v,w
+   non-div-free example v=(sin x,0,0), w=(0,cos x,0): [v,w]-curl(v x w) = [0, cos(x)**2, 0]
+[PASS] vector-field Jacobi [u,[v,w]]+[v,[w,u]]+[w,[u,v]] = 0 (generic fields)
+[PASS] m.curl(c) - curl(m).c = div(c x m), c = v x w (generic)
+   <m,[vF,vG]> = 4*pi**3,   int omega.(vF x vG) = 4*pi**3
+[PASS] correct identity <m,[vF,vG]> = int curl(m).(vF x vG) on concrete trig fields
+   draft step: int omega.((vG.grad)vF) = -4*pi**3  vs  int omega.(vF x vG) = 4*pi**3
+   (also: int m.((vG.grad)vF) alone = 8*pi**3; the second transport term is needed)
+[PASS] counterexample: the draft's integration-by-parts step is false on these fields
+[PASS] <m,[vF,vG]> = int (vG x omega).vF  (K_w m = P(w x omega))
+   {F,H}_+ = -2*pi**3,  -<(u.grad)u,a> = -2*pi**3
+[PASS] + sign reproduces Euler: {<.,a>, 1/2|.|^2}_+ (u) = -<(u.grad)u, a>
+[PASS] finite-dim Lie-Poisson Jacobi on so(3)* for arbitrary smooth F,G,H
+   so(3): {F,{G,H}} alone has 66 terms containing second derivatives (nonzero individually)
+[PASS] finite-dim Lie-Poisson Jacobi on sl(2,R)* for arbitrary smooth F,G,H
+   sl(2,R): {F,{G,H}} alone has 66 terms containing second derivatives (nonzero individually)
+ALL PASS

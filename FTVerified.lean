@@ -28,3 +28,5 @@ import FTVerified.Sdiff.ObstructionAudit
 import FTVerified.Sdiff.SymplecticTether
 import FTVerified.May.GlobalRegularity
 import FTVerified.Paper
+import FTVerified.Companion.JacobiCompanion
+import FTVerified.Companion.LiePoissonJacobiCore

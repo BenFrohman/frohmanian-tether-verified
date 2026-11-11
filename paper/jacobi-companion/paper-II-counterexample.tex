@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}\emergencystretch=2em
+\usepackage[margin=1in]{geometry}
+\usepackage{xurl}\usepackage{array}\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref,tabularx}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}[theorem]{Lemma}\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Fld}{\mathsf{Fld}}\newcommand{\br}[2]{[#1,#2]}\newcommand{\pr}[2]{\langle #1,#2\rangle}
+\newcommand{\ii}{\mathrm{i}}
+\author{Frohman, Benjamin Stanley\\ \small Independent Researcher, Texas, United States\\ \small ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718} \quad \href{mailto:frohmanbenjamin@gmail.com}{frohmanbenjamin@gmail.com}}
+\date{Version 1.1, 10 November 2026 (v1.0 review draft: 6 November 2026). Preprint, not peer reviewed.}
+
+\title{Failure of Antisymmetry and of the Cyclic Jacobi Identity for a Specified Finite-Fourier Tethered Operation\\ \large Companion paper II (machine-checked, finite-Fourier model)}
+\begin{document}\maketitle
+\begin{abstract}
+In a finite-Fourier model of vector fields on $\mathbb T^3$ we consider the vector-valued tethered bracket $\{a,b\}=[a,b]+T(a,b)$ with tether axis $u_Y=(\sin y,0,0)$. Take the divergence-free field $a_Z=(0,0,\sin x)$. If $\kappa w\ne0$, the Jacobiator $J(a_Z,a_Z,a_Z)$ is nonzero: its $z$-component at mode $e^{\ii(x+y)}$ equals $\tfrac{3\ii}{8}\kappa w$. A separate finite-dimensional witness, with $u=e_1$ and the cross-product bracket on $\mathbb R^3$, gives a nonzero Jacobiator with value $(\kappa w)e_2$. Both results are formalized in Lean~4/Mathlib. Because $T$ is symmetric, the operation is not antisymmetric, and both witnesses repeat arguments. This is a valid algebraic failure of the cyclic Jacobi identity for this specified operation. It is \emph{not} a failure of the Lie part (which satisfies Jacobi), \emph{not} a Poisson-bracket failure, and \emph{not} a geometric refutation. Companion paper~I treats the restricted shear class.
+\end{abstract}
+\section{The finite-Fourier field model (exact Lean definitions)}
+All definitions are in \nolinkurl{FTVerified/May/FieldJacobi.lean} (namespace\\ \texttt{Frohman.Tether.FieldJacobi}), unchanged since commit \texttt{26f16da}. For $k\in\mathbb Z^3$ write $k_{\mathbb C}\in\mathbb C^3$ for its image (\texttt{kC}, \texttt{BiotSavart.lean:46}); $v\cdot w=\sum_{j}v_jw_j$ is the \emph{bilinear} (non-Hermitian) dot product on $\mathbb C^3$. Components are indexed $0,1,2$ ($=x,y,z$).
+
+\begin{definition}[\texttt{Fld}, line 48]
+$\Fld$ is the space of finitely supported maps $a:\mathbb Z^3\to\mathbb C^3$, $k\mapsto \hat a_k$; we read $a$ as the trigonometric polynomial $\sum_k \hat a_k e^{\ii k\cdot x}$ on $\mathbb T^3$. No reality condition is imposed; scalars are complex.
+\end{definition}
+\begin{definition}[\texttt{bvec}, \texttt{br}, lines 51--56]
+For modes $p,q$ and $v,w\in\mathbb C^3$, $\mathrm{bvec}(p,q,v,w)=\ii\big((v\cdot q)\,w-(w\cdot p)\,v\big)$, and
+$\br ab=\sum_{p,q}\mathrm{bvec}(p,q,\hat a_p,\hat b_q)\,\delta_{p+q}$, the Fourier form of $(a\cdot\nabla)b-(b\cdot\nabla)a$.
+\end{definition}
+\begin{definition}[\texttt{pr}, line 59]
+$\pr ab=\sum_p \hat a_p\cdot \hat b_{-p}$ (complex-bilinear $L^2$ pairing $(2\pi)^{-3}\!\int a\cdot b$).
+\end{definition}
+\begin{definition}[\texttt{piF}, \texttt{tetF}, \texttt{brT}, \texttt{jacT}; lines 108, 111, 362, 364]
+For $u,x\in\Fld$ and $\kappa,w\in\mathbb C$:
+$\Pi_u x=x-\frac{\pr ux}{\pr uu}u$ (Lean division, so $\Pi_u x=x$ if $\pr uu=0$);
+$T(a,b)=-(\kappa w)\pr{\Pi_u a}{\Pi_u b}\,u$;
+$\{a,b\}=\br ab+T(a,b)$;
+$J(a,b,c)=\{\{a,b\},c\}+\{\{b,c\},a\}+\{\{c,a\},b\}$.
+Here $\kappa,w$ are \emph{arbitrary complex parameters}: in this file $w$ is not tied to any field (the docstring of \texttt{Basic.lean} reads $w$ as $\int|\omega|^2$, but nothing in \texttt{FieldJacobi.lean} enforces that).
+\end{definition}
+\begin{definition}[\texttt{mixedF}, \texttt{mixedSumF}; lines 114, 116]
+$M(a,b,c)=\br{T(a,b)}{c}+T(\br ab,c)$ and $S(a,b,c)=M(a,b,c)+M(b,c,a)+M(c,a,b)$.
+\end{definition}
+\begin{definition}[\texttt{DivergenceFree}, line 121; \texttt{XOnly}, line 183]
+$a$ is \emph{divergence-free} if $k_{\mathbb C}\cdot\hat a_k=0$ for all $k$; $a$ is \emph{XOnly} if $(\hat a_k)_1=(\hat a_k)_2=0$ for all $k$.
+\end{definition}
+\begin{definition}[explicit fields, lines 224--234]
+$k_x=(1,0,0)$, $k_y=(0,1,0)$.
+$u_Y=\delta_{k_y}(-\tfrac{\ii}{2},0,0)+\delta_{-k_y}(\tfrac{\ii}{2},0,0)$, i.e.\ $(\sin y,0,0)$;
+$a_Z=\delta_{k_x}(0,0,-\tfrac{\ii}{2})+\delta_{-k_x}(0,0,\tfrac{\ii}{2})$, i.e.\ $(0,0,\sin x)$.
+\end{definition}
+
+\begin{lemma}[Jacobiator reduction, \texttt{jacT\_eq\_mixedSum}, line 384]\label{lem:red}
+If $\pr uu\ne0$ then $J(a,b,c)=S(a,b,c)$ for all $a,b,c$ and all $\kappa,w$.
+\end{lemma}
+\begin{proof}
+$T$ is additive in its first slot (\texttt{tetF\_add\_left}) and $\br\cdot\cdot$ is additive in each slot, so
+$\{\{a,b\},c\}=\br{\br ab}c+M(a,b,c)+T(T(a,b),c)$. Since $T(a,b)=s\,u$ and $\Pi_u(su)=su-\frac{s\pr uu}{\pr uu}u=0$ when $\pr uu\ne0$ (\texttt{piF\_smul\_self}), $T(T(a,b),c)=0$ (\texttt{tetF\_tetF}). Summing cyclically, $J=\mathrm{jacF}(a,b,c)+S(a,b,c)$, where $\mathrm{jacF}$ is the Jacobiator of $\br\cdot\cdot$. Finally $\mathrm{jacF}\equiv0$ (\texttt{jacF\_eq\_zero}, line 164): by trilinearity it suffices to check single modes, where all three terms sit at mode $p+q+r$ and the identity is a polynomial identity in the coordinates of $v,w,z,p,q,r$ (closed by \texttt{ring}); it is the Fourier form of Jacobi for the Lie bracket of vector fields.
+\end{proof}
+\begin{lemma}[\texttt{pr\_uY\_uY}, line 396]\label{lem:uu} $\pr{u_Y}{u_Y}=\tfrac12$; in particular $\ne0$. \end{lemma}
+\begin{proof} $\pr{u_Y}{u_Y}=(-\tfrac{\ii}{2})(\tfrac{\ii}{2})+(\tfrac{\ii}{2})(-\tfrac{\ii}{2})=\tfrac14+\tfrac14$. \end{proof}
+
+\section{Main theorem: the field-level counterexample}
+\begin{lemma}[diagonal reduction, \texttt{mixedSumF\_diag}, line 257]\label{lem:diag}
+For all $u,a$: $S(a,a,a)=3\big(-(\kappa w)\pr{\Pi_u a}{\Pi_u a}\big)\,\br ua$.
+\end{lemma}
+\begin{proof}
+$\br aa=0$ by antisymmetry (\texttt{br\_antisymm}, \texttt{br\_self}), so $T(\br aa,a)=T(0,a)=0$. Each of the three equal terms is $M(a,a,a)=\br{s\,u}{a}=s\br ua$ with $s=-(\kappa w)\pr{\Pi_u a}{\Pi_u a}$ (\texttt{br\_smul\_left}).
+\end{proof}
+\begin{lemma}[explicit values; lines 265, 269, 273, 299, 295]\label{lem:vals}
+(a) $\pr{u_Y}{a_Z}=0$, hence $\Pi_{u_Y}a_Z=a_Z$. (b) $\pr{a_Z}{a_Z}=\tfrac12$. (c) $\big(\br{u_Y}{a_Z}\big)_{k_y+k_x,\,2}=-\tfrac{\ii}{4}$. (d) $a_Z$ and $u_Y$ are divergence-free.
+\end{lemma}
+\begin{proof}
+(a) Every term pairs an $x$-directed vector with a $z$-directed one, so it is $0$.
+(b) $(-\tfrac{\ii}{2})(\tfrac{\ii}{2})+(\tfrac{\ii}{2})(-\tfrac{\ii}{2})=\tfrac12$.
+(c) The mode $k_x+k_y=(1,1,0)$ arises only from $p=k_y$, $v=(-\tfrac{\ii}2,0,0)$ and $q=k_x$, $w=(0,0,-\tfrac{\ii}2)$. Here $v\cdot q=-\tfrac{\ii}{2}$ and $w\cdot p=0$, so $\mathrm{bvec}=\ii(-\tfrac{\ii}{2})w=\tfrac12 w$, whose $z$-component is $-\tfrac{\ii}{4}$.
+(d) The modes of $a_Z$ are $\pm k_x$, and $(\pm1,0,0)\cdot(0,0,\ast)=0$. The modes of $u_Y$ are $\pm k_y$, and $(0,\pm1,0)\cdot(\ast,0,0)=0$.
+\end{proof}
+\begin{theorem}[\texttt{shearY\_transverse\_coeff}, line 347]\label{thm:coeff}
+For all $\kappa,w\in\mathbb C$: $S(a_Z,a_Z,a_Z)_{k_x+k_y,\,2}=\tfrac{3\ii}{8}\kappa w$ at $u=u_Y$.
+\end{theorem}
+\begin{proof}
+By Lemmas~\ref{lem:diag} and~\ref{lem:vals}: $3\cdot(-\kappa w\cdot\tfrac12)\cdot(-\tfrac{\ii}{4})=\tfrac{3\ii}{8}\kappa w$.
+\end{proof}
+\begin{theorem}[\texttt{shearY\_jacobi\_fails\_transverse}, line 406]\label{thm:main}
+If $\kappa w\ne0$ then $J(a_Z,a_Z,a_Z)\ne0$ for the tethered bracket at $u=u_Y$.
+\end{theorem}
+\begin{proof}
+$\pr{u_Y}{u_Y}=\tfrac12\ne0$, so $J=S$ by Lemma~\ref{lem:red}. If $S(a_Z,a_Z,a_Z)=0$, Theorem~\ref{thm:coeff} would give $\tfrac{3\ii}{8}\kappa w=0$ and hence $\kappa w=0$, which is a contradiction (\texttt{shearY\_transverse\_ne\_zero}).
+\end{proof}
+\begin{remark}[Precise strength of the statement]
+(i) The Lean theorem's hypothesis is only $\kappa w\ne0$. Divergence-freeness of $a_Z$ and $u_Y$ is a \emph{separate} fact (\texttt{divFree\_aZ}, \texttt{divFree\_uY}) and is not a hypothesis of the theorem.
+(ii) \emph{Antisymmetry fails.} $T$ is symmetric, so $\{a,a\}=T(a,a)$ can be nonzero. Here $\{a_Z,a_Z\}=-\tfrac{\kappa w}{2}u_Y$, which is nonzero when $\kappa w\ne0$. This value is the Lean theorem \texttt{brT\_uY\_aZ\_aZ} (from \texttt{br\_self}, \texttt{pr\_uY\_aZ}, \texttt{pr\_aZ\_aZ}: $\{a_Z,a_Z\}=0+T(a_Z,a_Z)=-(\kappa w)\cdot\tfrac12\cdot u_Y$), and \texttt{brT\_not\_antisymm} proves $\{a_Z,a_Z\}\ne-\{a_Z,a_Z\}$ when $\kappa w\ne0$: if $v=-v$ then $2v=0$, and $2\cdot(-\tfrac{\kappa w}{2})=-\kappa w\ne0$ while $u_Y\ne0$. So the operation is not antisymmetric. The antisymmetric part of $\{\cdot,\cdot\}$ is the field Lie bracket, which satisfies Jacobi (\texttt{jacF\_eq\_zero}). On the diagonal, $J(a,a,a)=3\{\{a,a\},a\}$, and it is nonzero because of the symmetric part.
+(ii$'$) \emph{Both witnesses repeat arguments:} the field witness is $(a_Z,a_Z,a_Z)$ with complex $\kappa,w$, and the $\mathbb R^3$ witness is $(e_2,e_2,e_3)$ with real $\kappa,w$. No witness with three distinct arguments is proved.
+(ii$''$) The result is therefore a valid algebraic failure of the cyclic Jacobi identity for this specified operation. It is \emph{not} a failure of the Lie part, \emph{not} a Poisson-bracket failure, and \emph{not} a geometric refutation.
+(ii$'''$) \emph{Non-vacuity} (\texttt{paperII\_nonvacuous}): at $\kappa=w=1$ all statements hold with nonzero values, so the hypothesis $\kappa w\ne0$ is satisfiable.\\ (iii) $\kappa,w$ are free complex parameters. In particular $w$ is not computed from $a_Z$ or $u_Y$.
+(iv) A related witness in the file, \texttt{shearX\_jacobi\_fails} (line 401), uses $u_X=(\sin x,0,0)$. That field is \emph{not} divergence-free (\texttt{not\_divFree\_uX}), so it is not used here.
+\end{remark}
+\section{Vector-level witness}
+\texttt{FTVerified/May/JacobiWitness.lean} works in the abstract framework of \texttt{Jacobi.lean}. Let $H=\mathbb R^3$ (Euclidean), $P(a,b)=a\times b$ (\texttt{crossBr}, a classical bracket: \texttt{crossBr\_isClassical}), $u=e_1$, and $T(a,b)=-(\kappa w)\langle\Pi_u a,\Pi_u b\rangle u$ with $\Pi_u$ the orthogonal projection onto $u^\perp$ and $\kappa,w\in\mathbb R$.
+\begin{theorem}[\texttt{mixed\_sum\_eq}:60, \texttt{tethered\_jacobiator\_ne\_zero}:78]\label{thm:vec}
+The mixed sum at $(e_2,e_2,e_3)$ equals $(\kappa w)e_2$. Hence, if $\kappa w\ne0$, the Jacobiator of $P+T$ at $(e_2,e_2,e_3)$ is nonzero.
+\end{theorem}
+\begin{proof}
+$M(e_2,e_2,e_3)=T(e_2,e_2)\times e_3+T(e_2\times e_2,e_3)=-\kappa w\,e_1\times e_3+0=\kappa w\,e_2$.
+$M(e_2,e_3,e_2)=T(e_2,e_3)\times e_2+T(e_1,e_2)=0$, because $\langle e_2,e_3\rangle=0$ and $\Pi_ue_1=0$.
+$M(e_3,e_2,e_2)=T(e_3,e_2)\times e_2+T(-e_1,e_2)=0$.
+The Jacobiator equals the mixed sum (\texttt{jacobiator\_eq\_mixed}: the classical terms cancel by Jacobi for $\times$, and the $TT$ terms vanish because $\Pi_u u=0$).
+\end{proof}
+This witness is finite-dimensional linear algebra. It has no notion of a velocity field, and divergence-freeness does not enter it. It is \emph{not} a Fourier-field statement, and it should not be read as one.
+\section{Lean mapping}
+\small\let\oldus\_\renewcommand\_{\oldus\allowbreak}\begin{tabularx}{\linewidth}{@{}>{\raggedright}p{0.14\linewidth}>{\raggedright}p{0.36\linewidth}>{\raggedright\arraybackslash}X@{}}\toprule
+Statement & Lean name (file:line) & Exact hypotheses\\\midrule
+Thm.~\ref{thm:main} & \texttt{FieldJacobi.shearY\_jacobi\_fails\_transverse}:406 & \texttt{\{$\kappa$ w : $\mathbb{C}$\}}, \texttt{h : $\kappa$ * w $\ne$ 0}; concludes \texttt{jacT $\kappa$ w uY aZ aZ aZ $\ne$ 0}\\
+Thm.~\ref{thm:coeff} & \texttt{FieldJacobi.shearY\_transverse\_coeff}:347 & none (any $\kappa,w$)\\
+& \texttt{FieldJacobi.shearY\_transverse\_ne\_zero}:352 & $\kappa w\ne0$\\
+Lem.~\ref{lem:diag} & \texttt{FieldJacobi.mixedSumF\_diag}:257 & none\\
+Lem.~\ref{lem:vals} & \texttt{pr\_uY\_aZ}:265, \texttt{pr\_aZ\_aZ}:269, \texttt{br\_uY\_aZ\_coeff}:273, \texttt{divFree\_aZ}:299, \texttt{divFree\_uY}:295 & none\\
+Lem.~\ref{lem:red} & \texttt{FieldJacobi.jacT\_eq\_mixedSum}:384 & \texttt{pr u u $\ne$ 0}\\
+Thm.~\ref{thm:vec} & \texttt{JacobiWitness.tethered\_jacobiator\_ne\_zero}:78; \texttt{mixed\_sum\_eq}:60 & \texttt{\{$\kappa$ w : $\mathbb{R}$\}}, \texttt{h : $\kappa$ * w $\ne$ 0}\\
+Rem.\ (ii) & \texttt{brT\_uY\_aZ\_aZ}, \texttt{brT\_not\_antisymm} (Companion) & none; $\kappa w\ne0$ for the second\\
+Rem.\ (ii$'''$) & \texttt{paperII\_nonvacuous} (Companion) & none\\
+\bottomrule\end{tabularx}\normalsize
+\section{Provenance, reproduction and axioms}
+\begin{itemize}
+\item Full Lean source: \url{https://github.com/BenFrohman/frohmanian-tether-verified}, code commit\\ \nolinkurl{cf04afd5cd9b314703a5c8b196d83ec6b7979e6d} (pull request~\#2; Apache-2.0). The definitions and the original theorems are in \nolinkurl{FTVerified/May/FieldJacobi.lean} and \nolinkurl{JacobiWitness.lean}, unchanged since \texttt{26f16da}; the new theorems are in \nolinkurl{FTVerified/Companion/JacobiCompanion.lean}. Line numbers refer to these files. Geometric comparison repository: \texttt{BenFrohman/frohmanian-tether-geometric} at \texttt{9e40ae7}.
+\item Lean toolchain (\texttt{lean-toolchain}): \texttt{leanprover/lean4:v4.30.0-rc1}.
+\item Mathlib (\texttt{lake-manifest.json}): input rev \texttt{v4.30.0-rc1}, locked rev\\ \texttt{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7}.
+\end{itemize}
+One-command rebuild (repository root, at the commit above):
+\begin{verbatim}
+lake exe cache get && lake build && python3 scripts/check_jacobi_axioms.py
+\end{verbatim}
+GitHub Actions ran this, together with a comment-aware scan for \texttt{sorry}, \texttt{admit}, \texttt{native\_decide} and \texttt{axiom} over all 31 project modules, in run\\ \url{https://github.com/BenFrohman/frohmanian-tether-verified/actions/runs/42923330722} (passed: full library build of 8295 jobs; \texttt{PASS: 49 declarations, standard axioms only}). The axiom lines for the declarations used in this paper are (full names are the bracketed namespace prefix \texttt{Frohman.Tether.} plus the quoted name):
+{\footnotesize\begin{verbatim}
+[Frohman.Tether.FieldJacobi]
+  'FieldJacobi.jacT_eq_mixedSum'
+  'FieldJacobi.mixedSumF_diag'
+  'FieldJacobi.pr_uY_aZ'
+  'FieldJacobi.pr_aZ_aZ'
+  'FieldJacobi.br_uY_aZ_coeff'
+  'FieldJacobi.divFree_aZ'
+  'FieldJacobi.divFree_uY'
+  'FieldJacobi.shearY_transverse_coeff'
+  'FieldJacobi.shearY_transverse_ne_zero'
+  'FieldJacobi.shearY_jacobi_fails_transverse'
+[Frohman.Tether.JacobiCompanion]
+  'JacobiCompanion.brT_uY_aZ_aZ'
+  'JacobiCompanion.brT_not_antisymm'
+  'JacobiCompanion.paperII_nonvacuous'
+[Frohman.Tether.JacobiWitness]
+  'JacobiWitness.mixed_sum_eq'
+  'JacobiWitness.tethered_jacobiator_ne_zero'
+  each: depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}}
+\noindent The checker fails the build if any audited declaration depends on anything beyond \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}.
+
+\section{Comparison with the geometric repository}
+The repository \texttt{frohmanian-tether-geometric} at commit \texttt{9e40ae7} formalizes a different object. Line numbers below refer to that commit.
+\begin{itemize}
+\item \emph{Geometric bracket} (\texttt{SymplecticTether.lean}\\ 353--381). It is a \emph{scalar} bracket of functionals, $\{F,G\}=\mathrm{ClassicalBracket}(F,G)(\omega)+\mathrm{TetherKernel}(\omega,F,G)$, with
+\[\mathrm{TetherKernel}(\omega,F,G)=-\kappa\,\mathrm{Enstrophy}(\omega)\int\big\langle \Pi_{u(\omega)}\,\delta F(x),\ \Pi_{u(\omega)}\,\delta G(x)\big\rangle\,dx .\]
+The tether axis is state-dependent: $u(\omega)$ is \texttt{velocity\_from\_vorticity}~$\omega$, the Biot--Savart velocity (\texttt{ArnoldGeometric.lean} 918).
+\item \emph{Parameters.} The geometric bracket has no free parameter $w$. Its tether prefactor is $-\kappa\cdot\mathrm{Enstrophy}(\omega)$, with $\kappa$ fixed at $3/2$ (\texttt{kappa\_eq\_three\_halves}, \texttt{SymplecticTether.lean} 300--310), and $\mathrm{Enstrophy}(\omega)=\int\|\omega\|^2$ is a state functional (\texttt{ArnoldGeometric.lean} 208--213).
+\item \emph{Projection.} $\Pi_u$ is the global $L^2$ Gram--Schmidt projector $v\mapsto v-\frac{\int v\cdot u}{\int\|u\|^2}u$ (\texttt{ForMathlib/\allowbreak Projection.lean} 35).
+\item \emph{Functional derivative.} $\delta F$ is a chosen G\^ateaux representative in the vorticity pairing, and it is $0$ if no representative exists (\texttt{FunctionalDerivative}, \texttt{ArnoldGeometric.lean} 313). For the kinetic energy the representative is the stream function $\psi$, not the velocity (\texttt{SymplecticTether.lean} 366--368).
+\item \emph{Fourier model (here).} $u$ is \emph{frozen}, $\kappa,w\in\mathbb C$ are free, and $\{a,b\}$ is a \emph{vector-valued} operation on velocity-slot fields.
+\end{itemize}
+\paragraph{Shared features (stated, not an identification).} The geometric operation is also not antisymmetric, because its correction is symmetric. Its diagonal tether is negative semidefinite: $\{F,F\}=T(F,F)=-\kappa\|\omega\|^2\int\|\Pi_u\delta F\|^2\le0$ (\texttt{SymplecticTether.lean} 375--380). No geometric Jacobi witness is proved in that repository. Its \texttt{tethered\_jacobi\_identity} (\texttt{SymplecticTether.lean} 1187--1196) is conditional on the hypotheses \texttt{hident} (the Jacobiator equals an integrated cyclic Lie pairing) and \texttt{hvanish} (that integral vanishes); its proof is the rewrite \texttt{rw [hident, hvanish]}.
+\paragraph{Why nothing transports.} Pairing the vector operation here with a state $m$ produces a factor $\langle m,u\rangle$ from the tether term. Even formally, the parameters could therefore be matched only pointwise, where that pairing is nonzero. No identification between the two models is claimed.
+\emph{Informal remark (not proved):} because $u$, $\mathrm{Enstrophy}$ and $\Pi_{u(\omega)}$ depend on the state, one expects a geometric Jacobiator to contain extra terms involving $\delta E$ and $\delta\Pi$, which the frozen-$u$ \texttt{jacT} lacks. Neither the differentiability of the state-dependent $\Pi$ nor any geometric Jacobiator formula is proved in either repository. Neither the restricted identity (paper~I) nor the counterexample (paper~II) is claimed to transport to the geometric setting. This comparison is not a refutation, or a confirmation, of any geometric statement.
+
+\section{Audit scope}
+\begin{itemize}
+\item The result concerns the \emph{finite-Fourier field model} $\Fld$ of complex trigonometric-polynomial vector fields on $\mathbb T^3$, with the vector-valued bracket $\{a,b\}=\br ab+T(a,b)$ defined above. It is not a statement about a Poisson bracket on functionals, about smooth or Sobolev fields, or about Navier--Stokes solutions.
+\item No identification of this model, or of the shear class, with the geometric reduced coadjoint orbit (or with $u^\perp$ in any geometric sense) has been proved in Lean or here. The link from Fourier coefficients to the \texttt{fderiv}-based fields of \texttt{Torus.lean} is not formalized for \texttt{br}.
+\item Kernel checking establishes that the stated Lean propositions follow from the stated definitions. It does not establish that the definitions faithfully model the intended geometry, nor any novelty of the results.
+\item Nothing here bears on any Clay Millennium Problem, and no such claim is made.
+\end{itemize}
+\paragraph{License.} Text: Apache-2.0, matching the source repository. Copyright 2026 Benjamin Stanley Frohman.
+
+\section{Relation to companion paper I}
+Paper~I (\emph{A Restricted Jacobi Identity (Elementary Checked Boundary Case) for the Field-Level Tethered Bracket on the Divergence-Free Shear Class}) proves \texttt{shearY\_jacobi\_holds} (line 410). At the same $u_Y$, $J(a,b,c)=0$ whenever $a,b,c$ are XOnly and divergence-free. The field $a_Z$ here is divergence-free but not XOnly, so Theorem~\ref{thm:main} shows that the XOnly hypothesis of paper~I cannot be dropped: an explicit divergence-free diagonal triple fails. There is no contradiction between the two papers.
+\end{document}
