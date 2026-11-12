@@ -4,6 +4,10 @@ Author: Benjamin Stanley Frohman (metadata form: Frohman, Benjamin Stanley)
 Affiliation: Independent Researcher, Texas, United States
 ORCID 0009-0006-7068-3718 · frohmanbenjamin@gmail.com · Apache-2.0 · preprint, not peer reviewed
 
+Published version 1.1 (11 November 2026; source pinned to `a761aed`; papers CC BY 4.0, code
+Apache-2.0): paper I DOI [10.5281/zenodo.24145329](https://doi.org/10.5281/zenodo.24145329),
+paper II DOI [10.5281/zenodo.24145335](https://doi.org/10.5281/zenodo.24145335).
+
 - `paper-I-restricted.tex` / `.pdf`: restricted Jacobi identity on the divergence-free
   e_x-directed shear class, for every axis with `pr u u ≠ 0`.
 - `paper-II-counterexample.tex` / `.pdf`: antisymmetry and cyclic Jacobi fail for the specified
