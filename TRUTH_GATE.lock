@@ -1,0 +1,17 @@
+{
+  "semantics_file": "FTVerified/Semantics.lean",
+  "semantics_module": "FTVerified.Semantics",
+  "paper_path": "paper/frohmanian-tether-verified.tex",
+  "paper_sha256": "93bde1b66ac8ee68e33935c77c95a7a76e7a1bd5badd9b66f6663f110886cef9",
+  "main_theorems": [
+    "FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2"
+  ],
+  "lock_region_sha256": "59d999363bb7e4b89c308ef9d4a2f23b00da79fb8001dcc7a13abd6c761f8a6c",
+  "draft_dirs": [
+    "FTVerified/Draft"
+  ],
+  "lean_roots": [
+    "FTVerified",
+    "FTVerified.lean"
+  ]
+}
