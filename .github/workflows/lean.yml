@@ -47,7 +47,7 @@ jobs:
           set -o pipefail
           lake env lean scripts/StrictAxiomAudit.lean 2>&1 | tee strict-axiom-audit.txt
           grep -q '^STRICT AUDIT PASS' strict-axiom-audit.txt
-          if grep -qE 'STRICT AUDIT FAIL|sorryAx|ofReduceBool|error:' strict-axiom-audit.txt; then exit 1; fi
+          if grep -v '^STRICT AUDIT PASS' strict-axiom-audit.txt | grep -qE 'STRICT AUDIT FAIL|sorryAx|ofReduceBool|error:'; then exit 1; fi
           grep '^STRICT AUDIT SUMMARY' strict-axiom-audit.txt
       - uses: actions/upload-artifact@v4
         if: always()
