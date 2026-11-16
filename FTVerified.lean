@@ -34,6 +34,7 @@ import FTVerified.May.GlobalRegularity
 import FTVerified.Paper
 import FTVerified.Companion.JacobiCompanion
 import FTVerified.Companion.LiePoissonJacobiCore
+import FTVerified.Semantics
 
 /-!
 # FTVerified
