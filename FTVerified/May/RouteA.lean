@@ -1,21 +1,23 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
-Copyright (c) 2026 Benjamin Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.Metriplectic
+
+/-!
+# FTVerified.May.RouteA
+
 Author: Benjamin Frohman (prepared with assistance from Grok; not a co-author).
-
 # C3, Route A form (May 20 2026 slide; May 21 PASS 2 wording)
-
 May 20 "Route A" slide (phone image, no server date): C3 = "Negative Feedback at |ω|
 maxima + 5-step + 9-term Jacobi on reduced orbit (D→C→A→B)".
-
 May 21 PASS 2 text (Full_Living_Document…md, Drive, modified 2026-05-24): "When the
 evolution of the mollified sup-norm functional M_ε(t) = ‖ω_ε(t)‖_{L∞} is computed at a
 spatial maximum point, the correction must contribute a term whose leading-order
 contribution is exactly −κ M_ε(t)² with κ > 0 … the classical stretching term
 contributes exactly +M_ε(t)² … forces κ = C_CZ(3)."
-
 ## Abstract model
 * `ω : H` — the normalized vorticity direction at the maximizer of `|ω|²` (unit,
   orthogonal to `u`, i.e. on the reduced orbit).
@@ -28,7 +30,6 @@ contributes exactly +M_ε(t)² … forces κ = C_CZ(3)."
   shadow of the "9-term Jacobi" check; the 9-term cyclic expansion itself is not
   formalized. The "5-step" is the uniqueness proof (Basic.lean, steps 1–5).
 -/
-import FTVerified.May.Metriplectic
 
 namespace Frohman.Tether
 

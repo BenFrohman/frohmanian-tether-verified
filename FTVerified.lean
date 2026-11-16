@@ -1,5 +1,9 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
 import FTVerified.May.Basic
 import FTVerified.May.BiotSavart
 import FTVerified.May.ChevalleyEilenberg
@@ -30,3 +34,9 @@ import FTVerified.May.GlobalRegularity
 import FTVerified.Paper
 import FTVerified.Companion.JacobiCompanion
 import FTVerified.Companion.LiePoissonJacobiCore
+
+/-!
+# FTVerified
+
+Machine-checked Lean 4 module.
+-/

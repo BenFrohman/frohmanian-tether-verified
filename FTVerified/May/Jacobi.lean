@@ -1,18 +1,21 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.Basic
+
+/-!
+# FTVerified.May.Jacobi
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # The 9-term Jacobi expansion (May 20 2026 Route A, "9-term Jacobi on the reduced orbit")
-
 Algebraic model: the tethered bracket is `{a,b}_{𝔗_F} = P(a,b) + T(a,b)` on `H`, where
 `P` is a vector-valued bracket satisfying the Jacobi identity (the classical part) and
 `T(a,b) = -(κ w) ⟪Π_u a, Π_u b⟫ • u` is the vector-valued tether (values along `u`).
 The Jacobiator `J(a,b,c) = Σ_cyc {{a,b},c}` splits into 9 cyclic groups:
 3 classical–classical, 3 mixed, 3 tether–tether.
-
 Proved: (i) the 9-term expansion; (ii) the 3 classical terms cancel (Jacobi for `P`);
 (iii) each of the 3 tether–tether terms is zero because `Π_u u = 0`; hence
 (iv) `J = 0` **iff** the 3 mixed terms cancel — the exact condition. In general they do
@@ -20,7 +23,6 @@ not cancel (the tether is symmetric: the bracket is metriplectic, not Poisson).
 (v) Sufficient condition: `u` central for `P` and `P` maps into `span u` modulo `Π_u`,
 i.e. `Π_u (P a b) = 0` — then all mixed terms vanish.
 -/
-import FTVerified.May.Basic
 
 namespace Frohman.Tether
 

@@ -1,14 +1,19 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.TetheredLyapunov
+import Mathlib.Analysis.InnerProductSpace.PiL2
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+
+/-!
+# FTVerified.May.Torus
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # Concrete velocity fields on the 3-torus (LOCAL)
-
 Ties the abstract record `NSTetherSolution` to an actual velocity field.
-
 * The 3-torus `𝕋³ = ℝ³/ℤ³` is modelled by fields on `ℝ³ = EuclideanSpace ℝ (Fin 3)` that are
   `1`-periodic in each coordinate direction (`IsPeriodic`).
 * `u : ℝ → ℝ³ → ℝ³` is the velocity, `p : ℝ → ℝ³ → ℝ` the pressure; derivatives are Fréchet
@@ -28,9 +33,6 @@ Ties the abstract record `NSTetherSolution` to an actual velocity field.
 * `toNSTetherSolution` builds the abstract record with `SmoothOn T := ClassicalSolutionOn … T`;
   monotonicity, `SmoothOn 0` and `y ≥ 0` are PROVED.
 -/
-import FTVerified.May.TetheredLyapunov
-import Mathlib.Analysis.InnerProductSpace.PiL2
-import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 namespace Frohman.Tether.Torus
 

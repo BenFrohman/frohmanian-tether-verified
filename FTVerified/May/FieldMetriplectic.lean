@@ -1,22 +1,16 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
-Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
-# Metriplectic (Morrison) reading of the field-level tethered bracket
-
-The test splits the bracket `{·,·} = br + T` into two parts, as Morrison does:
-1. antisymmetric (classical) part `br`: Jacobi holds (`FieldJacobi.jacF_eq_zero`);
-2. symmetric part `T = tetF`: we check symmetry (`tetF_symm`), degeneracy in the energy
-   direction `dH = u` (`tetF_energy_left/right`, because `Π_u u = 0`), and the sign of its quadratic form
-   `dissF a = −(κw)⟨Π_u a,Π_u a⟩` at the two shear tests.
-The mixed Jacobi failures in `FieldJacobi` are *not* required to vanish in the
-metriplectic framework. There, Jacobi is asked only of the antisymmetric part.
-Statements concern the tethered bracket on trigonometric polynomials only, not plain NS.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import FTVerified.May.FieldJacobi
+
+/-!
+# FTVerified.May.FieldMetriplectic
+
+Machine-checked Lean 4 module.
+-/
 
 namespace Frohman.Tether.FieldMetriplectic
 open Frohman.Tether.FieldJacobi

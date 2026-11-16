@@ -1,5 +1,3 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
@@ -12,6 +10,12 @@ public import Mathlib.Analysis.InnerProductSpace.PiL2
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import FTVerified.Sdiff.NS_Equations
 public import FTVerified.Sdiff.ArnoldGeometric
+
+/-!
+# FTVerified.Sdiff.ForMathlib.Projection
+
+Machine-checked Lean 4 module.
+-/
 
 open InnerProductSpace
 open ArnoldGeometric (pairing)

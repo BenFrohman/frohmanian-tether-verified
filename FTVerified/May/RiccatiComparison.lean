@@ -1,20 +1,23 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.Layer2
+import Mathlib.Analysis.Calculus.Deriv.Inv
+
+/-!
+# FTVerified.May.RiccatiComparison
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # Riccati comparison: plain blow-up vs. tethered ceiling (the author's comparison ODE)
-
 The author's comparison ODE (Full Living Document, PASS 2, 2026-05-21, `history/2026-05-21_PASS2_C3/`)
 is `y' = C y² − κ'' y³`, with bound `y ≤ max(y(0), C/κ'')` (`Layer2.comparison_bound`).
 Dropping the tether (`κ'' = 0`) leaves `y' = C y²`, whose solution
 `y(t) = y₀/(1 − C y₀ t)` is unbounded before `T* = 1/(C y₀)` (`riccati_blowup`).
 This is ODE comparison only; it says nothing about plain Navier–Stokes solutions.
 -/
-import FTVerified.May.Layer2
-import Mathlib.Analysis.Calculus.Deriv.Inv
 
 namespace Frohman.Tether.Riccati
 

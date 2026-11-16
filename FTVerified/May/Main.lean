@@ -1,22 +1,24 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.RouteA
+import FTVerified.May.Layer2
+
+/-!
+# FTVerified.May.Main
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # Main theorem: κ derived from the stretching coefficient (May 20 2026 Route A)
-
 At a reduced unit maximizer `ω` of `|ω|²`, the leading quadratic coefficient of the
 evolution of `M = ‖ω‖_∞` is modelled as `stretching + feedback = S·w + B(ω,ω)`.
 Route A C3 asks that this leading coefficient vanish (exact matching). No separate
 calibration constant is assumed: `κ` is *derived* as `κ = S` (`routeA_determines_kappa`).
-
 Model assumption (honest scope): the identification of the leading coefficient with
 `S·w + B(ω,ω)` is the May 20 modelling step; it is not derived here from Navier–Stokes.
 -/
-import FTVerified.May.RouteA
-import FTVerified.May.Layer2
 
 namespace Frohman.Tether
 

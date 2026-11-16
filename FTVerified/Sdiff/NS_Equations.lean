@@ -1,5 +1,3 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
@@ -45,6 +43,12 @@ public import Mathlib.Topology.Separation.Hausdorff
 public import Mathlib.Analysis.Calculus.MeanValue
 public import Mathlib.Analysis.ODE.Gronwall
 public import Mathlib.Analysis.SpecialFunctions.Log.Basic
+
+/-!
+# FTVerified.Sdiff.NS_Equations
+
+Machine-checked Lean 4 module.
+-/
 
 open scoped BigOperators Gradient Topology
 open ENNReal InnerProductSpace MeasureTheory Finset Filter

@@ -1,27 +1,29 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.Jacobi
+import Mathlib.LinearAlgebra.CrossProduct
+import Mathlib.Analysis.InnerProductSpace.PiL2
+
+/-!
+# FTVerified.May.JacobiWitness
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # An explicit witness that the mixed Jacobi terms do NOT cancel
-
 Concrete instance of the `Jacobi.lean` framework: `H = ℝ³` (Euclidean), classical bracket
 `P(a,b) = a × b` (the `so(3)` Lie–Poisson / vorticity bracket, which satisfies Jacobi), and
 tether axis `u = e₁` — the amplitude direction shared by both shears `(sin y,0,0)` and
 `(sin x,0,0)` of `ChevalleyEilenberg.lean`. With `a = b = e₂`, `c = e₃` the mixed cyclic sum
 equals `(κ w) • e₂`, hence is nonzero whenever `κ w ≠ 0`, and the tethered Jacobiator is
 nonzero.
-
 Caveat (stated honestly): the `Jacobi.lean` framework is finite-dimensional algebra on `H`;
 it has no map from a velocity field to functionals, so divergence-freeness never enters.
 The same witness works for the axis of either shear, so in this framework the
 divergence-free condition cannot make the mixed terms cancel.
 -/
-import FTVerified.May.Jacobi
-import Mathlib.LinearAlgebra.CrossProduct
-import Mathlib.Analysis.InnerProductSpace.PiL2
 
 namespace Frohman.Tether.JacobiWitness
 

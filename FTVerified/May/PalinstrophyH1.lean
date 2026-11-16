@@ -1,12 +1,16 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
-Copyright (c) 2026 Benjamin Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
 
+import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Analysis.ODE.Gronwall
+import FTVerified.May.LogLoss
+
+/-!
 # Next rung for the TETHERED system: Lᵖ, H¹ (palinstrophy), and the Hˢ part of
 # `HigherNormControl`
-
 Model (stated precisely, see README "Model caveat"): the quartic tether enters the VORTICITY
 equation as the Leray-projected field `−κ P(|ω|²ω)`:
   `ω_t + u·∇ω − ω·∇u = νΔω − κ P(|ω|²ω)`.
@@ -15,13 +19,9 @@ Since `ω` and `Δω` are divergence-free and `P` is L²-self-adjoint,
   `∫ ∇ω:∇P(|ω|²ω) = ∫ ∇ω:∇(|ω|²ω) = ∫ |ω|²|∇ω|² + ½|∇|ω|²|² ≥ 0` (H¹ level, `tether_H1_density_nonneg`).
 NOTE: this is NOT literally `curl` of the velocity forcing `quarticTether` in Torus.lean;
 the two formulations must be reconciled before any public claim.
-
 Plain Navier–Stokes: `κ = 0`. The H¹ step below then needs the L² bound as an INPUT, which
 plain NS does not supply (it is the classical open enstrophy bound).
 -/
-import Mathlib.Analysis.SpecialFunctions.Sqrt
-import Mathlib.Analysis.ODE.Gronwall
-import FTVerified.May.LogLoss
 
 namespace Frohman.Tether.PalinstrophyH1
 

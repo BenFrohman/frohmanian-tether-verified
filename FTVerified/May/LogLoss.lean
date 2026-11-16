@@ -1,15 +1,18 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.Final
+
+/-!
+# FTVerified.May.LogLoss
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # Log-loss stretching (LOCAL) — replaces the too-strong `StretchingCZ`
-
 `StretchingCZ` (`ω·Sω ≤ C y³`) is FALSE as an L∞ estimate (CZ operators are unbounded on L∞)
 and is now deprecated. It is replaced by two TRUE statements:
-
 * `StretchingByStrain`: `ω·Sω ≤ ‖S‖∞ |ω|²` at the maximizer (Cauchy–Schwarz / operator norm).
 * `BKMLogInequality`: `‖S‖∞ ≤ ‖∇u‖∞ ≤ C (1 + ‖ω‖_{L²} + ‖ω‖_{L∞} log(e + ‖ω‖_{Hˢ}))`, s > 3/2,
   on `𝕋³`. Literature: Beale–Kato–Majda, Comm. Math. Phys. 94 (1984) 61–66, the logarithmic
@@ -17,16 +20,13 @@ and is now deprecated. It is replaced by two TRUE statements:
   using `1+log⁺ z ≤ 2 log(e+z)`); Brezis–Gallouët, Nonlinear Anal. 4 (1980) 677–681;
   Kozono–Taniuchi, Comm. Math. Phys. 214 (2000) 191–200 (BMO refinement). Here `Z ≥ 0` is
   (a bound for) `‖ω‖_{Hˢ}` and `Z0` for `‖ω‖_{L²}`.
-
 Result (TETHERED system, quartic 𝔗_F feedback `−κ y⁴`):
   `y' ≤ C(1+Z0) y + C log(e+Z) y² − κ'' y³`,  κ'' = κ/2 − C_abs.
 Cubic damping beats `y² log` once `κ'' y > C log(e+Z)`: with `Z ≤ Zb`, `Z0 ≤ Z0b` on `[0,T]`,
 `y ≤ Y* = max(y₀, B/κ'' + √(A/κ''))`, `A = C(1+Z0b)`, `B = C log(e+Zb)`.
-
 The price: an a priori `Hˢ` bound `HigherNormControl`. Since `Hˢ ⊂ L∞` (s>3/2), that bound by
 itself already controls `y`; so the hypothesis is CIRCULAR for the regularity question.
 -/
-import FTVerified.May.Final
 
 namespace Frohman.Tether
 

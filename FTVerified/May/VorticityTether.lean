@@ -1,17 +1,22 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.Final
+import FTVerified.May.EnstrophyL2
+import FTVerified.May.PalinstrophyH1
+
+/-!
+# FTVerified.May.VorticityTether
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # The tethered system at the VORTICITY level, reconciled with the velocity level (LOCAL)
-
 **The tethered system (one definition, used by L² and H¹):**
   `∂ₜω + (u·∇)ω = (ω·∇)u + νΔω − κ P(|ω|²ω)`,   `u = BiotSavart(ω)`,   `P` = Leray projection.
 Pointwise the tether density `−κ ω·(|ω|²ω)` is exactly the user's
 `quarticTether κ u ω = 𝔗_F[κ, ‖ω‖², u] ω ω = −κ|ω|⁴` (for `ω ⟂ u`), `quarticTether_density`.
-
 **Velocity level.** It comes from Navier–Stokes with the NONLOCAL force
   `F = curl⁻¹(−κ P(|ω|²ω))`  (`= −κ curl⁻¹ P(|ω|²ω)` for linear `curl⁻¹`),
 i.e. `curl F = −κ P(|ω|²ω)`. `IsTetheredNSQuartic` is `Torus.IsTetheredNS` with exactly this
@@ -22,17 +27,12 @@ tether field, so the velocity-level system of `Torus.lean` and the vorticity-lev
 * `CurlOfForcedNS` (taking curl of forced NS gives the vorticity equation with `curl F`;
   uses Schwarz symmetry and `curl((u·∇)u) = (u·∇)ω − (ω·∇)u` for div-free `u`). Standard;
   not formalized in this fderiv/periodic setting.
-
 **Proved here (abstract Hilbert space = L²):** with `P` self-adjoint and `Pω = ω`,
 `⟪ω, P g⟫ = ⟪ω, g⟫`, hence `∫ ω·P(|ω|²ω) = ∫|ω|⁴ = ‖ω‖₄⁴`; and if `P` commutes with
 `A = −Δ` (true: both are Fourier multipliers), `⟪Aω, P g⟫ = ⟪Aω, g⟫`, so the H¹ tether term is
 `∫∇ω:∇(|ω|²ω) ≥ 0`. These discharge the "model caveat" of PalinstrophyH1.
-
 Plain Navier–Stokes is `κ = 0` and is kept separate (`tetheredVorticity_zero_iff`).
 -/
-import FTVerified.May.Final
-import FTVerified.May.EnstrophyL2
-import FTVerified.May.PalinstrophyH1
 
 namespace Frohman.Tether.VorticityTether
 
