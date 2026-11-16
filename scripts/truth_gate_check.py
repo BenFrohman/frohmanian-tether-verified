@@ -66,6 +66,25 @@ else:
                  r"theorem\s+intended_correspondence\s*:\s*formal_claim\s*↔\s*paper_claim"]:
         if not re.search(decl, strip_comments_strings(region)):
             fail(f"lock region lacks `{decl}`")
+    code_region = strip_comments_strings(region)
+    # 2b. paper_claim must not mention formal_claim (no aliasing).
+    pm = re.search(r"def\s+paper_claim\s*:\s*Prop\s*:=(.*?)(?=^\s*(?:/--|theorem|def|lemma)\b|\Z)", code_region, re.S | re.M)
+    if not pm:
+        fail("cannot parse the body of paper_claim")
+    elif re.search(r"(?<![\w.'])(TruthGate\.)?formal_claim(?![\w'])", pm.group(1)):
+        fail("paper_claim's definition mentions formal_claim (vacuous alias)")
+    # 2c. intended_correspondence must have a substantive proof, not rfl / Iff.rfl.
+    cm = re.search(r"theorem\s+intended_correspondence\s*:\s*formal_claim\s*↔\s*paper_claim\s*:=(.*)", code_region, re.S)
+    if cm:
+        body = re.sub(r"\s+", " ", cm.group(1)).strip()
+        trivial = {"Iff.rfl", "rfl", "by rfl", "by exact Iff.rfl", "by exact rfl", "by apply Iff.rfl",
+                   "by constructor <;> exact id", "⟨id, id⟩", "Iff.intro id id", "by exact ⟨id, id⟩",
+                   "by simp", "by simp only [formal_claim, paper_claim]", "by unfold formal_claim paper_claim; rfl",
+                   "by unfold formal_claim paper_claim; exact Iff.rfl", "by decide", "by trivial", "by tauto"}
+        if body in trivial or re.fullmatch(r"(by\s+)?(exact\s+)?(Iff\.)?rfl", body):
+            fail(f"intended_correspondence is proved trivially (`{body}`); a substantive proof is required")
+        if re.search(r"(?<![\w.'])(Iff\.rfl|rfl)(?![\w'])", body) and len(body) < 40:
+            fail(f"intended_correspondence proof `{body}` is (essentially) rfl")
     got = hashlib.sha256(region.encode("utf-8")).hexdigest()
     if got != lock["lock_region_sha256"]:
         fail(f"lock region sha256 {got} != locked {lock['lock_region_sha256']} "
@@ -83,6 +102,13 @@ else:
         fail("Semantics.lean docstring does not record the locked PAPER_SHA256")
     if f"PAPER_PATH: {lock['paper_path']}" not in src:
         fail("Semantics.lean docstring does not record PAPER_PATH")
+    if not re.search(r"^PAPER_SECTION: \S", src, re.M):
+        fail("Semantics.lean docstring lacks a PAPER_SECTION: field")
+    tg = open(os.path.join(ROOT, "TRUTH_GATE.md"), encoding="utf-8").read() if os.path.isfile(os.path.join(ROOT, "TRUTH_GATE.md")) else ""
+    if not tg:
+        fail("TRUTH_GATE.md missing")
+    elif lock["paper_sha256"] not in tg or lock["paper_path"] not in tg:
+        fail("TRUTH_GATE.md does not record the locked paper path and sha256")
     quotes = re.findall(r"PAPER_QUOTE_BEGIN\n(.*?)\nPAPER_QUOTE_END", src, re.S)
     if not quotes:
         fail("no PAPER_QUOTE_BEGIN/END block in Semantics.lean")
@@ -90,6 +116,8 @@ else:
     for q in quotes:
         if norm(q) not in paper:
             fail("quoted paper text not found verbatim in the paper file: " + norm(q)[:120])
+        if tg and norm(q) not in norm(tg):
+            fail("TRUTH_GATE.md does not carry the verbatim paper quote")
 
 # 5. forbidden tokens outside draft directories
 drafts = [d.strip("/") for d in lock["draft_dirs"]]

@@ -11,6 +11,7 @@ import FTVerified.Sdiff.ObstructionAudit
 
 PAPER_PATH: paper/frohmanian-tether-verified.tex
 PAPER_SHA256: 93bde1b66ac8ee68e33935c77c95a7a76e7a1bd5badd9b66f6663f110886cef9
+PAPER_SECTION: Section 5 "Refuted claims", first item ("The tether damps the energy budget")
 
 Locked paper claim (Section "Refuted claims", first item), quoted verbatim:
 
