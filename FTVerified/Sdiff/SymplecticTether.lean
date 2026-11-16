@@ -1,5 +1,3 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
@@ -17,6 +15,12 @@ public import Mathlib.Tactic.Ring
 public import FTVerified.Sdiff.NS_Equations
 public import FTVerified.Sdiff.ArnoldGeometric
 public import FTVerified.Sdiff.ForMathlib.Projection
+
+/-!
+# FTVerified.Sdiff.SymplecticTether
+
+Machine-checked Lean 4 module.
+-/
 
 universe u
 

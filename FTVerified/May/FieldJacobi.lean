@@ -1,40 +1,16 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
-Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
-# Field-level tethered bracket on trigonometric-polynomial vector fields on 𝕋³
-
-Fields are finite Fourier sums `a(x) = Σ_k â_k e^{ik·x}` (`Fld`), reusing `kC` from
-`BiotSavart.lean`. On them:
-
-* `br` — the vector-field Lie bracket `[a,b] = (a·∇)b − (b·∇)a`, mode-wise
-  `[v e^{ip·x}, w e^{iq·x}] = i((v·q)w − (w·p)v) e^{i(p+q)·x}`; it satisfies Jacobi
-  (`jacF_eq_zero`), so the Arnold / Lie–Poisson bracket on linear functionals is classical.
-* `pr` — the `L²` pairing `(2π)⁻³∫ a·b`, extended complex-bilinearly (`Σ_k â_k·b̂_{−k}`).
-* `piF u` — field-level `Π_u x = x − (⟨u,x⟩/⟨u,u⟩) u`; `tetF` — `T(a,b) = −(κw)⟨Π_u a,Π_u b⟩ u`.
-* `DivergenceFree a` — `k·â_k = 0` for all `k`. This is where divergence-freeness enters.
-
-Results:
-1. `jacT_eq_mixedSum`: for `⟨u,u⟩ ≠ 0`, the tethered Jacobiator equals the mixed cyclic sum.
-2. `br_eq_zero_of_xOnly_divFree`: divergence-free `e_x`-directed fields (parallel shears
-   `f(y,z) e_x`) commute; hence `shearY_jacobi_holds` / `shearY_mixed_cancel`: at
-   `u = (sin y,0,0)` the mixed terms cancel and Jacobi holds on that class.
-3. `shearX_mixed_coeff`, `shearX_jacobi_fails`: at `u = (sin x,0,0)` (`not_divFree_uX`) with the
-   divergence-free triple `a = b = c = (1,0,0)`, the mixed sum has `e^{ix}` coefficient
-   `(3/2)κw ≠ 0`.
-4. `shearY_transverse_coeff`, `shearY_jacobi_fails_transverse`: at `u = (sin y,0,0)` with the
-   divergence-free triple `a = b = c = (0,0,sin x)`, the mixed sum has `e^{i(x+y)}`,
-   `z`-coefficient `(3i/8)κw ≠ 0`. So divergence-freeness alone does not give cancellation.
-
-Caveats: the witnesses use `a = b = c`, where the Jacobiator is `3·{{a,a},a}`. That is
-non-trivial only because `T` is symmetric (metriplectic). The link from Fourier coefficients to
-the `fderiv`-based fields of `Torus.lean` is not formalized for `br` here. Scalars are complex
-(the real fields used are conjugate-symmetric).
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import FTVerified.May.BiotSavart
+
+/-!
+# FTVerified.May.FieldJacobi
+
+Machine-checked Lean 4 module.
+-/
 
 set_option linter.unusedSimpArgs false
 

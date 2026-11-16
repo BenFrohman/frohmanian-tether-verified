@@ -1,34 +1,17 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
-Author: Benjamin Stanley Frohman
-
-# Jacobi companion papers I and II: generalization, non-vacuity, exact limits
-
-Everything here is about the finite-Fourier operation `brT κ w u` of
-`FTVerified/May/FieldJacobi.lean` (complex-bilinear pairing `pr`, Lean division,
-free complex parameters `κ, w`). Nothing here is about the geometric
-state-dependent bracket, a reduced coadjoint orbit, or the Navier–Stokes equations.
-
-* `shear_jacobi_holds_of_pr_ne_zero`: the restricted Jacobi identity for EVERY
-  `e_x`-directed divergence-free axis `u` with `pr u u ≠ 0` (paper I, generalizing
-  `shearY_jacobi_holds`, which is the case `u = uY`).
-* Non-vacuity for paper I: the hypothesis class is inhabited, and inside it the
-  tether term (hence the whole bracket) is nonzero: `brT κ w uY eX eX = -(κw) • uY`.
-  So the identity is not the trivial statement "every bracket in the class is 0".
-* `shear_jacobi_fails_isotropic`: the guard `pr u u ≠ 0` cannot be dropped. For the
-  `e_x`-directed divergence-free complex axis `uIso = e^{iy} e_x` one has
-  `pr uIso uIso = 0`; with Lean's convention `x / 0 = 0` the projection is the
-  identity and the Jacobiator on the real shear field `cY = (2 cos y, 0, 0)` equals
-  `6 (κw)^2 • uIso ≠ 0`. This is a statement about the operation exactly as defined
-  (including the division convention), not about any geometric bracket.
-* Paper II: antisymmetry fails as a stated theorem (`brT_uY_aZ_aZ`,
-  `brT_not_antisymm`), and the counterexample hypotheses are inhabited (`κ = w = 1`).
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import FTVerified.May.FieldJacobi
 import FTVerified.May.JacobiWitness
+
+/-!
+# FTVerified.Companion.JacobiCompanion
+
+Machine-checked Lean 4 module.
+-/
 
 set_option linter.unusedSimpArgs false
 

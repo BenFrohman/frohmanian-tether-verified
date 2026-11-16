@@ -1,18 +1,21 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.TetheredLyapunov
+
+/-!
+# FTVerified.May.GlobalRegularity
+
 Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
 # Global Regularity (rebuild of the May 28 2026 layout, LOCAL)
-
 Mirrors `Modules/GlobalRegularity.lean`. Part 1 (degeneracy) and Part 2 (uniqueness,
 Route A, κ = S) are proved. Part 3 is proved *conditional on* the named open step
 `NSTetherEnstrophyInequality` with `κ'' = S/2 − C_abs`, plus the classical
 `BKMContinuation` and `LocalContinuation` (not in Mathlib). No `sorry`, no axioms.
 -/
-import FTVerified.May.TetheredLyapunov
 
 namespace Frohman.Tether
 

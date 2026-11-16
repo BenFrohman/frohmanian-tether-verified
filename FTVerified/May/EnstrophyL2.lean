@@ -1,29 +1,19 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
-Copyright (c) 2026 Benjamin Frohman. All rights reserved.
-Released under Apache 2.0 license.
-
-# Enstrophy (`‖ω‖_{L²}`) bound for the TETHERED system (quartic `𝔗_F` feedback)
-
-Notation: `E = ½‖ω‖₂²`, `Q = ‖ω‖₄⁴`, `S = ∫ ω·Sω` (stretching), `D = ‖∇ω‖₂²`, unit torus `|T³| = 1`.
-Pointwise the quartic tether is `quarticTether κ u ω = 𝔗_F[κ, ‖ω‖², u] ω ω = −κ‖ω‖⁴`
-(`quarticTether_eq`, Final.lean); integrated it contributes `−κ‖ω‖₄⁴`.
-
-Named (cited) inputs — stated, not derived here:
-* `TetheredEnstrophyIdentity`: `E' = S − ν D − κ Q` (tethered vorticity equation, multiply by ω,
-  integrate by parts on T³; Majda–Bertozzi 2002 §3.1 for the untethered part).
-* `StrainL2Bound`: `S ≤ C‖ω‖₂‖ω‖₄²` — Hölder `|∫ω·Sω| ≤ ‖S‖₂‖ω‖₄²` plus the L² Biot–Savart
-  identity `‖∇u‖₂ = ‖ω‖₂` for div-free periodic `u` (Parseval; Majda–Bertozzi Prop. 2.16). TRUE.
-* `L4L2Holder`: `‖ω‖₂⁴ ≤ ‖ω‖₄⁴` on the unit torus (Hölder/Jensen).
-
-Plain Navier–Stokes: the `−κQ` term is absent; `S ≤ C‖ω‖₂‖ω‖₄²` then cannot be absorbed by
-`−νD` alone without the cubic `‖ω‖₂³`-type growth, so this argument does NOT close there.
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import Mathlib.Analysis.Calculus.MeanValue
 import Mathlib.Analysis.SpecialFunctions.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Analysis.ODE.Gronwall
+
+/-!
+# FTVerified.May.EnstrophyL2
+
+Machine-checked Lean 4 module.
+-/
 
 namespace Frohman.Tether.EnstrophyL2
 

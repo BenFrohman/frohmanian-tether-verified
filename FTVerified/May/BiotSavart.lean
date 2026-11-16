@@ -1,34 +1,18 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
-Author: Benjamin Stanley Frohman (prepared with assistance from Grok; not a co-author).
-
-# Biot–Savart on 𝕋³: `curl⁻¹` (LOCAL)
-
-Two levels.
-
-**(A) Fourier-coefficient level (exact, all modes `k ∈ ℤ³ \ {0}`).**
-`curl` acts on the `k`-th coefficient as `û ↦ i k × û`, `div` as `û ↦ i k·û`. The Biot–Savart
-multiplier `û = i k × ω̂ / |k|²` satisfies, whenever `k·ω̂ = 0` (div-free) and `k ≠ 0`:
-`curl û = ω̂`, `div û = 0`, and it is the UNIQUE div-free preimage; and (real amplitudes)
-`|k|²|û|² = |ω̂|²`, the per-mode form of `‖∇u‖₂ = ‖ω‖₂` (Parseval then sums it).
-
-**(B) Function level on trigonometric polynomials.** For a real mode
-`ω(x) = cos(K·x) a + sin(K·x) b` with `K ≠ 0`, `K·a = K·b = 0` we give an explicit
-`u = cos(K·x) α + sin(K·x) β` with `curl u = ω`, `div u = 0`, using the `fderiv`-based `curl`
-of `Torus.lean`; by linearity this extends to every finite sum of such modes, which discharges
-`CurlRightInverse` on the class of (div-free, mean-zero) real trigonometric polynomials.
-
-Remaining bridge (NOT done): extending `curl⁻¹` from trigonometric polynomials to all smooth
-periodic fields needs uniform convergence of Fourier series of smooth periodic functions on `𝕋³`
-together with their derivatives (Mathlib has Fourier series only on `AddCircle`, i.e. 1-D), and
-`‖∇u‖₂ = ‖ω‖₂` as an integral identity needs Parseval on `𝕋³`.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import FTVerified.May.CurlNS
 import Mathlib.LinearAlgebra.CrossProduct
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
+
+/-!
+# FTVerified.May.BiotSavart
+
+Machine-checked Lean 4 module.
+-/
 
 set_option linter.unusedSimpArgs false
 

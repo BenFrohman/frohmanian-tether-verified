@@ -1,12 +1,21 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
--- Author: Benjamin Stanley Frohman
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
 -- Axiom audit for the Jacobi companion papers I, II and the Lie–Poisson core.
 -- Checked by scripts/check_jacobi_axioms.py: only propext, Classical.choice, Quot.sound.
 import FTVerified.May.FieldJacobi
 import FTVerified.May.JacobiWitness
 import FTVerified.Companion.JacobiCompanion
 import FTVerified.Companion.LiePoissonJacobiCore
+
+/-!
+# scripts.JacobiAxiomAudit
+
+Machine-checked Lean 4 module.
+-/
 
 #print axioms Frohman.Tether.FieldJacobi.jacF_eq_zero
 #print axioms Frohman.Tether.FieldJacobi.br_self

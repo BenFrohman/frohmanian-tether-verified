@@ -1,17 +1,20 @@
--- SPDX-FileCopyrightText: 2026 Benjamin Stanley Frohman
--- SPDX-License-Identifier: Apache-2.0
 /-
-Copyright (c) 2026 Benjamin Frohman. All rights reserved.
-Released under Apache 2.0 license.
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
+import FTVerified.May.Basic
+
+/-!
+# FTVerified.May.Metriplectic
+
 Author: Benjamin Frohman (prepared with assistance from Grok; not a co-author).
-
 # The metriplectic split: Lie–Poisson (antisymmetric) ⊕ metric (symmetric)
-
 Benjamin Frohman's observation (Oct 29 2026): the antisymmetric (Lie–Poisson, 2-form)
 part and the symmetric (metric, `𝔗_F`) part of a bilinear bracket are orthogonal and
 "invisible" to each other. This file proves the algebraic content of that statement.
 -/
-import FTVerified.May.Basic
 
 namespace Frohman.Tether
 
