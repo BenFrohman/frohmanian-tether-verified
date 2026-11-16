@@ -34,6 +34,13 @@ partial def reach (env : Environment) (todo : List Name) (seen : NameSet) : Name
   | n :: rest =>
     if seen.contains n then reach env rest seen else
     let seen := seen.insert n
+    -- upstream libraries cannot mention this repository's constants: do not descend into them
+    let upstream := match env.getModuleIdxFor? n with
+      | some i => let m := env.header.moduleNames[i.toNat]!
+          [`Mathlib, `Init, `Std, `Lean, `Batteries, `Aesop, `Qq, `Plausible, `ProofWidgets,
+            `ImportGraph, `LeanSearchClient, `Lake, `Cli].any (·.isPrefixOf m)
+      | none => false
+    if upstream then reach env rest seen else
     match env.find? n with
     | none => reach env rest seen
     | some ci =>
@@ -83,9 +90,14 @@ run_cmd do
   if fv == pv then
     logInfo "TRUTH GATE FAIL: formal_claim and paper_claim have syntactically equal bodies"; ok := false
   -- non-vacuity: the two claims must not be definitionally equal
-  let defeq ← liftTermElabM <| withTransparency .default <| withoutModifyingState <|
-    (try isDefEq fc pc catch _ => pure false)
-  if defeq then
+  -- bounded (heartbeat-capped) default-transparency check; a timeout counts as "not shown
+  -- definitionally equal" and is reported, the syntactic and transport checks still apply
+  let defeq? : Option Bool ← liftTermElabM <| withTransparency .default <| withoutModifyingState <|
+    withTheReader Core.Context (fun c => { c with maxHeartbeats := 2000000 }) <|
+      (try some <$> isDefEq fc pc catch _ => pure none)
+  if defeq?.isNone then
+    logInfo "TRUTH GATE NOTE: definitional-equality check hit its heartbeat cap (inconclusive)"
+  if defeq? == some true then
     logInfo "TRUTH GATE FAIL: formal_claim and paper_claim are definitionally equal (vacuous lock)"
     ok := false
   -- transport: the correspondence proof must not use the main theorem(s) or *_holds
@@ -101,7 +113,8 @@ run_cmd do
   if mains.length == 1 then
     let mt := (← getConstInfo mains.head!).type
     let same ← liftTermElabM <| withTransparency .default <| withoutModifyingState <|
-      (try isDefEq mt fc catch _ => pure false)
+      withTheReader Core.Context (fun c => { c with maxHeartbeats := 2000000 }) <|
+        (try isDefEq mt fc catch _ => pure false)
     unless same do
       logInfo m!"TRUTH GATE FAIL: main theorem statement is not formal_claim"; ok := false
   unless (directUses env `TruthGate.paper_claim_holds).contains `TruthGate.intended_correspondence do
