@@ -6,7 +6,6 @@ name: Lean
 
 on:
   push:
-    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -41,6 +40,15 @@ jobs:
         run: |
           set -o pipefail
           python3 scripts/check_jacobi_axioms.py | tee axioms.txt
+      - name: Forbidden tokens over the whole FTVerified tree, with audit coverage check
+        run: python3 scripts/check_forbidden_tokens.py --require-imported-by scripts/StrictAxiomAudit.lean FTVerified.lean FTVerified
+      - name: Strict whole-library axiom audit (every declaration in FTVerified)
+        run: |
+          set -o pipefail
+          lake env lean scripts/StrictAxiomAudit.lean 2>&1 | tee strict-axiom-audit.txt
+          grep -q '^STRICT AUDIT PASS' strict-axiom-audit.txt
+          if grep -qE 'STRICT AUDIT FAIL|sorryAx|ofReduceBool|error:' strict-axiom-audit.txt; then exit 1; fi
+          grep '^STRICT AUDIT SUMMARY' strict-axiom-audit.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -48,3 +56,4 @@ jobs:
           path: |
             build.log
             axioms.txt
+            strict-axiom-audit.txt
