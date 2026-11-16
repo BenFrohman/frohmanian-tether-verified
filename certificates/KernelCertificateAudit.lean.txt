@@ -1,0 +1,54 @@
+import Lean
+import «FTVerified»
+import «FTVerified».«Companion».«JacobiCompanion»
+import «FTVerified».«Companion».«LiePoissonJacobiCore»
+import «FTVerified».«May».«Basic»
+import «FTVerified».«May».«BiotSavart»
+import «FTVerified».«May».«ChevalleyEilenberg»
+import «FTVerified».«May».«CurlNS»
+import «FTVerified».«May».«Enstrophy»
+import «FTVerified».«May».«EnstrophyL2»
+import «FTVerified».«May».«FieldJacobi»
+import «FTVerified».«May».«FieldMetriplectic»
+import «FTVerified».«May».«Final»
+import «FTVerified».«May».«GlobalRegularity»
+import «FTVerified».«May».«Jacobi»
+import «FTVerified».«May».«JacobiWitness»
+import «FTVerified».«May».«Layer2»
+import «FTVerified».«May».«LogLoss»
+import «FTVerified».«May».«Main»
+import «FTVerified».«May».«Metriplectic»
+import «FTVerified».«May».«PalinstrophyH1»
+import «FTVerified».«May».«RiccatiComparison»
+import «FTVerified».«May».«RouteA»
+import «FTVerified».«May».«TetheredLyapunov»
+import «FTVerified».«May».«Torus»
+import «FTVerified».«May».«VorticityTether»
+import «FTVerified».«Paper»
+import «FTVerified».«Sdiff».«ArnoldGeometric»
+import «FTVerified».«Sdiff».«ForMathlib».«Projection»
+import «FTVerified».«Sdiff».«NS_Equations»
+import «FTVerified».«Sdiff».«ObstructionAudit»
+import «FTVerified».«Sdiff».«SymplecticTether»
+
+open Lean Elab Command
+
+/-- Prints `#print axioms`-style lines for every theorem declared in the listed modules. -/
+elab "#kernel_certificate_audit" : command => do
+  let env ← getEnv
+  let mods : Array Name := #[`«FTVerified», `«FTVerified».«Companion».«JacobiCompanion», `«FTVerified».«Companion».«LiePoissonJacobiCore», `«FTVerified».«May».«Basic», `«FTVerified».«May».«BiotSavart», `«FTVerified».«May».«ChevalleyEilenberg», `«FTVerified».«May».«CurlNS», `«FTVerified».«May».«Enstrophy», `«FTVerified».«May».«EnstrophyL2», `«FTVerified».«May».«FieldJacobi», `«FTVerified».«May».«FieldMetriplectic», `«FTVerified».«May».«Final», `«FTVerified».«May».«GlobalRegularity», `«FTVerified».«May».«Jacobi», `«FTVerified».«May».«JacobiWitness», `«FTVerified».«May».«Layer2», `«FTVerified».«May».«LogLoss», `«FTVerified».«May».«Main», `«FTVerified».«May».«Metriplectic», `«FTVerified».«May».«PalinstrophyH1», `«FTVerified».«May».«RiccatiComparison», `«FTVerified».«May».«RouteA», `«FTVerified».«May».«TetheredLyapunov», `«FTVerified».«May».«Torus», `«FTVerified».«May».«VorticityTether», `«FTVerified».«Paper», `«FTVerified».«Sdiff».«ArnoldGeometric», `«FTVerified».«Sdiff».«ForMathlib».«Projection», `«FTVerified».«Sdiff».«NS_Equations», `«FTVerified».«Sdiff».«ObstructionAudit», `«FTVerified».«Sdiff».«SymplecticTether»]
+  for m in mods do
+    match env.getModuleIdx? m with
+    | none => IO.println s!"MODULE NOT LOADED {m}"
+    | some i =>
+      for n in (env.header.moduleData[i.toNat]!).constNames do
+        match env.find? n with
+        | some (.thmInfo _) =>
+          if !n.isInternal then
+            let ax ← collectAxioms n
+            let axs := ", ".intercalate (ax.toList.map toString)
+            if ax.isEmpty then IO.println s!"'{n}' does not depend on any axioms [module {m}]"
+            else IO.println s!"'{n}' depends on axioms: [{axs}] [module {m}]"
+        | _ => pure ()
+
+#kernel_certificate_audit

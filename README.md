@@ -1,5 +1,9 @@
 # Frohmanian Tether: verified architecture and obstructions
 
+## Kernel certificate
+
+[certificates/CERTIFICATE.md](certificates/CERTIFICATE.md): commit `d8d8164`, `leanprover/lean4:v4.30.0-rc1`. `lake build` passes; the sorry/axiom scan finds 0 hits; **659 theorems depend only on `propext`, `Classical.choice`, `Quot.sound`**; 31 of 31 modules replayed through the kernel, 0 failures ([CI run](https://github.com/BenFrohman/frohmanian-tether-verified/actions/runs/43937815391)).
+
 Lean 4 (v4.30.0-rc1, Mathlib v4.30.0-rc1) formalization that maps the claims of the technical
 compilation *The Frohmanian Symplectic Tether: Architecture, Reduced Jacobi Identity, and the
 Frohmanian Curve* (Zenodo record 23942466) to machine-checked theorems. Each claim ends up as
