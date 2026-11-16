@@ -1,0 +1,450 @@
+✔ [2641/2663] Built FTVerified.May.Layer2 (4.3s)
+✔ [2642/2712] Built FTVerified.May.EnstrophyL2 (7.5s)
+✔ [3887/4010] Built FTVerified.May.RiccatiComparison (4.6s)
+⚠ [4759/4851] Built FTVerified.May.Basic (9.8s)
+warning: FTVerified/May/Basic.lean:234:45: unused variable `hu`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8148/8196] Built FTVerified.May.Jacobi (5.3s)
+warning: FTVerified/May/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+  [InnerProductSpace ℝ H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [InnerProductSpace ℝ H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [8269/8295] Built FTVerified.May.Metriplectic (7.9s)
+✔ [8270/8295] Built FTVerified.May.JacobiWitness (9.4s)
+✔ [8271/8295] Built FTVerified.May.RouteA (6.9s)
+✔ [8272/8295] Built FTVerified.Companion.LiePoissonJacobiCore (10s)
+✔ [8273/8295] Built FTVerified.May.Main (3.3s)
+✔ [8274/8295] Built FTVerified.May.TetheredLyapunov (2.4s)
+✔ [8275/8295] Built FTVerified.May.GlobalRegularity (2.9s)
+✔ [8276/8295] Built FTVerified.May.Torus (4.1s)
+⚠ [8277/8295] Built FTVerified.May.Enstrophy (4.3s)
+warning: FTVerified/May/Enstrophy.lean:99:50: unused variable `hC`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: FTVerified/May/Enstrophy.lean:99:63: unused variable `hκ`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8278/8295] Built FTVerified.Sdiff.NS_Equations (37s)
+info: FTVerified/Sdiff/NS_Equations.lean:2527:2: Try this:
+  [apply] abel_nf
+warning: FTVerified/Sdiff/NS_Equations.lean:3676:9: unused variable `T`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: FTVerified/Sdiff/NS_Equations.lean:3678:0: 'NavierStokes3D.curl_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3679:0: 'NavierStokes3D.local_existence' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3680:0: 'NavierStokes3D.smoothness_of_Tstar_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3681:0: 'NavierStokes3D.beale_kato_majda' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3682:0: 'NavierStokes3D.beale_kato_majda_scaffold_integrability_unused' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3683:0: 'NavierStokes3D.bkm_criterion_without_integrability_not_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3684:0: 'NavierStokes3D.Tstar_eq_top_of_bkm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3685:0: 'NavierStokes3D.energy_zero_of_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3686:0: 'NavierStokes3D.Tstar_eq_top_of_unbounded_existenceTimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3687:0: 'NavierStokes3D.Tstar_eq_top_of_uniform_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3688:0: 'NavierStokes3D.Tstar_eq_top_of_katoRestartTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3689:0: 'NavierStokes3D.katoRestartTime_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3690:0: 'NavierStokes3D.katoSobolevIndex_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3691:0: 'NavierStokes3D.strain_sup_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3692:0: 'NavierStokes3D.one_add_log_le_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3693:0: 'NavierStokes3D.kato_ponce_implies_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3694:0: 'NavierStokes3D.kato_ponce_of_uniform_vorticity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3695:0: 'NavierStokes3D.kato_Hs_bound_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3696:0: 'NavierStokes3D.exists_mem_existenceTimes_gt_of_lt_Tstar' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3697:0: 'NavierStokes3D.navier_stokes_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3698:0: 'NavierStokes3D.kato_witness_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3699:0: 'NavierStokes3D.local_existence_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3700:0: 'NavierStokes3D.Tstar_pos_of_kato_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3701:0: 'NavierStokes3D.eq_of_l2_energy_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3702:0: 'NavierStokes3D.ns_cauchy_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3703:0: 'NavierStokes3D.ns_cauchy_eq_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3704:0: 'NavierStokes3D.energy_zero_of_gronwall_Icc' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3705:0: 'NavierStokes3D.ns_cauchy_on_Icc_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3706:0: 'NavierStokes3D.uniqueness_of_existence_times_of_energy_gronwall' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3707:0: 'NavierStokes3D.time_deriv_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3708:0: 'NavierStokes3D.ns_pde_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3709:0: 'NavierStokes3D.smoothness_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3710:0: 'NavierStokes3D.mem_existenceTimes_add_of_kato_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3711:0: 'NavierStokes3D.restart_of_kato_quantitative' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3712:0: 'NavierStokes3D.smoothness_below_Tstar_of_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3713:0: 'NavierStokes3D.curl_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3714:0: 'NavierStokes3D.mem_existenceTimes_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3715:0: 'NavierStokes3D.Tstar_zero_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3716:0: 'NavierStokes3D.div_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3717:0: 'NavierStokes3D.div_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3718:0: 'NavierStokes3D.div_smul_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3719:0: 'NavierStokes3D.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3720:0: 'NavierStokes3D.convective_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3721:0: 'NavierStokes3D.inner_convective_product_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3722:0: 'NavierStokes3D.cyclicLiePairing_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3723:0: 'NavierStokes3D.convective_norm_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3724:0: 'NavierStokes3D.stretching_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3725:0: 'NavierStokes3D.stretching_inner_le_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3726:0: 'NavierStokes3D.stretching_quartic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3727:0: 'NavierStokes3D.transport_inner_vanishes_of_grad_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3728:0: 'NavierStokes3D.vorticity_transport_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3729:0: 'NavierStokes3D.stretching_pairing_le_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3730:0: 'NavierStokes3D.stretching_enstrophy_di_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3731:0: 'NavierStokes3D.pressureGradient_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3732:0: 'NavierStokes3D.ns_momentum_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3733:0: 'NavierStokes3D.inner_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3734:0: 'NavierStokes3D.transported_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3735:0: 'NavierStokes3D.convective_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3736:0: 'NavierStokes3D.inner_convective_le_strain' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3737:0: 'NavierStokes3D.time_deriv_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3738:0: 'NavierStokes3D.transported_scalar_along_characteristic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3739:0: 'NavierStokes3D.transported_scalar_maximum_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3740:0: 'NavierStokes3D.reciprocal_of_quadratic_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3741:0: 'NavierStokes3D.le_vorticity_sup_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3742:0: 'NavierStokes3D.convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3743:0: 'NavierStokes3D.convective_eq_sum_directional' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3744:0: 'NavierStokes3D.directionalCoord_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3745:0: 'NavierStokes3D.curl_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3746:0: 'NavierStokes3D.curl_convective_div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3747:0: 'NavierStokes3D.curl_add3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3748:0: 'NavierStokes3D.fderiv_prod_snd_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3749:0: 'NavierStokes3D.deriv_prod_fst_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3750:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3751:0: 'NavierStokes3D.deriv_euclidean_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3752:0: 'NavierStokes3D.curl_time_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3753:0: 'NavierStokes3D.fderiv_field_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3754:0: 'NavierStokes3D.laplacian_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3755:0: 'NavierStokes3D.fderiv_apply_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3756:0: 'NavierStokes3D.contDiffAt_directionalCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3757:0: 'NavierStokes3D.directionalCoord_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3758:0: 'NavierStokes3D.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3759:0: 'NavierStokes3D.differentiableAt_time_deriv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3760:0: 'NavierStokes3D.differentiableAt_convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3761:0: 'NavierStokes3D.differentiableAt_pressureGradient_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3762:0: 'NavierStokes3D.vorticity_transport_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3763:0: 'NavierStokes3D.vorticity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3764:0: 'NavierStokes3D.vorticity_transport_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3765:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3766:0: 'NavierStokes3D.differentiableAt_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3767:0: 'NavierStokes3D.fderiv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3768:0: 'NavierStokes3D.integration_by_parts_of_vanishing_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3769:0: 'NavierStokes3D.inner_self_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3770:0: 'NavierStokes3D.differentiableAt_coord_of_differentiableAt_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3771:0: 'NavierStokes3D.differentiableAt_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3772:0: 'NavierStokes3D.convective_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/NS_Equations.lean:3773:0: 'NavierStokes3D.pressure_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [8279/8295] Built FTVerified.May.Final (3.1s)
+warning: FTVerified/May/Final.lean:59:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [8280/8295] Built FTVerified.May.LogLoss (6.0s)
+warning: FTVerified/May/LogLoss.lean:95:50: unused variable `hy0`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8281/8295] Built FTVerified.Sdiff.ArnoldGeometric (8.1s)
+warning: FTVerified/Sdiff/ArnoldGeometric.lean:437:6: This simp argument is unused:
+  PiLp.single_apply
+
+Hint: Omit it from the simp argument list.
+  simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 2), fderiv_const_mul (hd 1),
+  ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+  ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: FTVerified/Sdiff/ArnoldGeometric.lean:443:6: This simp argument is unused:
+  PiLp.single_apply
+
+Hint: Omit it from the simp argument list.
+  simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 0), fderiv_const_mul (hd 2),
+  ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+  ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: FTVerified/Sdiff/ArnoldGeometric.lean:449:6: This simp argument is unused:
+  PiLp.single_apply
+
+Hint: Omit it from the simp argument list.
+  simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 1), fderiv_const_mul (hd 0),
+  ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+  ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1097:0: 'ArnoldGeometric.velocity_from_vorticity_eq_BiotSavart' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1098:0: 'ArnoldGeometric.classical_bracket_reproduces_Euler' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1099:0: 'ArnoldGeometric.BiotSavart_zero' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1100:0: 'ArnoldGeometric.BiotSavart_smul' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1101:0: 'ArnoldGeometric.BiotSavart_add' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1102:0: 'ArnoldGeometric.BiotSavart_affine' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1103:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1104:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq_at' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1105:0: 'ArnoldGeometric.pairing_cross_self_right' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1106:0: 'ArnoldGeometric.cross_smul_left' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1107:0: 'ArnoldGeometric.FunctionalDerivative_eq_zero_of_not' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1108:0: 'ArnoldGeometric.FunctionalDerivative_eq_choose' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1109:0: 'ArnoldGeometric.kineticEnergy_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1110:0: 'ArnoldGeometric.biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1111:0: 'ArnoldGeometric.cross_coord' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1112:0: 'ArnoldGeometric.div_cross_right' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1113:0: 'ArnoldGeometric.div_cross_offset' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1114:0: 'ArnoldGeometric.differentiableAt_cross_offset_coord' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1115:0: 'ArnoldGeometric.hasFDerivAt_norm_sq_offset' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1116:0: 'ArnoldGeometric.hasFDerivAt_biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1117:0: 'ArnoldGeometric.differentiableAt_biotSavartKernel_off_diag' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1118:0: 'ArnoldGeometric.div_biotSavart_integrand' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1119:0: 'ArnoldGeometric.div_biotSavart_integrand_ae' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1120:0: 'ArnoldGeometric.div_BiotSavart_of_interchange' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1121:0: 'ArnoldGeometric.functional_derivative_eq_velocity_of_unique_repr' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1122:0: 'ArnoldGeometric.gateaux_representative_unique' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1123:0: 'ArnoldGeometric.kineticEnergyHamiltonian_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1124:0: 'ArnoldGeometric.isVelocityGateauxRepresentative_kineticEnergy_at' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1150:0: 'ArnoldGeometric.classicalBracket_antisymm' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1151:0: 'ArnoldGeometric.classicalBracket_self' depends on axioms: [propext, choice, Quot.sound]
+info: FTVerified/Sdiff/ArnoldGeometric.lean:1152:0: 'ArnoldGeometric.classicalBracket_H_H' depends on axioms: [propext, choice, Quot.sound]
+✔ [8282/8295] Built FTVerified.May.PalinstrophyH1 (3.1s)
+✔ [8283/8295] Built FTVerified.Sdiff.ForMathlib.Projection (2.3s)
+✔ [8284/8295] Built FTVerified.May.VorticityTether (2.5s)
+ℹ [8285/8295] Built FTVerified.Sdiff.SymplecticTether (4.9s)
+info: FTVerified/Sdiff/SymplecticTether.lean:1305:0: 'FrohmanianTether.tethered_jacobi_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1306:0: 'FrohmanianTether.tetherKernel_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1307:0: 'FrohmanianTether.antisymmetric_correction_diagonal_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1308:0: 'FrohmanianTether.tetherKernel_C2_of_no_gateaux' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1309:0: 'FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1310:0: 'FrohmanianTether.tetherKernel_C2_of_identifications' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1311:0: 'FrohmanianTether.functional_derivative_of_kinetic_energy_of_unique_repr' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1312:0: 'FrohmanianTether.div_biot_savart_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1313:0: 'FrohmanianTether.div_biot_savart_velocity_of_interchange' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1314:0: '_private.FTVerified.Sdiff.SymplecticTether.0.FrohmanianTether.degeneracy_for_mollified_sup_norm_proxy' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/SymplecticTether.lean:1352:0: 'FrohmanianTether.tetherKernel_self_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8286/8295] Built FTVerified.Sdiff.ObstructionAudit (2.6s)
+info: FTVerified/Sdiff/ObstructionAudit.lean:80:0: 'FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/ObstructionAudit.lean:81:0: 'FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: FTVerified/Sdiff/ObstructionAudit.lean:82:0: 'FrohmanianTether.ObstructionAudit.energy_conservation_not_C2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+✔ [8287/8295] Built FTVerified.May.CurlNS (6.6s)
+✔ [8288/8295] Built FTVerified.May.BiotSavart (3.2s)
+✔ [8289/8295] Built FTVerified.May.ChevalleyEilenberg (2.6s)
+⚠ [8290/8295] Built FTVerified.May.FieldJacobi (5.1s)
+warning: FTVerified/May/FieldJacobi.lean:171:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8291/8295] Built FTVerified.May.FieldMetriplectic (2.0s)
+✔ [8292/8295] Built FTVerified.Companion.JacobiCompanion (3.0s)
+ℹ [8293/8295] Built FTVerified.Paper (1.9s)
+info: FTVerified/Paper.lean:27:0: @Frohman.Tether.frohmanianTether_self_nonpos : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] {κ w : ℝ},
+  0 ≤ κ → 0 ≤ w → ∀ (u F : H), ((Frohman.Tether.frohmanianTether κ w u) F) F ≤ 0
+info: FTVerified/Paper.lean:28:0: FrohmanianTether.tetherKernel_self_nonpos : ∀ (F : FrohmanianTether.Functional) (ω : ArnoldGeometric.CoadjointOrbit),
+  FrohmanianTether.TetherKernel ω F F ≤ 0
+info: FTVerified/Paper.lean:32:0: @Frohman.Tether.frohmanianTether_degenerate : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] (κ w : ℝ) (u : H),
+  Frohman.Tether.DegenerateWRTKineticEnergy u (Frohman.Tether.frohmanianTether κ w u)
+info: FTVerified/Paper.lean:33:0: FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy : ∀ (F : FrohmanianTether.Functional)
+  (ω : ArnoldGeometric.CoadjointOrbit),
+  δ ArnoldGeometric.KineticEnergyHamiltonian/δω ω = ArnoldGeometric.velocity_from_vorticity ω →
+    (∀ (x : NavierStokes3D.T3), NavierStokes3D.div (ArnoldGeometric.velocity_from_vorticity ω) x = 0) →
+      MeasureTheory.Integrable (fun y => ‖ArnoldGeometric.velocity_from_vorticity ω y‖ ^ 2) MeasureTheory.volume →
+        FrohmanianTether.TetherKernel ω F ArnoldGeometric.KineticEnergyHamiltonian = 0
+info: FTVerified/Paper.lean:37:0: @Frohman.Tether.frohmanianTether_feedback : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+  2 ≤ Module.finrank ℝ H →
+    ∀ {κ w : ℝ},
+      0 ≤ κ →
+        0 ≤ w →
+          ∀ (u : H), Frohman.Tether.ProducesControllableNegativeFeedback κ w u (Frohman.Tether.frohmanianTether κ w u)
+info: FTVerified/Paper.lean:38:0: @Frohman.Tether.feedback_fixes_coefficient : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] {κ w : ℝ} {u : H} (c : ℝ),
+  Frohman.Tether.ProducesControllableNegativeFeedback κ w u (Frohman.Tether.frohmanianTether c 1 u) → c = κ * w
+info: FTVerified/Paper.lean:39:0: @Frohman.Tether.routeA_determines_kappa : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] {S w κ : ℝ},
+  w ≠ 0 → ∀ {u ω : H}, Frohman.Tether.RouteAFeedback S w u ω (Frohman.Tether.frohmanianTether κ w u) → κ = S
+info: FTVerified/Paper.lean:43:0: @Frohman.Tether.uniqueness_of_minimal_metric_tether : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+  3 ≤ Module.finrank ℝ H →
+    ∀ (κ w : ℝ) (u : H),
+      u ≠ 0 →
+        ∀ (C3 : LinearMap.BilinForm ℝ H → Prop),
+          (∀ (c : ℝ), C3 (Frohman.Tether.frohmanianTether c 1 u) → c = κ * w) →
+            ∀ (B : LinearMap.BilinForm ℝ H),
+              Frohman.Tether.IsAdmissibleCorrection u C3 B → B = Frohman.Tether.frohmanianTether κ w u
+info: FTVerified/Paper.lean:47:0: FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2 : ∀
+  (B : ArnoldGeometric.CoadjointOrbit → FrohmanianTether.Functional → FrohmanianTether.Functional → ℝ),
+  FrohmanianTether.DegenerateWRTKineticEnergy B →
+    ∀ (ω : ArnoldGeometric.CoadjointOrbit) (M : FrohmanianTether.Functional),
+      B ω M ArnoldGeometric.KineticEnergyHamiltonian = 0
+info: FTVerified/Paper.lean:48:0: @FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero : ∀ {V : Type u_1} [inst : AddCommGroup V]
+  [inst_1 : Module ℝ V] (B : LinearMap.BilinForm ℝ V),
+  (∀ (x y : V), (B x) y = (B y) x) → (∀ (x : V), (B x) x ≤ 0) → ∀ (h : V), (B h) h = 0 → ∀ (m : V), (B m) h = 0
+info: FTVerified/Paper.lean:49:0: FrohmanianTether.ObstructionAudit.energy_conservation_not_C2 : ∃ B h m,
+  B h h = 0 ∧ B m h ≠ 0 ∧ ∀ (x : Fin 2 → ℝ), B x x = 0
+info: FTVerified/Paper.lean:53:0: @Frohman.Tether.CE.d2_d1 : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [inst_1 : LieRing L]
+  [inst_2 : LieAlgebra R L] (f : L →ₗ[R] R) (x y z : L), Frohman.Tether.CE.d2 (Frohman.Tether.CE.d1 f) x y z = 0
+info: FTVerified/Paper.lean:54:0: @Frohman.Tether.CE.cocycle_of_coboundary : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [inst_1 : LieRing L]
+  [inst_2 : LieAlgebra R L] (β : L → L → R) (f : L →ₗ[R] R),
+  (∀ (x y : L), Frohman.Tether.CE.antiCorr β x y = Frohman.Tether.CE.d1 f x y) →
+    Frohman.Tether.CE.IsCocycle (Frohman.Tether.CE.antiCorr β)
+info: FTVerified/Paper.lean:55:0: @Frohman.Tether.CE.symPart_not_cochain : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [Invertible 2]
+  (β : L → L → R), Frohman.Tether.CE.IsAlt (Frohman.Tether.CE.symPart β) → Frohman.Tether.CE.symPart β = 0
+info: FTVerified/Paper.lean:59:0: @Frohman.Tether.jacobiator_nine_terms : ∀ {H : Type u_1} [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℝ H]
+  {P : H → H → H},
+  Frohman.Tether.IsClassicalBracket P →
+    ∀ (κ w : ℝ) (u a b c : H),
+      Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c =
+        P (P a b) c + P (P b c) a + P (P c a) b +
+            (Frohman.Tether.mixedTerm P κ w u a b c + Frohman.Tether.mixedTerm P κ w u b c a +
+              Frohman.Tether.mixedTerm P κ w u c a b) +
+          (Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u a b) c +
+              Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u b c) a +
+            Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u c a) b)
+info: FTVerified/Paper.lean:60:0: @Frohman.Tether.jacobi_iff_mixed_cancel : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] {P : H → H → H},
+  Frohman.Tether.IsClassicalBracket P →
+    ∀ (κ w : ℝ) (u : H) (R : Set H),
+      (∀ a ∈ R, ∀ b ∈ R, ∀ c ∈ R, Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c = 0) ↔
+        ∀ a ∈ R,
+          ∀ b ∈ R,
+            ∀ c ∈ R,
+              Frohman.Tether.mixedTerm P κ w u a b c + Frohman.Tether.mixedTerm P κ w u b c a +
+                  Frohman.Tether.mixedTerm P κ w u c a b =
+                0
+info: FTVerified/Paper.lean:61:0: @Frohman.Tether.FieldJacobi.jacT_eq_mixedSum : ∀ {u : Frohman.Tether.FieldJacobi.Fld},
+  Frohman.Tether.FieldJacobi.pr u u ≠ 0 →
+    ∀ (κ w : ℂ) (a b c : Frohman.Tether.FieldJacobi.Fld),
+      Frohman.Tether.FieldJacobi.jacT κ w u a b c = Frohman.Tether.FieldJacobi.mixedSumF κ w u a b c
+info: FTVerified/Paper.lean:62:0: Frohman.Tether.FieldJacobi.jacF_eq_zero : ∀ (a b c : Frohman.Tether.FieldJacobi.Fld),
+  Frohman.Tether.FieldJacobi.jacF a b c = 0
+info: FTVerified/Paper.lean:66:0: @Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero : ∀ {κ w : ℝ},
+  κ * w ≠ 0 →
+    Frohman.Tether.jacobiator
+        (Frohman.Tether.tetheredBracketVec Frohman.Tether.JacobiWitness.crossBr κ w Frohman.Tether.JacobiWitness.e1)
+        Frohman.Tether.JacobiWitness.e2 Frohman.Tether.JacobiWitness.e2 Frohman.Tether.JacobiWitness.e3 ≠
+      0
+info: FTVerified/Paper.lean:67:0: @Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse : ∀ {κ w : ℂ},
+  κ * w ≠ 0 →
+    Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uY Frohman.Tether.FieldJacobi.aZ
+        Frohman.Tether.FieldJacobi.aZ Frohman.Tether.FieldJacobi.aZ ≠
+      0
+info: FTVerified/Paper.lean:68:0: Frohman.Tether.FieldJacobi.divFree_aZ : Frohman.Tether.FieldJacobi.DivergenceFree Frohman.Tether.FieldJacobi.aZ
+info: FTVerified/Paper.lean:69:0: @Frohman.Tether.FieldMetriplectic.dissF_nonpos : ∀ {u a : Frohman.Tether.FieldJacobi.Fld},
+  Frohman.Tether.FieldMetriplectic.IsRealF u →
+    Frohman.Tether.FieldMetriplectic.IsRealF a →
+      ∀ {κ w : ℝ},
+        0 ≤ κ * w →
+          (Frohman.Tether.FieldMetriplectic.dissF (↑κ) (↑w) u a).re ≤ 0 ∧
+            (Frohman.Tether.FieldMetriplectic.dissF (↑κ) (↑w) u a).im = 0
+info: FTVerified/Paper.lean:73:0: @Frohman.Tether.jacobiator_eq_zero_of_central : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] {u : H} {P : H → H → H},
+  Frohman.Tether.IsClassicalBracket P →
+    (∀ (c : H), P u c = 0) →
+      (∀ (r : ℝ) (x z : H), P (r • x) z = r • P x z) →
+        (∀ (a b : H), (Frohman.Tether.piU u) (P a b) = 0) →
+          ∀ (κ w : ℝ) (a b c : H), Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c = 0
+info: FTVerified/Paper.lean:74:0: @Frohman.Tether.FieldJacobi.shearY_jacobi_holds : ∀ {κ w : ℂ} {a b c : Frohman.Tether.FieldJacobi.Fld},
+  Frohman.Tether.FieldJacobi.XOnly a →
+    Frohman.Tether.FieldJacobi.DivergenceFree a →
+      Frohman.Tether.FieldJacobi.XOnly b →
+        Frohman.Tether.FieldJacobi.DivergenceFree b →
+          Frohman.Tether.FieldJacobi.XOnly c →
+            Frohman.Tether.FieldJacobi.DivergenceFree c →
+              Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uY a b c = 0
+info: FTVerified/Paper.lean:75:0: FrohmanianTether.tethered_jacobi_identity : ∀ (F G H : FrohmanianTether.Functional) (ω : ArnoldGeometric.CoadjointOrbit)
+  (X Y Z : NavierStokes3D.VelocityField),
+  δ F/δω ω = X →
+    δ G/δω ω = Y →
+      δ H/δω ω = Z →
+        FrohmanianTether.jacobiator F G H ω =
+            ∫ (x : NavierStokes3D.T3), NavierStokes3D.cyclicLiePairing X Y Z x ∂NavierStokes3D.volume →
+          ∫ (x : NavierStokes3D.T3), NavierStokes3D.cyclicLiePairing X Y Z x ∂NavierStokes3D.volume = 0 →
+            FrohmanianTether.jacobiator F G H ω = 0
+info: FTVerified/Paper.lean:79:0: @Frohman.Tether.FieldJacobi.shearX_jacobi_fails : ∀ {κ w : ℂ},
+  κ * w ≠ 0 →
+    Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uX Frohman.Tether.FieldJacobi.eX
+        Frohman.Tether.FieldJacobi.eX Frohman.Tether.FieldJacobi.eX ≠
+      0
+info: FTVerified/Paper.lean:80:0: Frohman.Tether.FieldJacobi.not_divFree_uX : ¬Frohman.Tether.FieldJacobi.DivergenceFree Frohman.Tether.FieldJacobi.uX
+info: FTVerified/Paper.lean:81:0: Frohman.Tether.Shear.shear_divFree : ∀ (x : Frohman.Tether.Torus.R3),
+  Frohman.Tether.Torus.divergence Frohman.Tether.Shear.shear x = 0
+info: FTVerified/Paper.lean:82:0: Frohman.Tether.Shear.shearBad_not_divFree : Frohman.Tether.Torus.divergence Frohman.Tether.Shear.shearBad 0 ≠ 0
+info: FTVerified/Paper.lean:86:0: @Frohman.Tether.comparison_bound : ∀ {y y' : ℝ → ℝ} {C κ'' T : ℝ},
+  0 < κ'' →
+    0 ≤ y 0 →
+      ContinuousOn y (Set.Icc 0 T) →
+        (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+          (∀ x ∈ Set.Ico 0 T, y' x ≤ Frohman.Tether.comparisonField C κ'' (y x)) →
+            ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / κ'')
+info: FTVerified/Paper.lean:87:0: @Frohman.Tether.layer2_bound : ∀ {y y' : ℝ → ℝ} {C κ Cabs T : ℝ},
+  0 < Frohman.Tether.kappaDD κ Cabs →
+    0 ≤ y 0 →
+      ContinuousOn y (Set.Icc 0 T) →
+        (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+          (∀ x ∈ Set.Ico 0 T, y' x ≤ C * y x ^ 2 - Frohman.Tether.kappaDD κ Cabs * y x ^ 3) →
+            ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / Frohman.Tether.kappaDD κ Cabs)
+info: FTVerified/Paper.lean:88:0: @Frohman.Tether.Riccati.tethered_ceiling : ∀ {y y' : ℝ → ℝ} {C κ'' T : ℝ},
+  0 < κ'' →
+    0 ≤ y 0 →
+      ContinuousOn y (Set.Icc 0 T) →
+        (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+          (∀ x ∈ Set.Ico 0 T, y' x ≤ Frohman.Tether.comparisonField C κ'' (y x)) →
+            ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / κ'')
+info: FTVerified/Paper.lean:89:0: @Frohman.Tether.Riccati.riccati_blowup : ∀ {C y₀ : ℝ},
+  0 < C → 0 < y₀ → ∀ (M : ℝ), ∃ t, 0 ≤ t ∧ t < 1 / (C * y₀) ∧ M < Frohman.Tether.Riccati.ricSol C y₀ t
+info: FTVerified/Paper.lean:93:0: @Frohman.Tether.viscous_nonpos_at_max : ∀ {ω : Frohman.Tether.Torus.R3 → Frohman.Tether.Torus.R3}
+  {x : Frohman.Tether.Torus.R3} {ν : ℝ},
+  0 ≤ ν →
+    (∀ (i : Fin 3), Differentiable ℝ fun t => ω (x + t • Frohman.Tether.Torus.e i)) →
+      (∀ (i : Fin 3), Differentiable ℝ (deriv fun t => ω (x + t • Frohman.Tether.Torus.e i))) →
+        (∀ (z : Frohman.Tether.Torus.R3), ‖ω z‖ ≤ ‖ω x‖) →
+          ν * ∑ i, inner ℝ (ω x) (deriv (deriv fun t => ω (x + t • Frohman.Tether.Torus.e i)) 0) ≤ 0
+info: FTVerified/Paper.lean:94:0: @Frohman.Tether.periodic_exists_max : ∀ {g : Frohman.Tether.Torus.R3 → ℝ},
+  Continuous g → Frohman.Tether.Torus.IsPeriodic g → ∃ x, ∀ (z : Frohman.Tether.Torus.R3), g z ≤ g x
+info: FTVerified/Paper.lean:98:0: @Frohman.Tether.frohmanian_symplectic_tether_theorem : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+  3 ≤ Module.finrank ℝ H →
+    ∀ {S w : ℝ},
+      0 ≤ S →
+        0 < w →
+          ∀ (u ω : H),
+            u ≠ 0 →
+              inner ℝ u ω = 0 →
+                ‖ω‖ = 1 →
+                  ∀ (B : LinearMap.BilinForm ℝ H),
+                    Frohman.Tether.IsAdmissibleCorrection u (Frohman.Tether.RouteAFeedback S w u ω) B ↔
+                      ∃ κ, κ = S ∧ B = Frohman.Tether.frohmanianTether κ w u
+info: FTVerified/Paper.lean:99:0: @Frohman.Tether.frohmanian_symplectic_tether_theorem_global : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+  3 ≤ Module.finrank ℝ H →
+    ∀ {S w Cabs C : ℝ},
+      0 ≤ S →
+        0 < w →
+          ∀ (u ω : H),
+            u ≠ 0 →
+              inner ℝ u ω = 0 →
+                ‖ω‖ = 1 →
+                  (∀ (F : H),
+                      ((Frohman.Tether.frohmanianTether S w u) F) (Frohman.Tether.kineticEnergyGradient u) = 0) ∧
+                    (∀ (B : LinearMap.BilinForm ℝ H),
+                        Frohman.Tether.IsAdmissibleCorrection u (Frohman.Tether.RouteAFeedback S w u ω) B ↔
+                          ∃ κ, κ = S ∧ B = Frohman.Tether.frohmanianTether κ w u) ∧
+                      (0 < Frohman.Tether.kappaDD S Cabs →
+                        ∀ (s : Frohman.Tether.NSTetherSolution),
+                          Frohman.Tether.NSTetherEnstrophyInequality s C (Frohman.Tether.kappaDD S Cabs) →
+                            Frohman.Tether.BKMContinuation s →
+                              Frohman.Tether.LocalContinuation s → Frohman.Tether.GloballySmooth s)
+✔ [8294/8295] Built FTVerified (3.3s)
+Build completed successfully (8295 jobs).

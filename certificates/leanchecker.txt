@@ -1,0 +1,37 @@
+checker: leanchecker source shipped with v4.30.0-rc1 (src/lean/LeanChecker.lean), prefix match -> exact match, run with lean --run
+  patch: 93c93
+  patch: <         if !fresh && target.isPrefixOf m || target == m then
+  patch: ---
+  patch: >         if !fresh && target == m || target == m then
+FTVerified: OK (1 module replayed)
+FTVerified.Companion.JacobiCompanion: OK (1 module replayed)
+FTVerified.Companion.LiePoissonJacobiCore: OK (1 module replayed)
+FTVerified.May.Basic: OK (1 module replayed)
+FTVerified.May.BiotSavart: OK (1 module replayed)
+FTVerified.May.ChevalleyEilenberg: OK (1 module replayed)
+FTVerified.May.CurlNS: OK (1 module replayed)
+FTVerified.May.Enstrophy: OK (1 module replayed)
+FTVerified.May.EnstrophyL2: OK (1 module replayed)
+FTVerified.May.FieldJacobi: OK (1 module replayed)
+FTVerified.May.FieldMetriplectic: OK (1 module replayed)
+FTVerified.May.Final: OK (1 module replayed)
+FTVerified.May.GlobalRegularity: OK (1 module replayed)
+FTVerified.May.Jacobi: OK (1 module replayed)
+FTVerified.May.JacobiWitness: OK (1 module replayed)
+FTVerified.May.Layer2: OK (1 module replayed)
+FTVerified.May.LogLoss: OK (1 module replayed)
+FTVerified.May.Main: OK (1 module replayed)
+FTVerified.May.Metriplectic: OK (1 module replayed)
+FTVerified.May.PalinstrophyH1: OK (1 module replayed)
+FTVerified.May.RiccatiComparison: OK (1 module replayed)
+FTVerified.May.RouteA: OK (1 module replayed)
+FTVerified.May.TetheredLyapunov: OK (1 module replayed)
+FTVerified.May.Torus: OK (1 module replayed)
+FTVerified.May.VorticityTether: OK (1 module replayed)
+FTVerified.Paper: OK (1 module replayed)
+FTVerified.Sdiff.ArnoldGeometric: OK (1 module replayed)
+FTVerified.Sdiff.ForMathlib.Projection: OK (1 module replayed)
+FTVerified.Sdiff.NS_Equations: OK (1 module replayed)
+FTVerified.Sdiff.ObstructionAudit: OK (1 module replayed)
+FTVerified.Sdiff.SymplecticTether: OK (1 module replayed)
+RESULT: 31 of 31 modules replayed through the kernel, 0 failures
