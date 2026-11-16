@@ -74,6 +74,14 @@ run_cmd do
     logInfo m!"AXIOMS {n}: {axs.toList}"
     unless bad.isEmpty do
       logInfo m!"TRUTH GATE FAIL: {n} uses nonstandard axioms {bad.toList}"; ok := false
+  -- no aliasing: paper_claim's body must not mention formal_claim, and the two bodies must
+  -- differ syntactically after unfolding only their own definitions
+  let fv := ((← getConstInfo `TruthGate.formal_claim).value? (allowOpaque := true)).getD fc
+  let pv := ((← getConstInfo `TruthGate.paper_claim).value? (allowOpaque := true)).getD pc
+  if pv.getUsedConstants.contains `TruthGate.formal_claim then
+    logInfo "TRUTH GATE FAIL: paper_claim is defined in terms of formal_claim (alias)"; ok := false
+  if fv == pv then
+    logInfo "TRUTH GATE FAIL: formal_claim and paper_claim have syntactically equal bodies"; ok := false
   -- non-vacuity: the two claims must not be definitionally equal
   let defeq ← liftTermElabM <| withTransparency .default <| withoutModifyingState <|
     (try isDefEq fc pc catch _ => pure false)
@@ -103,3 +111,6 @@ run_cmd do
     logInfo m!"TRUTH GATE AUDIT PASS: main theorems {mains}; formal_claim ↔ paper_claim locked, standard axioms only"
   else
     throwError "TRUTH GATE FAIL"
+
+#print axioms TruthGate.intended_correspondence
+#print axioms TruthGate.paper_claim_holds
