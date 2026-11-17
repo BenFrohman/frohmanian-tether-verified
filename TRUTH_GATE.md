@@ -98,3 +98,27 @@ def paper_claim : Prop :=
 ```
 
 See the doc comment of `FTVerified/Semantics.lean` for the fixed reading of the paper's terms and the scope.
+
+## Re-audit (2026-11-16): this lock is NOT certifying
+
+Status: **REOPENED. The gate is red on purpose.** `TRUTH_GATE.lock` carries `"certifying": false`, and
+`scripts/truth_gate_check.py` fails while it does. Nothing was deleted: `Semantics.lean`, the quotes,
+the hashes and the history are unchanged.
+
+Rule applied (Benjamin Stanley Frohman, 2026-11-16):
+* There are no partial locks. A lock certifies only a step on the correct path to the full theorem
+  that is kernel-proved as the actual true answer, so that the next step can build on it.
+* Drifted, dummy, placeholder or stand-in types, names or categories are rejected.
+* Cross-ontology connections are not rejected for looking unrelated. The kernel check, and whether
+  the piece genuinely helps reach the full structured proof, decide.
+* `paper_claim` is an independent transcription of the verbatim paper quote, never an alias of
+  `formal_claim`, and the correspondence is never `rfl`/`Iff.rfl`.
+
+Locked claim under review: flow_contribution_zero_of_C2 (Section 5 "Refuted claims", item "The tether damps the energy budget")
+
+Why it is reopened:
+* Tautology, not a step. `DegenerateWRTKineticEnergy B` (C2) is defined as `∀ F ω, B ω F KineticEnergyHamiltonian = 0`, and the locked main theorem `flow_contribution_zero_of_C2` is the term `hC2 M ω`. It restates its own hypothesis, so the lock certifies nothing beyond the definition.
+* Not the paper's main result and not a step on a path to it. The quote is one item of the paper's "Refuted claims" audit list. A refutation prunes a path; it is not a step that the next step can build from.
+* Stand-in naming. `CoadjointOrbit` is the type of all divergence-free fields (`val`, `property : div val = 0`). No orbit structure is built, and the `SDiff` action is abstract (`[MulAction SDiff CoadjointOrbit]`).
+
+What would re-certify it: Record the refutation as a pruned path, not as a lock. A lock here needs a stated theorem of the paper on the path to its main result, with its hypotheses not true by definition.
