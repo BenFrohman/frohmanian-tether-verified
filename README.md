@@ -57,3 +57,7 @@ proved/conditional results above and states the refuted and unformalized claims 
 ## Copyright and license
 
 Copyright 2026 Benjamin Stanley Frohman. Licensed under Apache-2.0; see `LICENSE`, `NOTICE`, `AUTHORS`, `CITATION.cff`.
+
+## License and attribution
+
+This work is licensed under the Apache License 2.0 (see [LICENSE](LICENSE) and [NOTICE](NOTICE)). Any use, reproduction, or redistribution, in whole or in part, must retain the NOTICE file and credit Benjamin Stanley Frohman as the author. If you use this work in a publication, please cite it (see [CITATION.cff](CITATION.cff) / the Zenodo DOI).
