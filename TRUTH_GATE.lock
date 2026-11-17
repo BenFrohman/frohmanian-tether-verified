@@ -13,5 +13,8 @@
   "lean_roots": [
     "FTVerified",
     "FTVerified.lean"
-  ]
+  ],
+  "certifying": false,
+  "reopened_reason": "Tautology, not a step. `DegenerateWRTKineticEnergy B` (C2) is defined as `∀ F ω, B ω F KineticEnergyHamiltonian = 0`, and the locked main theorem `flow_contribution_zero_of_C2` is the term `hC2 M ω`. It restates its own hypothesis, so the lock certifies nothing beyond the definition.",
+  "reopened_on": "2026-11-16"
 }
