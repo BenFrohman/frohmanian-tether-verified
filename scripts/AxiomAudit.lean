@@ -23,6 +23,7 @@ Machine-checked Lean 4 module.
 #print axioms FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2
 #print axioms FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero
 #print axioms FrohmanianTether.ObstructionAudit.energy_conservation_not_C2
+#print axioms FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate
 #print axioms Frohman.Tether.CE.d2_d1
 #print axioms Frohman.Tether.CE.cocycle_of_coboundary
 #print axioms Frohman.Tether.CE.symPart_not_cochain

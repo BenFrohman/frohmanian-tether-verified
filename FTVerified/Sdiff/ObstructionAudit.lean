@@ -37,7 +37,9 @@ namespace FrohmanianTether.ObstructionAudit
 
 open InnerProductSpace NavierStokes3D ArnoldGeometric MeasureTheory ForMathlib FrohmanianTether
 
-/-- C2 alone (no symmetry) kills the tether's contribution `B ω M H` to `dM/dt`. -/
+/-- C2 alone (no symmetry) kills the tether's contribution `B ω M H` to `dM/dt`.
+This is the definition of C2 read back (`hC2 M ω`); it is not cited as evidence for any paper claim.
+The paper's energy-budget refutation is `energy_damping_iff_not_degenerate`. -/
 public theorem flow_contribution_zero_of_C2
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (hC2 : DegenerateWRTKineticEnergy B) (ω : CoadjointOrbit) (M : Functional) :
@@ -64,6 +66,24 @@ public theorem bilin_kernel_of_nonpos_of_self_zero
   rw [show 2 * ((1 - a) / (2 * b)) * b = 1 - a by field_simp] at this
   linarith
 
+/-- **Damping is exactly the failure of degeneracy (C2).** For a symmetric bilinear form `B` with
+`B(x,x) ≤ 0` for every `x` (C3) and any vector `h` (standing for `δH`), the energy term `B(h,h)` is
+strictly negative iff `B(m,h) ≠ 0` for some `m`. Hence a tether obeying C2 (`B(m,h) = 0` for all
+`m`) cannot damp the energy, and conversely any damping tether violates C2. The nontrivial direction
+is `bilin_kernel_of_nonpos_of_self_zero` (Cauchy–Schwarz for semidefinite forms); the statement is not
+a restatement of C2, which appears in it only as the right-hand side. -/
+public theorem energy_damping_iff_not_degenerate
+    {V : Type*} [AddCommGroup V] [Module ℝ V] (B : LinearMap.BilinForm ℝ V)
+    (hsym : ∀ x y, B x y = B y x) (hneg : ∀ x, B x x ≤ 0) (h : V) :
+    B h h < 0 ↔ ∃ m, B m h ≠ 0 := by
+  constructor
+  · intro hlt
+    exact ⟨h, ne_of_lt hlt⟩
+  · rintro ⟨m, hm⟩
+    rcases lt_or_eq_of_le (hneg h) with hlt | heq
+    · exact hlt
+    · exact absurd (bilin_kernel_of_nonpos_of_self_zero B hsym hneg h heq m) hm
+
 /-- Without symmetry, energy conservation `B(h,h)=0` does not give `B(m,h)=0`. -/
 public theorem energy_conservation_not_C2 :
     ∃ (B : (Fin 2 → ℝ) → (Fin 2 → ℝ) → ℝ) (h m : Fin 2 → ℝ),
@@ -80,3 +100,4 @@ end
 #print axioms FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2
 #print axioms FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero
 #print axioms FrohmanianTether.ObstructionAudit.energy_conservation_not_C2
+#print axioms FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate

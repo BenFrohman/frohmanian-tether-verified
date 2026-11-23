@@ -140,52 +140,41 @@ python3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -
 ## The locked claim of this repository
 
 * Paper: `paper/frohmanian-tether-verified.tex`
-* sha256: `93bde1b66ac8ee68e33935c77c95a7a76e7a1bd5badd9b66f6663f110886cef9`
-* Section: Section 5 "Refuted claims", first item ("The tether damps the energy budget")
-* Main theorem(s): `FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2`
+* sha256: `9653476e11264bfbc49db8b9ca99615e1ac9ed004b5357de0430126bf4fd2500`
+* Section: Proved results (C1/C3, C2) and the energy-budget refutation; uniqueness and the comparison bound as recorded in Conditional results
+* Main theorem(s): `energy_damping_iff_not_degenerate`, `frohmanianTether_self_nonpos_of_mul_nonneg`, `frohmanianTether_invariant`, `frohmanianTether_degenerate`, `tetherKernel_self_nonpos`, `tetherKernel_degenerates_on_kinetic_energy`, `uniqueness_of_minimal_metric_tether`, `comparison_bound`, `CE.d2_d1`, `CE.cocycle_of_coboundary`, `CE.symPart_not_cochain`
 * Lock file: `TRUTH_GATE.lock`; semantics: `FTVerified/Semantics.lean`
 
 Verbatim quote:
 
 ```
-\item \textbf{The tether damps the energy budget.} This is refuted. C2 forces $B(M,H)=0$, so the tether contributes nothing to $dH/dt$
+\item \textbf{The tether damps the energy budget.} This is refuted. Let $B$ be a symmetric bilinear form on a real vector space $V$ with $B(x,x)\le0$ for all $x\in V$ (C3), and let $h\in V$ stand for $\delta H$. Then $B(h,h)<0$ if and only if $B(m,h)\neq0$ for some $m\in V$. Consequently, if $B(m,h)=0$ for all $m$ (C2), then $B(h,h)=0$, so the tether contributes nothing to $dH/dt$; and if $B(h,h)=0$, then $B(m,h)=0$ for all $m$
 ```
 
 ```lean
 def formal_claim : Prop :=
-  ∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
-    DegenerateWRTKineticEnergy B → ∀ (ω : CoadjointOrbit) (M : Functional),
-      B ω M KineticEnergyHamiltonian = 0
+  ∀ (V : Type) [AddCommGroup V] [Module ℝ V] (B : LinearMap.BilinForm ℝ V),
+    (∀ x y, B x y = B y x) → (∀ x, B x x ≤ 0) → ∀ h : V,
+      (B h h < 0 ↔ ∃ m, B m h ≠ 0)
 
 def paper_claim : Prop :=
-  ∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
-    DegenerateWRTKineticEnergy B → ∀ ω : CoadjointOrbit,
-      (∀ M : Functional, B ω M KineticEnergyHamiltonian = 0) ∧
-        B ω KineticEnergyHamiltonian KineticEnergyHamiltonian = 0
+  ∀ (V : Type) [AddCommGroup V] [Module ℝ V] (B : LinearMap.BilinForm ℝ V),
+    (∀ x y, B x y = B y x) → (∀ x, B x x ≤ 0) → ∀ h : V,
+      (B h h < 0 ↔ ∃ m, B m h ≠ 0) ∧
+      ((∀ m, B m h = 0) → B h h = 0) ∧
+      (B h h = 0 → ∀ m, B m h = 0)
 ```
 
 See the doc comment of `FTVerified/Semantics.lean` for the fixed reading of the paper's terms and the scope.
 
-## Re-audit (2026-11-16): this lock is NOT certifying
+## Status (2026-11-23): still NOT certifying
 
-Status: **REOPENED. The gate is red on purpose.** `TRUTH_GATE.lock` carries `"certifying": false`, and
-`scripts/truth_gate_check.py` fails while it does. Nothing was deleted: `Semantics.lean`, the quotes,
-the hashes and the history are unchanged.
+`TRUTH_GATE.lock` keeps `"certifying": false`, so the gate stays red on purpose.
 
-Rule applied (Benjamin Stanley Frohman, 2026-11-16):
-* There are no partial locks. A lock certifies only a step on the correct path to the full theorem
-  that is kernel-proved as the actual true answer, so that the next step can build on it.
-* Drifted, dummy, placeholder or stand-in types, names or categories are rejected.
-* Cross-ontology connections are not rejected for looking unrelated. The kernel check, and whether
-  the piece genuinely helps reach the full structured proof, decide.
-* `paper_claim` is an independent transcription of the verbatim paper quote, never an alias of
-  `formal_claim`, and the correspondence is never `rfl`/`Iff.rfl`.
+Fixed on 2026-11-23: the 2026-11-16 re-audit found the lock was a tautology (`flow_contribution_zero_of_C2` is the term `hC2 M ω`, C2 read back). It is no longer cited. The paper item now states, and the lock certifies, `energy_damping_iff_not_degenerate`: for a symmetric bilinear form with `B(x,x) ≤ 0`, `B(h,h) < 0` iff `B(m,h) ≠ 0` for some `m`. The nontrivial direction is Cauchy–Schwarz for semidefinite forms (`bilin_kernel_of_nonpos_of_self_zero`); C2 is never the hypothesis that yields the conclusion. The lint findings (`CoadjointOrbit`, `Functional`, `KineticEnergyHamiltonian`, `DegenerateWRTKineticEnergy`) are gone: `paper_claim` uses Mathlib only. `scripts/TruthGateAudit.lean` now instantiates universe parameters before comparing the main theorem with `formal_claim` (same check as the sibling repositories).
 
-Locked claim under review: flow_contribution_zero_of_C2 (Section 5 "Refuted claims", item "The tether damps the energy budget")
+Extended on 2026-11-23: the paper wording was corrected to the kernel (kernel C2 only under its three hypotheses; `frohmanian_symplectic_tether_theorem` is Route-A uniqueness, not a smoothness theorem; `tethered_jacobi_identity` assumes vanishing; self-pairing is locked under `κ w ≥ 0`). The lock now also covers abstract C1/C3/C2, both kernel self-pairing and kernel C2 (with those hypotheses), uniqueness relative to a coefficient-fixing `C3` in finite dimension at least 3, the ODE comparison bound, and the low-degree Chevalley–Eilenberg facts.
 
-Why it is reopened:
-* Tautology, not a step. `DegenerateWRTKineticEnergy B` (C2) is defined as `∀ F ω, B ω F KineticEnergyHamiltonian = 0`, and the locked main theorem `flow_contribution_zero_of_C2` is the term `hC2 M ω`. It restates its own hypothesis, so the lock certifies nothing beyond the definition.
-* Not the paper's main result and not a step on a path to it. The quote is one item of the paper's "Refuted claims" audit list. A refutation prunes a path; it is not a step that the next step can build from.
-* Stand-in naming. `CoadjointOrbit` is the type of all divergence-free fields (`val`, `property : div val = 0`). No orbit structure is built, and the `SDiff` action is abstract (`[MulAction SDiff CoadjointOrbit]`).
+Still open (why the gate is red): the nine-term Jacobi expansion and field-model Jacobi identities; Jacobi special cases and the remaining refutations; Route-A feedback; Riccati blow-up and the maximum-principle lemmas; the global-regularity package; and every open item in Section 5.
 
-What would re-certify it: Record the refutation as a pruned path, not as a lock. A lock here needs a stated theorem of the paper on the path to its main result, with its hypotheses not true by definition.
+The history of the 2026-11-16 re-audit is in git (`git log -p TRUTH_GATE.md`).

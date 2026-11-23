@@ -2,11 +2,21 @@
   "semantics_file": "FTVerified/Semantics.lean",
   "semantics_module": "FTVerified.Semantics",
   "paper_path": "paper/frohmanian-tether-verified.tex",
-  "paper_sha256": "93bde1b66ac8ee68e33935c77c95a7a76e7a1bd5badd9b66f6663f110886cef9",
+  "paper_sha256": "9653476e11264bfbc49db8b9ca99615e1ac9ed004b5357de0430126bf4fd2500",
   "main_theorems": [
-    "FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2"
+    "FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate",
+    "Frohman.Tether.frohmanianTether_self_nonpos_of_mul_nonneg",
+    "Frohman.Tether.frohmanianTether_invariant",
+    "Frohman.Tether.frohmanianTether_degenerate",
+    "FrohmanianTether.tetherKernel_self_nonpos",
+    "FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy",
+    "Frohman.Tether.uniqueness_of_minimal_metric_tether",
+    "Frohman.Tether.comparison_bound",
+    "Frohman.Tether.CE.d2_d1",
+    "Frohman.Tether.CE.cocycle_of_coboundary",
+    "Frohman.Tether.CE.symPart_not_cochain"
   ],
-  "lock_region_sha256": "59d999363bb7e4b89c308ef9d4a2f23b00da79fb8001dcc7a13abd6c761f8a6c",
+  "lock_region_sha256": "1ae5459fac2da452b8997814d4b7a078455c4314bc204ef678cef69fb82f9352",
   "draft_dirs": [
     "FTVerified/Draft"
   ],
@@ -15,6 +25,6 @@
     "FTVerified.lean"
   ],
   "certifying": false,
-  "reopened_reason": "Tautology, not a step. `DegenerateWRTKineticEnergy B` (C2) is defined as `∀ F ω, B ω F KineticEnergyHamiltonian = 0`, and the locked main theorem `flow_contribution_zero_of_C2` is the term `hC2 M ω`. It restates its own hypothesis, so the lock certifies nothing beyond the definition.",
-  "reopened_on": "2026-11-16"
+  "reopened_reason": "Partial lock (not whole-paper). Locked: abstract-model C1 (frohmanianTether_invariant), C3 self-pairing under κw≥0 (frohmanianTether_self_nonpos_of_mul_nonneg), abstract C2 (frohmanianTether_degenerate), kernel self-pairing (tetherKernel_self_nonpos), kernel C2 only under its three hypotheses (tetherKernel_degenerates_on_kinetic_energy), the energy-budget refutation (energy_damping_iff_not_degenerate), uniqueness relative to a coefficient-fixing C3 in finite dimension ≥3 (uniqueness_of_minimal_metric_tether), the ODE comparison bound, and the low-degree Chevalley–Eilenberg facts (d2_d1, cocycle_of_coboundary, symPart_not_cochain). Still outside any lock: the nine-term Jacobi expansion and field-model Jacobi identities; Jacobi special cases and refutations (tethered_jacobiator_ne_zero, shearY_jacobi_fails_transverse, shearX_jacobi_fails, shearY_jacobi_holds, jacobiator_eq_zero_of_central, tethered_jacobi_identity); Route-A feedback (frohmanianTether_feedback, feedback_fixes_coefficient, routeA_determines_kappa, frohmanian_symplectic_tether_theorem); Riccati blow-up and maximum-principle lemmas; the global-regularity package (frohmanian_symplectic_tether_theorem_global) and every open item in Section 5. certifying stays false until all claimed paper statements are locked.",
+  "reopened_on": "2026-11-23"
 }
