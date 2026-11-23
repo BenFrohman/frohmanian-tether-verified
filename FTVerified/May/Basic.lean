@@ -78,6 +78,14 @@ theorem frohmanianTether_self_nonpos {κ w : ℝ} (hκ : 0 ≤ κ) (hw : 0 ≤ w
   have : 0 ≤ ⟪piU u F, piU u F⟫ := real_inner_self_nonneg
   nlinarith [mul_nonneg hκ hw]
 
+/-- The same nonpositivity under the weaker hypothesis `κ * w ≥ 0`, which also covers two
+nonpositive factors. This is the statement used in the papers. -/
+theorem frohmanianTether_self_nonpos_of_mul_nonneg {κ w : ℝ} (h : 0 ≤ κ * w) (u F : H) :
+    frohmanianTether κ w u F F ≤ 0 := by
+  rw [frohmanianTether_apply]
+  have : 0 ≤ ⟪piU u F, piU u F⟫ := real_inner_self_nonneg
+  nlinarith
+
 /-- **C2 (degeneracy with respect to kinetic energy).** A bilinear correction `B` is
 degenerate on `H = ½∫|u|²` when `B(F, H) = 0` for every `F`, where `δH = u`. -/
 def DegenerateWRTKineticEnergy (u : H) (B : LinearMap.BilinForm ℝ H) : Prop :=

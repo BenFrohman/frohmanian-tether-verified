@@ -2,11 +2,21 @@
   "semantics_file": "FTVerified/Semantics.lean",
   "semantics_module": "FTVerified.Semantics",
   "paper_path": "paper/frohmanian-tether-verified.tex",
-  "paper_sha256": "fb364e196d997912b4df3d0b11d59e0f6554b97e1535ce6c6cb1299c1805805e",
+  "paper_sha256": "9653476e11264bfbc49db8b9ca99615e1ac9ed004b5357de0430126bf4fd2500",
   "main_theorems": [
-    "FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate"
+    "FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate",
+    "Frohman.Tether.frohmanianTether_self_nonpos_of_mul_nonneg",
+    "Frohman.Tether.frohmanianTether_invariant",
+    "Frohman.Tether.frohmanianTether_degenerate",
+    "FrohmanianTether.tetherKernel_self_nonpos",
+    "FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy",
+    "Frohman.Tether.uniqueness_of_minimal_metric_tether",
+    "Frohman.Tether.comparison_bound",
+    "Frohman.Tether.CE.d2_d1",
+    "Frohman.Tether.CE.cocycle_of_coboundary",
+    "Frohman.Tether.CE.symPart_not_cochain"
   ],
-  "lock_region_sha256": "8733ca1f0a0360d2edf0f018820cf86fa72f678b509579d453f3f08b7c7e1dc6",
+  "lock_region_sha256": "1ae5459fac2da452b8997814d4b7a078455c4314bc204ef678cef69fb82f9352",
   "draft_dirs": [
     "FTVerified/Draft"
   ],
@@ -15,6 +25,6 @@
     "FTVerified.lean"
   ],
   "certifying": false,
-  "reopened_reason": "Partial lock (not whole-paper). The 2026-11-16 finding on this item is fixed: Section 5 item 1 is now the nontrivial energy_damping_iff_not_degenerate and is locked. Still outside any lock: Section 3 (Proved results): all 3 items (locality and nonpositive self-pairing; exact degeneracy on kinetic energy; nine-term Jacobi expansion). Section 4 (Conditional results): all 7 items (negative feedback with a fixed coefficient; uniqueness C4/C5; Chevalley-Eilenberg closure; Jacobi in special cases; majorant and quartic absorption; maximum-principle feedback; global regularity). Section 5 (Refuted claims): items 2 and 3 (reduced-orbit Jacobi; the shear example). No theorem stated in the paper may sit outside a lock.",
+  "reopened_reason": "Partial lock (not whole-paper). Locked: abstract-model C1 (frohmanianTether_invariant), C3 self-pairing under κw≥0 (frohmanianTether_self_nonpos_of_mul_nonneg), abstract C2 (frohmanianTether_degenerate), kernel self-pairing (tetherKernel_self_nonpos), kernel C2 only under its three hypotheses (tetherKernel_degenerates_on_kinetic_energy), the energy-budget refutation (energy_damping_iff_not_degenerate), uniqueness relative to a coefficient-fixing C3 in finite dimension ≥3 (uniqueness_of_minimal_metric_tether), the ODE comparison bound, and the low-degree Chevalley–Eilenberg facts (d2_d1, cocycle_of_coboundary, symPart_not_cochain). Still outside any lock: the nine-term Jacobi expansion and field-model Jacobi identities; Jacobi special cases and refutations (tethered_jacobiator_ne_zero, shearY_jacobi_fails_transverse, shearX_jacobi_fails, shearY_jacobi_holds, jacobiator_eq_zero_of_central, tethered_jacobi_identity); Route-A feedback (frohmanianTether_feedback, feedback_fixes_coefficient, routeA_determines_kappa, frohmanian_symplectic_tether_theorem); Riccati blow-up and maximum-principle lemmas; the global-regularity package (frohmanian_symplectic_tether_theorem_global) and every open item in Section 5. certifying stays false until all claimed paper statements are locked.",
   "reopened_on": "2026-11-23"
 }

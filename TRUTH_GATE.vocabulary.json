@@ -1,0 +1,15 @@
+{
+  "locks": {
+    "main lock": {
+      "paper_vocabulary": [
+        {"name": "TetherKernel", "why": "The audit paper names the kernel pairing TetherKernel as the object of the kernel C2 and C3 theorems; the paper side uses that name and writes the hypotheses out."},
+        {"name": "Functional", "why": "The paper's kernel statements are about functionals on the coadjoint orbit model."},
+        {"name": "CoadjointOrbit", "why": "The paper's kernel statements are indexed by a coadjoint orbit."},
+        {"name": "KineticEnergyHamiltonian", "why": "The paper's kernel C2 conclusion is vanishing against the kinetic-energy Hamiltonian."},
+        {"name": "FunctionalDerivative", "why": "One hypothesis of the kernel C2 theorem is an identification of this derivative with reconstructed velocity."},
+        {"name": "velocity_from_vorticity", "why": "The reconstructed velocity appearing in the kernel C2 hypotheses."},
+        {"name": "div", "why": "The divergence-free hypothesis of the kernel C2 theorem."}
+      ]
+    }
+  }
+}

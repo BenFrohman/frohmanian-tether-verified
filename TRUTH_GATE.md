@@ -140,9 +140,9 @@ python3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -
 ## The locked claim of this repository
 
 * Paper: `paper/frohmanian-tether-verified.tex`
-* sha256: `fb364e196d997912b4df3d0b11d59e0f6554b97e1535ce6c6cb1299c1805805e`
-* Section: Section 5 "Refuted claims", first item ("The tether damps the energy budget")
-* Main theorem(s): `FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate`
+* sha256: `9653476e11264bfbc49db8b9ca99615e1ac9ed004b5357de0430126bf4fd2500`
+* Section: Proved results (C1/C3, C2) and the energy-budget refutation; uniqueness and the comparison bound as recorded in Conditional results
+* Main theorem(s): `energy_damping_iff_not_degenerate`, `frohmanianTether_self_nonpos_of_mul_nonneg`, `frohmanianTether_invariant`, `frohmanianTether_degenerate`, `tetherKernel_self_nonpos`, `tetherKernel_degenerates_on_kinetic_energy`, `uniqueness_of_minimal_metric_tether`, `comparison_bound`, `CE.d2_d1`, `CE.cocycle_of_coboundary`, `CE.symPart_not_cochain`
 * Lock file: `TRUTH_GATE.lock`; semantics: `FTVerified/Semantics.lean`
 
 Verbatim quote:
@@ -173,6 +173,8 @@ See the doc comment of `FTVerified/Semantics.lean` for the fixed reading of the 
 
 Fixed on 2026-11-23: the 2026-11-16 re-audit found the lock was a tautology (`flow_contribution_zero_of_C2` is the term `hC2 M ω`, C2 read back). It is no longer cited. The paper item now states, and the lock certifies, `energy_damping_iff_not_degenerate`: for a symmetric bilinear form with `B(x,x) ≤ 0`, `B(h,h) < 0` iff `B(m,h) ≠ 0` for some `m`. The nontrivial direction is Cauchy–Schwarz for semidefinite forms (`bilin_kernel_of_nonpos_of_self_zero`); C2 is never the hypothesis that yields the conclusion. The lint findings (`CoadjointOrbit`, `Functional`, `KineticEnergyHamiltonian`, `DegenerateWRTKineticEnergy`) are gone: `paper_claim` uses Mathlib only. `scripts/TruthGateAudit.lean` now instantiates universe parameters before comparing the main theorem with `formal_claim` (same check as the sibling repositories).
 
-Still open (why the gate is red): no theorem stated in a paper may sit outside a lock. Not yet locked: Section 3 (Proved results): all 3 items (locality and nonpositive self-pairing; exact degeneracy on kinetic energy; nine-term Jacobi expansion). Section 4 (Conditional results): all 7 items (negative feedback with a fixed coefficient; uniqueness C4/C5; Chevalley-Eilenberg closure; Jacobi in special cases; majorant and quartic absorption; maximum-principle feedback; global regularity). Section 5 (Refuted claims): items 2 and 3 (reduced-orbit Jacobi; the shear example).
+Extended on 2026-11-23: the paper wording was corrected to the kernel (kernel C2 only under its three hypotheses; `frohmanian_symplectic_tether_theorem` is Route-A uniqueness, not a smoothness theorem; `tethered_jacobi_identity` assumes vanishing; self-pairing is locked under `κ w ≥ 0`). The lock now also covers abstract C1/C3/C2, both kernel self-pairing and kernel C2 (with those hypotheses), uniqueness relative to a coefficient-fixing `C3` in finite dimension at least 3, the ODE comparison bound, and the low-degree Chevalley–Eilenberg facts.
+
+Still open (why the gate is red): the nine-term Jacobi expansion and field-model Jacobi identities; Jacobi special cases and the remaining refutations; Route-A feedback; Riccati blow-up and the maximum-principle lemmas; the global-regularity package; and every open item in Section 5.
 
 The history of the 2026-11-16 re-audit is in git (`git log -p TRUTH_GATE.md`).
