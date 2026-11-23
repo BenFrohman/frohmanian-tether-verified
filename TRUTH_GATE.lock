@@ -15,6 +15,6 @@
     "FTVerified.lean"
   ],
   "certifying": false,
-  "reopened_reason": "Not whole-paper. The 2026-11-16 tautology is fixed: Section 5 item 1 is now the nontrivial energy_damping_iff_not_degenerate and is locked. Still outside any lock: Section 3 (Proved results): all 3 items (locality and nonpositive self-pairing; exact degeneracy on kinetic energy; nine-term Jacobi expansion). Section 4 (Conditional results): all 7 items (negative feedback with a fixed coefficient; uniqueness C4/C5; Chevalley-Eilenberg closure; Jacobi in special cases; majorant and quartic absorption; maximum-principle feedback; global regularity). Section 5 (Refuted claims): items 2 and 3 (reduced-orbit Jacobi; the shear example). No theorem stated in the paper may sit outside a lock.",
+  "reopened_reason": "Partial lock (not whole-paper). The 2026-11-16 finding on this item is fixed: Section 5 item 1 is now the nontrivial energy_damping_iff_not_degenerate and is locked. Still outside any lock: Section 3 (Proved results): all 3 items (locality and nonpositive self-pairing; exact degeneracy on kinetic energy; nine-term Jacobi expansion). Section 4 (Conditional results): all 7 items (negative feedback with a fixed coefficient; uniqueness C4/C5; Chevalley-Eilenberg closure; Jacobi in special cases; majorant and quartic absorption; maximum-principle feedback; global regularity). Section 5 (Refuted claims): items 2 and 3 (reduced-orbit Jacobi; the shear example). No theorem stated in the paper may sit outside a lock.",
   "reopened_on": "2026-11-23"
 }
