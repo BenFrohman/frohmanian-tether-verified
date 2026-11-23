@@ -7,7 +7,7 @@
 \date{November 2026}
 \sloppy\begin{document}\maketitle
 \begin{abstract}
-We audit the claims of the technical compilation \emph{The Frohmanian Symplectic Tether: Architecture, Reduced Jacobi Identity, and the Frohmanian Curve} (Zenodo record 23942466) against a Lean~4/Mathlib formalization. Every claim is classified as \emph{proved}, \emph{conditional} (proved under explicitly stated hypotheses), \emph{refuted} (its negation is machine-checked), or \emph{not formalized}. The library builds without \texttt{sorry}, and the 37 key theorems depend only on the standard axioms \texttt{propext}, \texttt{Classical.choice}, and \texttt{Quot.sound}. We report proved and conditional results only as such. The compilation's claims of Jacobi vanishing on the reduced orbit and of energy-budget damping are refuted. Its Clay-standard global regularity claim is \textbf{not} established: it holds only conditionally on open hypotheses. This paper makes no Millennium Prize claim.
+We audit the claims of the technical compilation \emph{The Frohmanian Symplectic Tether: Architecture, Reduced Jacobi Identity, and the Frohmanian Curve} (Zenodo record 23942466) against a Lean~4/Mathlib formalization. Every claim is classified as \emph{proved}, \emph{conditional} (proved under explicitly stated hypotheses), \emph{refuted} (its negation is machine-checked), or \emph{not formalized}. The library builds without \texttt{sorry}, and the 38 key theorems depend only on the standard axioms \texttt{propext}, \texttt{Classical.choice}, and \texttt{Quot.sound}. We report proved and conditional results only as such. The compilation's claims of Jacobi vanishing on the reduced orbit and of energy-budget damping are refuted. Its Clay-standard global regularity claim is \textbf{not} established: it holds only conditionally on open hypotheses. This paper makes no Millennium Prize claim.
 \end{abstract}
 
 \section{Artifact}
@@ -34,7 +34,7 @@ Each holds only under the hypotheses stated in Lean.
 
 \section{Refuted claims}
 \begin{itemize}
-\item \textbf{The tether damps the energy budget.} This is refuted. C2 forces $B(M,H)=0$, so the tether contributes nothing to $dH/dt$: \lean{ObstructionAudit.flow_contribution_zero_of_C2}, \lean{ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero}, \lean{ObstructionAudit.energy_conservation_not_C2}.
+\item \textbf{The tether damps the energy budget.} This is refuted. Let $B$ be a symmetric bilinear form on a real vector space $V$ with $B(x,x)\le0$ for all $x\in V$ (C3), and let $h\in V$ stand for $\delta H$. Then $B(h,h)<0$ if and only if $B(m,h)\neq0$ for some $m\in V$. Consequently, if $B(m,h)=0$ for all $m$ (C2), then $B(h,h)=0$, so the tether contributes nothing to $dH/dt$; and if $B(h,h)=0$, then $B(m,h)=0$ for all $m$: \lean{ObstructionAudit.energy_damping_iff_not_degenerate}, \lean{ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero}.
 \item \textbf{Jacobi vanishes on the reduced (divergence-free) orbit.} This is refuted. It fails for the divergence-free field $u=(\sin y,0,0)$: \lean{JacobiWitness.tethered_jacobiator_ne_zero}, \lean{FieldJacobi.shearY_jacobi_fails_transverse}, \lean{FieldJacobi.divFree_aZ}. The bracket is metriplectic, not Poisson (\lean{FieldMetriplectic.dissF_nonpos}).
 \item \textbf{The shear example shows the reduced orbit is necessary.} This is partly refuted. The failure for the non-divergence-free shear is correct (\lean{FieldJacobi.shearX_jacobi_fails}, \lean{FieldJacobi.not_divFree_uX}), but divergence-free fields also fail.
 \end{itemize}

@@ -47,6 +47,7 @@ the explicit majorant ODE y' = C y^2 sqrt(y^3) + (pi/4) C_abs.
 #check @FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2
 #check @FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero
 #check @FrohmanianTether.ObstructionAudit.energy_conservation_not_C2
+#check @FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate
 
 -- p6 Chevalley-Eilenberg closure d^2 B = 0
 -- STATUS: CONDITIONAL (B a coboundary); symmetric tether is not a CE cochain

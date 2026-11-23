@@ -26,7 +26,7 @@ open Lean Meta Elab Command
 namespace TruthGateAudit
 
 def standard : List Name := [``propext, ``Classical.choice, ``Quot.sound]
-def mains : List Name := [`FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2]
+def mains : List Name := [`FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate]
 
 partial def reach (env : Environment) (todo : List Name) (seen : NameSet) : NameSet :=
   match todo with
@@ -111,7 +111,9 @@ run_cmd do
     unless fh.contains n do
       logInfo m!"TRUTH GATE FAIL: formal_claim_holds does not use main theorem {n}"; ok := false
   if mains.length == 1 then
-    let mt := (← getConstInfo mains.head!).type
+    let mci ← getConstInfo mains.head!
+    -- instantiate universe parameters at `0` (claims are stated at `Type`)
+    let mt := mci.instantiateTypeLevelParams (mci.levelParams.map fun _ => levelZero)
     let same ← liftTermElabM <| withTransparency .default <| withoutModifyingState <|
       withTheReader Core.Context (fun c => { c with maxHeartbeats := 2000000 }) <|
         (try isDefEq mt fc catch _ => pure false)

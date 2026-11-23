@@ -2,11 +2,11 @@
   "semantics_file": "FTVerified/Semantics.lean",
   "semantics_module": "FTVerified.Semantics",
   "paper_path": "paper/frohmanian-tether-verified.tex",
-  "paper_sha256": "93bde1b66ac8ee68e33935c77c95a7a76e7a1bd5badd9b66f6663f110886cef9",
+  "paper_sha256": "fb364e196d997912b4df3d0b11d59e0f6554b97e1535ce6c6cb1299c1805805e",
   "main_theorems": [
-    "FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2"
+    "FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate"
   ],
-  "lock_region_sha256": "59d999363bb7e4b89c308ef9d4a2f23b00da79fb8001dcc7a13abd6c761f8a6c",
+  "lock_region_sha256": "8733ca1f0a0360d2edf0f018820cf86fa72f678b509579d453f3f08b7c7e1dc6",
   "draft_dirs": [
     "FTVerified/Draft"
   ],
@@ -15,6 +15,6 @@
     "FTVerified.lean"
   ],
   "certifying": false,
-  "reopened_reason": "Tautology, not a step. `DegenerateWRTKineticEnergy B` (C2) is defined as `∀ F ω, B ω F KineticEnergyHamiltonian = 0`, and the locked main theorem `flow_contribution_zero_of_C2` is the term `hC2 M ω`. It restates its own hypothesis, so the lock certifies nothing beyond the definition.",
-  "reopened_on": "2026-11-16"
+  "reopened_reason": "Not whole-paper. The 2026-11-16 tautology is fixed: Section 5 item 1 is now the nontrivial energy_damping_iff_not_degenerate and is locked. Still outside any lock: Section 3 (Proved results): all 3 items (locality and nonpositive self-pairing; exact degeneracy on kinetic energy; nine-term Jacobi expansion). Section 4 (Conditional results): all 7 items (negative feedback with a fixed coefficient; uniqueness C4/C5; Chevalley-Eilenberg closure; Jacobi in special cases; majorant and quartic absorption; maximum-principle feedback; global regularity). Section 5 (Refuted claims): items 2 and 3 (reduced-orbit Jacobi; the shear example). No theorem stated in the paper may sit outside a lock.",
+  "reopened_on": "2026-11-23"
 }

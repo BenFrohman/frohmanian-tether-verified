@@ -10,61 +10,78 @@ import FTVerified.Sdiff.ObstructionAudit
 # Truth Gate: semantics lock (see `TRUTH_GATE.md`)
 
 PAPER_PATH: paper/frohmanian-tether-verified.tex
-PAPER_SHA256: 93bde1b66ac8ee68e33935c77c95a7a76e7a1bd5badd9b66f6663f110886cef9
+PAPER_SHA256: fb364e196d997912b4df3d0b11d59e0f6554b97e1535ce6c6cb1299c1805805e
 PAPER_SECTION: Section 5 "Refuted claims", first item ("The tether damps the energy budget")
 
 Locked paper claim (Section "Refuted claims", first item), quoted verbatim:
 
 PAPER_QUOTE_BEGIN
-\item \textbf{The tether damps the energy budget.} This is refuted. C2 forces $B(M,H)=0$, so the tether contributes nothing to $dH/dt$
+\item \textbf{The tether damps the energy budget.} This is refuted. Let $B$ be a symmetric bilinear form on a real vector space $V$ with $B(x,x)\le0$ for all $x\in V$ (C3), and let $h\in V$ stand for $\delta H$. Then $B(h,h)<0$ if and only if $B(m,h)\neq0$ for some $m\in V$. Consequently, if $B(m,h)=0$ for all $m$ (C2), then $B(h,h)=0$, so the tether contributes nothing to $dH/dt$; and if $B(h,h)=0$, then $B(m,h)=0$ for all $m$
 PAPER_QUOTE_END
 
 Reading of the paper's terms (fixed here, once):
-* "C2" is condition (C2) of the compilation, `DegenerateWRTKineticEnergy B`;
-* `B(M,H)` is the tether correction `B ω M H` at the state `ω`, `H` the kinetic energy
-  `KineticEnergyHamiltonian`, `M` an arbitrary functional;
-* "contributes nothing to `dH/dt`" means the tether term in `dH/dt`, namely `B ω H H`, is `0`.
+* "a symmetric bilinear form `B` on a real vector space `V`" is a Mathlib `LinearMap.BilinForm ℝ V`
+  with `B x y = B y x` for all `x, y`;
+* "(C3)" is `B x x ≤ 0` for all `x`; "(C2)" is `B m h = 0` for all `m`;
+* `h` is any vector of `V` (it stands for `δH`); "the tether contributes nothing to `dH/dt`" is
+  `B h h = 0`.
 
-`formal_claim` is the statement of the repository theorem
-`FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2`. `paper_claim` transcribes the
-paper sentence: for every kernel satisfying C2, both `B(M,H) = 0` for all `M` and the `dH/dt`
-contribution vanishes. `intended_correspondence` is a statement-level equivalence: its proof
-does not use any theorem of the library.
+History: the previous lock (2026-11-16) locked `flow_contribution_zero_of_C2`, which is C2 read back
+(`hC2 M ω`), a tautology. That theorem is no longer cited. The paper item is rewritten to the
+nontrivial statement proved by `energy_damping_iff_not_degenerate` (Cauchy–Schwarz for semidefinite
+forms), and C2 appears in it only as a consequence or as one side of an equivalence, never as the
+hypothesis that gives the conclusion.
 
-Scope: this certifies only the locked sentence. It does not claim anything about global
-regularity; the paper's Clay-standard regularity claim stays open.
+`formal_claim` is the statement of
+`FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate`. `paper_claim` transcribes the
+paper item with Mathlib only: the equivalence and both consequences.
+
+Scope: this certifies only the locked item. It says nothing about global regularity, which stays
+open.
 -/
 
 namespace TruthGate
 
-open FrohmanianTether ArnoldGeometric
-
 -- TRUTH-GATE LOCK BEGIN
-/-- The repository's main statement (`flow_contribution_zero_of_C2`). -/
+/-- The repository's main statement (`energy_damping_iff_not_degenerate`). -/
 def formal_claim : Prop :=
-  ∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
-    DegenerateWRTKineticEnergy B → ∀ (ω : CoadjointOrbit) (M : Functional),
-      B ω M KineticEnergyHamiltonian = 0
+  ∀ (V : Type) [AddCommGroup V] [Module ℝ V] (B : LinearMap.BilinForm ℝ V),
+    (∀ x y, B x y = B y x) → (∀ x, B x x ≤ 0) → ∀ h : V,
+      (B h h < 0 ↔ ∃ m, B m h ≠ 0)
 
-/-- The paper's sentence: C2 forces `B(M,H) = 0`, so the tether contributes nothing to `dH/dt`. -/
+/-- The paper's item: the equivalence, and its two consequences (C2 gives no `dH/dt` term;
+`B(h,h) = 0` gives C2). -/
 def paper_claim : Prop :=
-  ∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
-    DegenerateWRTKineticEnergy B → ∀ ω : CoadjointOrbit,
-      (∀ M : Functional, B ω M KineticEnergyHamiltonian = 0) ∧
-        B ω KineticEnergyHamiltonian KineticEnergyHamiltonian = 0
+  ∀ (V : Type) [AddCommGroup V] [Module ℝ V] (B : LinearMap.BilinForm ℝ V),
+    (∀ x y, B x y = B y x) → (∀ x, B x x ≤ 0) → ∀ h : V,
+      (B h h < 0 ↔ ∃ m, B m h ≠ 0) ∧
+      ((∀ m, B m h = 0) → B h h = 0) ∧
+      (B h h = 0 → ∀ m, B m h = 0)
 
 /-- The fixed correspondence between the formal statement and the paper's claim. -/
 theorem intended_correspondence : formal_claim ↔ paper_claim := by
   constructor
-  · intro h B hB ω
-    exact ⟨fun M => h B hB ω M, h B hB ω KineticEnergyHamiltonian⟩
-  · intro h B hB ω M
-    exact (h B hB ω).1 M
+  · intro hf V _ _ B hsym hneg h
+    have hiff := hf V B hsym hneg h
+    refine ⟨hiff, ?_, ?_⟩
+    · intro hC2
+      by_contra hne
+      have hlt : B h h < 0 := lt_of_le_of_ne (hneg h) hne
+      obtain ⟨m, hm⟩ := hiff.mp hlt
+      exact hm (hC2 m)
+    · intro hzero m
+      by_contra hm
+      have hlt := hiff.mpr ⟨m, hm⟩
+      rw [hzero] at hlt
+      exact lt_irrefl 0 hlt
+  · intro hp V _ _ B hsym hneg h
+    exact (hp V B hsym hneg h).1
 -- TRUTH-GATE LOCK END
 
 /-- The main theorem proves `formal_claim`. -/
 theorem formal_claim_holds : formal_claim :=
-  fun B hB ω M => ObstructionAudit.flow_contribution_zero_of_C2 B hB ω M
+  fun _ _ _ B hsym hneg h =>
+    FrohmanianTether.ObstructionAudit.energy_damping_iff_not_degenerate B hsym hneg h
 
 /-- The paper's claim, transported across the correspondence. -/
 theorem paper_claim_holds : paper_claim :=
